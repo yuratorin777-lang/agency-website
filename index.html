@@ -884,8 +884,10 @@
   }
   animate();
 
-  // --- ЭФФЕКТНЫЙ РАЗЛЕТ И СБОРКА ПРИ КЛИКЕ ---
-  container.addEventListener('click', () => {
+  // --- ЭФФЕКТНЫЙ РАЗЛЕТ И СБОРКА И ФУНКЦИЯ АНИМАЦИИ ---
+  let autoExplodeInterval = null;
+
+  function runExplosion() {
     if (isAnimating) return;
     isAnimating = true;
 
@@ -946,7 +948,24 @@
         ease: "power2.inOut"
       }, 0.9);
     });
+  }
+
+  // Функция запуска авто-разлета
+  function startAutoExplode() {
+    if (autoExplodeInterval) clearInterval(autoExplodeInterval);
+    autoExplodeInterval = setInterval(() => {
+      runExplosion();
+    }, 6000); // Разлетается каждые 6 секунд
+  }
+
+  // Вызов при клике пользователя (с перезапуском таймера)
+  container.addEventListener('click', () => {
+    runExplosion();
+    startAutoExplode(); 
   });
+
+  // Запуск авто-анимации
+  startAutoExplode();
 
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
