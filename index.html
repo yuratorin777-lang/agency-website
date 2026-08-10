@@ -489,29 +489,29 @@
 <!-- =============================================================== -->
 <!-- FULLSCREEN NAVIGATION OVERLAY                                   -->
 <!-- =============================================================== -->
-<div id="full-menu" class="fixed inset-0 z-[100] bg-[#050714]/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-8 sm:p-14 overflow-y-auto">
+<div id="full-menu" class="fixed inset-0 z-[100] bg-[#050714]/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-6 sm:p-14 overflow-y-auto">
   
   <!-- Фоновый неоновый акцент -->
   <div class="absolute top-1/3 right-10 w-80 h-80 bg-[#8b5cf6]/15 rounded-full blur-[140px] pointer-events-none"></div>
 
   <!-- ВЕРХНЯЯ ПАНЕЛЬ МЕНЮ -->
-  <div class="max-w-7xl mx-auto w-full flex items-center justify-between z-10">
-    <div class="text-[11px] font-mono-code font-light uppercase tracking-[0.25em] text-[#666]">
+  <div class="max-w-7xl mx-auto w-full flex items-center justify-between gap-4 z-10">
+    <div class="text-[10px] sm:text-[11px] font-mono-code font-light uppercase tracking-[0.15em] sm:tracking-[0.25em] text-[#666] truncate">
       NAVIGATION // BOS.AGENCE
     </div>
     
-    <button id="close-menu-btn" class="font-mono-code text-[11px] font-light tracking-[0.2em] text-white/70 hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer">
+    <button id="close-menu-btn" class="font-mono-code text-[11px] font-light tracking-[0.1em] sm:tracking-[0.2em] text-white/70 hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer whitespace-nowrap shrink-0">
       [ CLOSE ✕ ]
     </button>
   </div>
 
   <!-- ОСНОВНЫЙ КОНТЕНТ МЕНЮ -->
-  <div class="max-w-7xl mx-auto w-full my-auto py-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+  <div class="max-w-7xl mx-auto w-full my-auto py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center z-10">
     
     <!-- Навигация по секциям -->
     <nav class="lg:col-span-7 flex flex-col gap-3 sm:gap-5">
       
-      <a href="#hero" class="menu-nav-link group flex items-center gap-6 w-fit py-1">
+      <a href="#hero" class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1">
         <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">01</span>
         <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-white/80 group-hover:text-white group-hover:translate-x-3 transition-all duration-300 relative">
           ГЛАВНАЯ
@@ -519,7 +519,7 @@
         </span>
       </a>
 
-      <a href="#portfolio" class="menu-nav-link group flex items-center gap-6 w-fit py-1">
+      <a href="#portfolio" class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1">
         <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">02</span>
         <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-white/80 group-hover:text-white group-hover:translate-x-3 transition-all duration-300 relative">
           ПОРТФОЛИО
@@ -527,7 +527,7 @@
         </span>
       </a>
 
-      <a href="#media-section" class="menu-nav-link group flex items-center gap-6 w-fit py-1">
+      <a href="#media-section" class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1">
         <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">03</span>
         <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-white/80 group-hover:text-white group-hover:translate-x-3 transition-all duration-300 relative">
           МЕДИА & КЕЙСЫ
@@ -535,7 +535,7 @@
         </span>
       </a>
 
-      <a href="#team-section" class="menu-nav-link group flex items-center gap-6 w-fit py-1">
+      <a href="#team-section" class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1">
         <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">04</span>
         <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-white/80 group-hover:text-white group-hover:translate-x-3 transition-all duration-300 relative">
           КОМАНДА
@@ -544,15 +544,15 @@
       </a>
 
       <a href="javascript:void(0)" 
-   id="open-contact-modal-btn" 
-   onclick="openContactModal()" 
-   class="menu-nav-link group flex items-center gap-6 w-fit py-1 cursor-pointer">
-  <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">05</span>
-  <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-[#8b5cf6] group-hover:translate-x-3 transition-all duration-300 relative">
-    ОБСУДИТЬ ПРОЕКТ
-    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#8b5cf6] group-hover:w-full transition-all duration-300"></span>
-  </span>
-</a>
+         id="open-contact-modal-btn" 
+         onclick="openContactModal()" 
+         class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1 cursor-pointer">
+        <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">05</span>
+        <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-[#8b5cf6] group-hover:translate-x-3 transition-all duration-300 relative">
+          ОБСУДИТЬ ПРОЕКТ
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#8b5cf6] group-hover:w-full transition-all duration-300"></span>
+        </span>
+      </a>
 
     </nav>
 
@@ -583,9 +583,9 @@
   </div>
 
   <!-- НИЖНЯЯ ПАНЕЛЬ -->
-  <div class="max-w-7xl mx-auto w-full flex justify-between items-end text-[10px] font-mono-code font-light text-[#555] uppercase tracking-[0.25em] z-10">
-    <span>BOS.AGENCE // 2026</span>
-    <span>MOSCOW &bull; GLOBAL</span>
+  <div class="max-w-7xl mx-auto w-full flex justify-between items-end text-[10px] font-mono-code font-light text-[#555] uppercase tracking-[0.15em] sm:tracking-[0.25em] z-10 gap-2">
+    <span class="whitespace-nowrap">BOS.AGENCE // 2026</span>
+    <span class="whitespace-nowrap text-right">MOSCOW &bull; GLOBAL</span>
   </div>
 </div>
 
@@ -1177,10 +1177,18 @@
     }
   ];
 
+  // Предзагрузка изображений в кэш браузера для мгновенного смены аватарок
+  teamData.forEach(member => {
+    const img = new Image();
+    img.src = member.avatar;
+  });
+
   // -----------------------------------------------------------------
   // 3. Логика переключения отзывов
   // -----------------------------------------------------------------
   let currentIndex = 0;
+  let teamTimer = null;
+
   const avatarEl = document.getElementById('team-avatar');
   const quoteEl = document.getElementById('team-quote');
   const nameEl = document.getElementById('team-name');
@@ -1189,14 +1197,17 @@
   const dots = document.querySelectorAll('.team-dot');
 
   function updateTeamMember(index) {
+    if (currentIndex === index && avatarEl.src === teamData[index].avatar) return;
+    
     currentIndex = index;
     const member = teamData[index];
 
-    // Анимация затухания и появления
+    // Быстрая и динамичная анимация затухания и появления
     gsap.to([avatarEl, quoteEl, nameEl, titleEl, roleEl], {
       opacity: 0,
-      y: -10,
-      duration: 0.25,
+      y: -6,
+      duration: 0.15,
+      ease: "power2.in",
       onComplete: () => {
         avatarEl.src = member.avatar;
         quoteEl.textContent = member.quote;
@@ -1207,8 +1218,9 @@
         gsap.to([avatarEl, quoteEl, nameEl, titleEl, roleEl], {
           opacity: 1,
           y: 0,
-          duration: 0.35,
-          stagger: 0.05
+          duration: 0.25,
+          stagger: 0.02,
+          ease: "power2.out"
         });
       }
     });
@@ -1225,19 +1237,26 @@
     });
   }
 
+  // Функция перезапуска таймера при клике
+  function resetTeamTimer() {
+    if (teamTimer) clearInterval(teamTimer);
+    teamTimer = setInterval(() => {
+      let nextIdx = (currentIndex + 1) % teamData.length;
+      updateTeamMember(nextIdx);
+    }, 5000); // Переключение каждые 5 секунд вместо 15
+  }
+
   // Клики по индикаторам (точкам)
   dots.forEach(dot => {
     dot.addEventListener('click', (e) => {
       const idx = parseInt(e.target.getAttribute('data-index'));
       updateTeamMember(idx);
+      resetTeamTimer(); // Сбрасываем таймер после ручного клика
     });
   });
 
-  // Автоматический таймер слайдера (15 секунд на каждый отзыв)
-  setInterval(() => {
-    let nextIdx = (currentIndex + 1) % teamData.length;
-    updateTeamMember(nextIdx);
-  }, 15000);
+  // Запуск автопереключения
+  resetTeamTimer();
 </script>
 <!-- 🟡 END: JS SCRIPTS & ANIMATIONS                                    -->
 <!-- ================================================================= -->
