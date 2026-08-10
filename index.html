@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOS.AGENCE — Digital Production</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts: Syne + Geist + Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500&family=Space+Mono:wght@400;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- GSAP & Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- CSS Стили сайта и бегущей строки -->
+  <style>
+    body {
+      font-family: 'Geist', sans-serif;
+      background-color: #050714;
+      color: #f1f1f1;
+    }
+    .font-syne { font-family: 'Syne', sans-serif; }
+    .font-mono-code { font-family: 'Space Mono', monospace; }
+
+    .bg-striped-dense {
+      background-color: #050714;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(139, 92, 246, 0.25),
+        rgba(139, 92, 246, 0.25) 6px,
+        transparent 6px,
+        transparent 60px
+      );
+      filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.15));
+    }
+
+    .hero-title-line {
+      overflow: hidden;
+      display: block;
+    }
+
+    .animated-gradient-text {
+      background: linear-gradient(
+        120deg, 
+        #ffffff 0%, 
+        #8b5cf6 25%, 
+        #3b82f6 50%, 
+        #ffffff 75%, 
+        #8b5cf6 100%
+      );
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: shine 5s linear infinite;
+    }
+
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
+    /* Бесконечная бегущая строка для скринов */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .animate-marquee {
+      display: flex;
+      animation: marquee 25s linear infinite;
+    }
+
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    /* Кастомный скроллбар для длинных скринов */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+  </style>
+
+  <!-- JavaScript Скрипт управлением модальными окнами -->
+  <script>
+  // 1. ДАННЫЕ ВСЕХ КЕЙСОВ
+  const fullCaseData = {
+    dancekids: {
+      title: "DANCE KIDS STUDIO",
+      bgColor: "#ff5322",
+      location: "MOSCOW, RUSSIA",
+      desc: "Перед нами стояла задача спроектировать высококонверсионную цифровую экосистему для сети детских танцевальных студий. Нам требовалось объединить яркую эмоциональную подачу для детей и структурированный, вызывающий доверие интерфейс для родителей.",
+      services: ["WEB DESIGN & DEV", "BRAND IDENTITY", "MOBILE ADAPTATION", "CONVERSION FUNNEL"],
+      
+      // Сетка превью (7 изображений)
+      imgTopLeft: "assets/images/dancekids-top-left.jpg",
+      imgTopRight: "assets/images/dancekids-top-right.jpg",
+      imgMidLeft: "assets/images/dancekids-mid-left.jpg",
+      imgMidCenter: "assets/images/dancekids-mid-center.jpg",
+      imgMidRight: "assets/images/dancekids-mid-right.jpg",
+      imgBotLeft: "assets/images/dancekids-bot-left.jpg",
+      imgBotRight: "assets/images/dancekids-bot-right.jpg",
+
+      // Мобильные скрины для бегущей строки (формат 9:16)
+      marqueeImages: [
+        "assets/images/dancekids-m1.jpg",
+        "assets/images/dancekids-m2.jpg",
+        "assets/images/dancekids-m3.jpg",
+        "assets/images/dancekids-m4.jpg",
+        "assets/images/dancekids-m5.jpg",
+        "assets/images/dancekids-m6.jpg",
+        "assets/images/dancekids-m7.jpg"
+      ],
+
+      // Полноразмерный скриншот
+      imgFull: "assets/images/dancekids-full.jpg",
+      outcome: "Проект успешно запущен, конверсия в запись на пробное занятие выросла на 38% за первые 2 месяца. Интегрирована удобная форма онлайн-заявки и интерактивное расписание.",
+      liveUrl: "https://babydance-dk.tilda.ws/"
+    },
+
+    ulutay: {
+      title: "ULUTAY ALTAI REPUBLIC",
+      bgColor: "#e23854",
+      location: "ALTAI, RUSSIA",
+      desc: "Разработка премиального цифрового пространства для Центра восстановительной медицины «Улутай». Важно было передать эстетику дикой природы Алтая, тишину и глубокую медицинскую экспертизу.",
+      services: ["PREMIUM LANDING", "ATMOSPHERIC UI/UX", "BOOKING INTEGRATION", "MOTION DESIGN"],
+      
+      imgTopLeft: "assets/images/ulutay-top-left.jpg",
+      imgTopRight: "assets/images/ulutay-top-right.jpg",
+      imgMidLeft: "assets/images/ulutay-mid-left.jpg",
+      imgMidCenter: "assets/images/ulutay-mid-center.jpg",
+      imgMidRight: "assets/images/ulutay-mid-right.jpg",
+      imgBotLeft: "assets/images/ulutay-bot-left.jpg",
+      imgBotRight: "assets/images/ulutay-bot-right.jpg",
+
+      marqueeImages: [
+        "assets/images/ulutay-m1.jpg",
+        "assets/images/ulutay-m2.jpg",
+        "assets/images/ulutay-m3.jpg",
+        "assets/images/ulutay-m4.jpg",
+        "assets/images/ulutay-m5.jpg",
+        "assets/images/ulutay-m6.jpg",
+        "assets/images/ulutay-m7.jpg",
+        "assets/images/ulutay-m8.jpg",
+        "assets/images/ulutay-m9.jpg",
+        "assets/images/ulutay-m10.jpg"
+      ],
+
+      imgFull: "assets/images/ulutay-full.jpg",
+      outcome: "Создан премиальный имидж платформы, полностью интегрированный с внутренней системой бронирования номеров и оздоровительных программ.",
+      liveUrl: "https://altairepublic-ulutay.tilda.ws/"
+    },
+
+    terraforma: {
+      title: "TERRAFORMA AQUA",
+      bgColor: "#162238",
+      location: "INTERNATIONAL",
+      desc: "Проектирование интерактивной платформы для инженерно-экологической системы TerraForma Aqua. Главная задача — визуализировать сложные технологические процессы очистки водных ресурсов.",
+      services: ["ECOLOGICAL ENGINEERING", "3D VISUALIZATION", "INTERACTIVE UI", "WEB SYSTEM"],
+      
+      imgTopLeft: "assets/images/terraforma-top-left.jpg",
+      imgTopRight: "assets/images/terraforma-top-right.jpg",
+      imgMidLeft: "assets/images/terraforma-mid-left.jpg",
+      imgMidCenter: "assets/images/terraforma-mid-center.jpg",
+      imgMidRight: "assets/images/terraforma-mid-right.jpg",
+      imgBotLeft: "assets/images/terraforma-bot-left.jpg",
+      imgBotRight: "assets/images/terraforma-bot-right.jpg",
+
+      marqueeImages: [
+        "assets/images/terraforma-m1.jpg",
+        "assets/images/terraforma-m2.jpg",
+        "assets/images/terraforma-m3.jpg",
+        "assets/images/terraforma-m4.jpg",
+        "assets/images/terraforma-m5.jpg",
+        "assets/images/terraforma-m6.jpg"
+      ],
+
+      imgFull: "assets/images/terraforma-full.jpg",
+      outcome: "Сформирована технологическая презентация с 3D-компонентами, привлекающая внимание международных инвесторов и партнеров.",
+      liveUrl: "#"
+    },
+
+    aivideo: {
+      title: "AI VIDEO PRODUCTION",
+      bgColor: "#12100E",
+      location: "GLOBAL / REMOTE",
+      desc: "Создание интерфейса промо-платформы сервиса генеративного видеопроизводства. Внедрение демонстрации нейро-аватаров, автоматизированной озвучки и визуальных VFX-эффектов.",
+      services: ["AI GENERATIVE VIDEO", "DIGITAL AVATARS", "VFX PIPELINE", "NEURAL INTEGRATION"],
+      
+      imgTopLeft: "assets/images/aivideo-top-left.jpg",
+      imgTopRight: "assets/images/aivideo-top-right.jpg",
+      imgMidLeft: "assets/images/aivideo-mid-left.jpg",
+      imgMidCenter: "assets/images/aivideo-mid-center.jpg",
+      imgMidRight: "assets/images/aivideo-mid-right.jpg",
+      imgBotLeft: "assets/images/aivideo-bot-left.jpg",
+      imgBotRight: "assets/images/aivideo-bot-right.jpg",
+
+      marqueeImages: [
+        "assets/images/aivideo-m1.jpg",
+        "assets/images/aivideo-m2.jpg",
+        "assets/images/aivideo-m3.jpg",
+        "assets/images/aivideo-m4.jpg",
+        "assets/images/aivideo-m5.jpg",
+        "assets/images/aivideo-m6.jpg",
+        "assets/images/aivideo-m7.jpg",
+        "assets/images/aivideo-m8.jpg",
+        "assets/images/aivideo-m9.jpg",
+        "assets/images/aivideo-m10.jpg",
+        "assets/images/aivideo-m11.jpg",
+        "assets/images/aivideo-m12.jpg"
+      ],
+
+      imgFull: "assets/images/aivideo-full.jpg",
+      outcome: "Автоматизирован пайплайн демонстрации кейсов, снизив время отклика клиентов до 1 клика.",
+      liveUrl: "#"
+    },
+
+    automation: {
+      title: "BOS AUTOMATION",
+      bgColor: "#0D111A",
+      location: "ENTERPRISE",
+      desc: "Разработка интерфейса платформы коробочных решений и автоматизации бизнес-процессов. Комплексное решение для интеграции ИИ-агентов, CRM и Telegram-ботов.",
+      services: ["WORKFLOW AUTOMATION", "BOXED SOLUTIONS", "AI AGENTS", "CRM INTEGRATIONS"],
+      
+      imgTopLeft: "assets/images/automation-top-left.jpg",
+      imgTopRight: "assets/images/automation-top-right.jpg",
+      imgMidLeft: "assets/images/automation-mid-left.jpg",
+      imgMidCenter: "assets/images/automation-mid-center.jpg",
+      imgMidRight: "assets/images/automation-mid-right.jpg",
+      imgBotLeft: "assets/images/automation-bot-left.jpg",
+      imgBotRight: "assets/images/automation-bot-right.jpg",
+
+      marqueeImages: [
+        "assets/images/automation-m1.jpg",
+        "assets/images/automation-m2.jpg"
+      ],
+
+      imgFull: "assets/images/automation-full.jpg",
+      outcome: "Платформа успешно объединила сложные серверные сценарии и понятный панельный интерфейс для управления бизнесом.",
+      liveUrl: "#"
+    }
+  };
+
+  // 2. ФУНКЦИЯ ОТКРЫТИЯ МОДАЛЬНОГО ОКНА
+  function openCaseModal(id) {
+    const data = fullCaseData[id];
+    if (!data) return;
+
+    const modal = document.getElementById('case-modal');
+    modal.style.backgroundColor = data.bgColor;
+
+    document.getElementById('pop-title').textContent = data.title;
+    document.getElementById('pop-desc').textContent = data.desc;
+    document.getElementById('pop-location').textContent = data.location;
+    document.getElementById('pop-outcome').textContent = data.outcome;
+    
+    const liveLink = document.getElementById('pop-live-link');
+    if (data.liveUrl && data.liveUrl !== '#') {
+      liveLink.href = data.liveUrl;
+      liveLink.classList.remove('hidden');
+    } else {
+      liveLink.classList.add('hidden');
+    }
+
+    const servicesBox = document.getElementById('pop-services');
+    servicesBox.innerHTML = data.services.map(s => `<div class="px-3 py-1 bg-white/10 rounded-full text-xs font-mono">• ${s}</div>`).join('');
+
+    // Подстановка изображений в 7 слотов сетки (с резервной подстановкой, если новых ключей нет)
+    document.getElementById('pop-img-top-left').src = data.imgTopLeft || data.imgHoriz;
+    document.getElementById('pop-img-top-right').src = data.imgTopRight || data.imgVert;
+    
+    // Второй ряд (Центр + края)
+    document.getElementById('pop-img-mid-left').src = data.imgMidLeft || data.imgVert;
+    document.getElementById('pop-img-mid-center').src = data.imgMidCenter || data.imgHoriz || data.imgFull;
+    document.getElementById('pop-img-mid-right').src = data.imgMidRight || data.imgVert;
+
+    // Третий ряд
+    document.getElementById('pop-img-bot-left').src = data.imgBotLeft || data.imgVert;
+    document.getElementById('pop-img-bot-right').src = data.imgBotRight || data.imgHoriz;
+
+    document.getElementById('pop-img-full').src = data.imgFull;
+
+    // Бегущая строка: Вертикальные мобильные карточки
+    const marqueeContainer = document.getElementById('pop-marquee-items');
+    
+    const multipliedImages = [
+      ...data.marqueeImages, 
+      ...data.marqueeImages, 
+      ...data.marqueeImages, 
+      ...data.marqueeImages,
+      ...data.marqueeImages,
+      ...data.marqueeImages
+    ];
+    
+    marqueeContainer.innerHTML = multipliedImages.map(imgSrc => `
+      <div class="w-48 sm:w-56 h-80 sm:h-96 rounded-2xl overflow-hidden border border-white/20 bg-black/60 flex-shrink-0 cursor-pointer transform hover:scale-105 transition-transform duration-300 p-2 shadow-xl">
+        <img src="${imgSrc}" class="w-full h-full object-cover rounded-xl" alt="Mobile Preview">
+      </div>
+    `).join('');
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // 3. ФУНКЦИЯ ЗАКРЫТИЯ МОДАЛЬНОГО ОКНА
+  function closeCaseModal() {
+    const modal = document.getElementById('case-modal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  }
+</script>
+</head>
+
+<body class="bg-[#050714] text-[#f1f1f1] antialiased overflow-x-hidden selection:bg-[#8b5cf6] selection:text-white">
+
+  <!-- =============================================================== -->
+  <!-- =============================================================== -->
+<!-- POPUP FORM OVERLAY                                              -->
+<!-- =============================================================== -->
+<div id="contact-modal" class="fixed inset-0 z-[110] bg-[#050714]/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-6 sm:p-12 overflow-y-auto">
+  
+  <!-- Кнопка закрытия -->
+  <div class="max-w-7xl mx-auto w-full flex justify-end z-10">
+    <button id="close-contact-btn" class="font-mono-code text-[11px] font-light tracking-[0.2em] text-white/70 hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer">
+      [ ЗАКРЫТЬ ✕ ]
+    </button>
+  </div>
+
+  <!-- Контент формы -->
+  <div class="max-w-4xl mx-auto w-full my-auto py-6 z-10">
+    <div class="bg-[#07091e] border border-white/10 p-8 sm:p-12 rounded-2xl relative">
+      <h2 class="font-syne text-3xl sm:text-5xl font-bold uppercase tracking-tight leading-none mb-4 text-white">
+        ДАВАЙТЕ <span class="text-[#8b5cf6]">СОЗДАДИМ</span> ЧТО-ТО КРУТОЕ
+      </h2>
+      <p class="font-mono-code text-xs text-white/60 tracking-wider mb-8 uppercase">
+        Расскажите о вашей задаче, и мы подготовим оптимальное решение и оценку сроков.
+      </p>
+
+      <form id="contact-form" onsubmit="event.preventDefault(); alert('Спасибо за заявку!');" class="space-y-6">
+        <div>
+          <label class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-3">
+            // 01. ВЫБЕРИТЕ НАПРАВЛЕНИЕ
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="cursor-pointer">
+              <input type="checkbox" name="service" value="landing" class="peer hidden" checked>
+              <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                Лендинг / Промо-сайт
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="checkbox" name="service" value="corporate" class="peer hidden">
+              <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                Многостраничный сайт
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="checkbox" name="service" value="design" class="peer hidden">
+              <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                UI/UX Дизайн & Айдентика
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="checkbox" name="service" value="custom" class="peer hidden">
+              <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                Веб-сервис / Доработка
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label for="user-name" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+              // 02. ВАШЕ ИМЯ ИЛИ КОМПАНИЯ *
+            </label>
+            <input type="text" id="user-name" required placeholder="Иван / Название компании" 
+              class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg px-4 py-3.5 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors">
+          </div>
+
+          <div>
+            <label for="user-contact" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+              // 03. ТЕЛЕГРАМ ИЛИ EMAIL ДЛЯ СВЯЗИ *
+            </label>
+            <input type="text" id="user-contact" required placeholder="@username или name@domain.com" 
+              class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg px-4 py-3.5 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors">
+          </div>
+
+          <div>
+            <label for="user-message" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+              // 04. ОПИСАНИЕ ЗАДАЧИ ИЛИ ССЫЛКА НА ТЗ
+            </label>
+            <textarea id="user-message" rows="3" placeholder="Расскажите кратко о вашем проекте..." 
+              class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg p-4 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors resize-none"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-syne font-bold uppercase tracking-[0.2em] py-4 rounded-lg shadow-lg hover:shadow-[#8b5cf6]/40 transition-all flex items-center justify-center gap-3 group cursor-pointer">
+          <span>ОТПРАВИТЬ ЗАЯВКУ</span>
+          <span class="transform group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+  <!-- Основное содержимое сайта будет здесь -->
+
+  <script>
+  // Функция открытия формы
+  function openContactModal() {
+    const modal = document.getElementById('contact-modal');
+    if (!modal) return;
+    
+    // Переключаем классы Tailwind для отображения
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.classList.add('opacity-100', 'pointer-events-auto');
+    
+    // Запрещаем скролл страницы под формой
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Функция закрытия формы
+  function closeContactModal() {
+    const modal = document.getElementById('contact-modal');
+    if (!modal) return;
+    
+    // Переключаем классы Tailwind обратно
+    modal.classList.remove('opacity-100', 'pointer-events-auto');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    
+    // Возвращаем скролл страницы
+    document.body.style.overflow = 'auto';
+  }
+
+  // Навешиваем событие на кнопку закрытия и закрытие по клавише Esc
+  document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('close-contact-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeContactModal);
+    }
+
+    // Закрытие по нажатию на клавишу Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeContactModal();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
+
+<!-- =============================================================== -->
+<!-- FULLSCREEN NAVIGATION OVERLAY                                   -->
+<!-- =============================================================== -->
+<div id="full-menu" class="fixed inset-0 z-[100] bg-[#050714]/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-8 sm:p-14 overflow-y-auto">
+  
+  <!-- Фоновый неоновый акцент -->
+  <div class="absolute top-1/3 right-10 w-80 h-80 bg-[#8b5cf6]/15 rounded-full blur-[140px] pointer-events-none"></div>
+
+  <!-- ВЕРХНЯЯ ПАНЕЛЬ МЕНЮ -->
+  <div class="max-w-7xl mx-auto w-full flex items-center justify-between z-10">
+    <div class="text-[11px] font-mono-code font-light uppercase tracking-[0.25em] text-[#666]">
+      NAVIGATION // BOS.AGENCE
+    </div>
+    
+    <button id="close-menu-btn" class="font-mono-code text-[11px] font-light tracking-[0.2em] text-white/70 hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer">
+      [ CLOSE ✕ ]
+    </button>
+  </div>
+
+  <!-- ОСНОВНЫЙ КОНТЕНТ МЕНЮ -->
+  <div class="max-w-7xl mx-auto w-full my-auto py-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+    
+    <!-- Навигация по секциям -->
+    <nav class="lg:col-span-7 flex flex-col gap-3 sm:gap-5">
+      
+      <a href="#hero" class="menu-nav-link group flex items-center gap-6 w-fit py-1">
+        <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">01</span>
+        <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-white/80 group-hover:text-white group-hover:translate-x-3 transition-all duration-300 relative">
+          ГЛАВНАЯ
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#8b5cf6] group-hover:w-full transition-all duration-300"></span>
+        </span>
+      </a>
+
+      <a href="#portfolio" class="menu-nav-link group flex items-center gap-6 w-fit py-1">
+        <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">02</span>
+        <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-white/80 group-hover:text-white group-hover:translate-x-3 transition-all duration-300 relative">
+          ПОРТФОЛИО
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#8b5cf6] group-hover:w-full transition-all duration-300"></span>
+        </span>
+      </a>
+
+      <a href="#media-section" class="menu-nav-link group flex items-center gap-6 w-fit py-1">
+        <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">03</span>
+        <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-white/80 group-hover:text-white group-hover:translate-x-3 transition-all duration-300 relative">
+          МЕДИА & КЕЙСЫ
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#8b5cf6] group-hover:w-full transition-all duration-300"></span>
+        </span>
+      </a>
+
+      <a href="#team-section" class="menu-nav-link group flex items-center gap-6 w-fit py-1">
+        <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">04</span>
+        <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-white/80 group-hover:text-white group-hover:translate-x-3 transition-all duration-300 relative">
+          КОМАНДА
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#8b5cf6] group-hover:w-full transition-all duration-300"></span>
+        </span>
+      </a>
+
+      <a href="javascript:void(0)" 
+   id="open-contact-modal-btn" 
+   onclick="openContactModal()" 
+   class="menu-nav-link group flex items-center gap-6 w-fit py-1 cursor-pointer">
+  <span class="font-mono-code text-xs text-[#8b5cf6] font-light tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">05</span>
+  <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-[#8b5cf6] group-hover:translate-x-3 transition-all duration-300 relative">
+    ОБСУДИТЬ ПРОЕКТ
+    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-[#8b5cf6] group-hover:w-full transition-all duration-300"></span>
+  </span>
+</a>
+
+    </nav>
+
+    <!-- Информационный блок справа -->
+    <div class="lg:col-span-5 flex flex-col justify-between gap-8 border-t lg:border-t-0 lg:border-l border-white/10 pt-8 lg:pt-0 lg:pl-12">
+      <div>
+        <div class="font-mono-code text-[10px] font-light uppercase tracking-[0.25em] text-[#666] mb-4">// CONTACT DIRECTLY</div>
+        <a href="https://t.me/bos_agence" target="_blank" class="font-syne text-lg text-white/90 hover:text-[#8b5cf6] transition-colors block mb-2 font-light">
+          Telegram: @bos_agence
+        </a>
+        <a href="mailto:hello@bos.agence" class="font-mono-code text-xs text-white/50 hover:text-white transition-colors tracking-widest">
+          hello@bos.agence
+        </a>
+      </div>
+
+      <div>
+        <div class="font-mono-code text-[10px] font-light uppercase tracking-[0.25em] text-[#666] mb-4">// SOCIALS</div>
+        <div class="flex flex-wrap gap-4 font-mono-code text-xs text-white/60 tracking-wider">
+          <a href="#" class="hover:text-[#8b5cf6] transition-colors">GITHUB</a>
+          <span class="text-white/20">/</span>
+          <a href="#" class="hover:text-[#8b5cf6] transition-colors">BEHANCE</a>
+          <span class="text-white/20">/</span>
+          <a href="https://t.me/bos_agence" target="_blank" class="hover:text-[#8b5cf6] transition-colors">TG CHANNEL</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- НИЖНЯЯ ПАНЕЛЬ -->
+  <div class="max-w-7xl mx-auto w-full flex justify-between items-end text-[10px] font-mono-code font-light text-[#555] uppercase tracking-[0.25em] z-10">
+    <span>BOS.AGENCE // 2026</span>
+    <span>MOSCOW &bull; GLOBAL</span>
+  </div>
+</div>
+
+<!-- JS Управление оверлеем -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.getElementById("menu-btn");
+    const closeMenuBtn = document.getElementById("close-menu-btn");
+    const fullMenu = document.getElementById("full-menu");
+    const menuLinks = document.querySelectorAll(".menu-nav-link");
+
+    function openMenu() {
+      if (!fullMenu) return;
+      fullMenu.classList.remove("opacity-0", "pointer-events-none");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeMenu() {
+      if (!fullMenu) return;
+      fullMenu.classList.add("opacity-0", "pointer-events-none");
+      document.body.style.overflow = "";
+    }
+
+    if (menuBtn) menuBtn.addEventListener("click", openMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener("click", closeMenu);
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        closeMenu();
+      });
+    });
+  });
+</script>
+
+<!-- PRELOADER -->
+<div id="preloader" class="fixed inset-0 z-[100] flex flex-col justify-between bg-[#050714] p-8 sm:p-14 select-none">
+  <div class="flex items-start justify-between w-full">
+    <div class="text-[11px] font-mono-code font-light uppercase tracking-[0.25em] text-[#666]">
+      BOS.AGENCE // 2026
+    </div>
+
+    <div class="flex items-baseline font-mono-code text-right">
+      <span id="loader-num" class="text-8xl sm:text-9xl md:text-[15rem] font-thin tracking-tighter text-white/10 leading-none">0</span>
+      <span class="text-7xl sm:text-9xl md:text-[13rem] font-bold text-[#8b5cf6] ml-1 sm:ml-3 leading-none">%</span>
+    </div>
+  </div>
+
+  <div class="flex justify-between items-end text-[10px] font-mono-code font-light text-[#444] uppercase tracking-[0.25em]">
+    <span>SYSTEM INITIALIZATION</span>
+    <span>REFOKUS ARCHITECTURE</span>
+  </div>
+</div>
+
+<!-- HEADER / NAVBAR -->
+<header class="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-[#050714] via-[#050714]/50 to-transparent">
+  <div class="max-w-7xl mx-auto px-8 h-28 flex items-center justify-between">
+    <button id="menu-btn" class="font-mono-code text-[11px] font-light tracking-[0.2em] text-[#888] hover:text-white transition-colors uppercase cursor-pointer">
+      [ MENU ]
+    </button>
+
+    <a href="#" class="font-syne text-3xl font-extrabold tracking-tighter text-white hover:opacity-80 transition-opacity">
+      B<span class="text-[#8b5cf6]">.</span>
+    </a>
+
+    <!-- Обновлённая ссылка -->
+    <a href="javascript:void(0)" 
+       onclick="openContactModal()" 
+       class="font-mono-code text-[11px] font-light tracking-[0.2em] text-white hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer">
+      LET'S TALK &rarr;
+    </a>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section id="hero" class="relative w-full min-h-screen pt-44 pb-20 flex items-center bg-striped-dense overflow-hidden">
+  <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-[#050714] via-[#050714]/80 to-transparent z-10 pointer-events-none"></div>
+
+  <!-- 3D Canvas Container -->
+  <div id="canvas-container" class="absolute inset-0 z-10 flex items-center justify-center cursor-pointer"></div>
+
+  <div class="relative z-20 max-w-7xl mx-auto px-8 w-full pointer-events-none">
+    <div class="hero-anim-item font-mono-code text-[11px] font-light tracking-[0.3em] text-[#8b5cf6] uppercase mb-6 opacity-0">
+      // NEXT-GEN DIGITAL PRODUCTION
+    </div>
+
+    <h1 class="font-syne text-5xl sm:text-7xl md:text-8xl lg:text-[8.5rem] font-medium tracking-tight leading-[0.9] mb-8 uppercase text-white max-w-5xl">
+      <span class="hero-title-line">
+        <span class="hero-title-word inline-block font-medium">ИНЖЕНЕРИЯ</span>
+      </span>
+      <span class="hero-title-line">
+        <span class="hero-title-word inline-block animated-gradient-text font-semibold">
+          ВПЕЧАТЛЕНИЙ
+        </span>
+      </span>
+    </h1>
+
+    <p class="hero-anim-item max-w-xl text-sm sm:text-base text-white/50 font-extralight tracking-widest leading-relaxed opacity-0">
+      Проектируем и разрабатываем высоконагруженные цифровые экосистемы, интерактивные веб-сервисы и бренды, формирующие новые стандарты рынка.
+    </p>
+  </div>
+</section>
+
+<!-- SCRIPTS -->
+<script>
+  // 1. GSAP TIMELINE (Прелоадер и появление Hero)
+  const loaderNum = document.getElementById('loader-num');
+  const counter = { val: 0 };
+
+  const mainTl = gsap.timeline();
+
+  mainTl.to(counter, {
+    val: 100,
+    duration: 1.8,
+    ease: "power2.inOut",
+    onUpdate: () => {
+      loaderNum.textContent = Math.floor(counter.val);
+    }
+  })
+  .to("#preloader", {
+    yPercent: -100,
+    duration: 0.9,
+    ease: "power4.inOut"
+  })
+  .from(".hero-title-word", {
+    y: "100%",
+    duration: 1.1,
+    stagger: 0.15,
+    ease: "power4.out"
+  }, "-=0.4")
+  .to(".hero-anim-item", {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    stagger: 0.1,
+    ease: "power2.out"
+  }, "-=0.6");
+
+
+  // 2. THREE.JS 3D
+  const container = document.getElementById('canvas-container');
+  const scene = new THREE.Scene();
+  
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 12;
+
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  // Освещение
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+  scene.add(ambientLight);
+
+  const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  mainLight.position.set(5, 10, 7.5);
+  scene.add(mainLight);
+
+  const fillLight = new THREE.DirectionalLight(0x8b5cf6, 1.0);
+  fillLight.position.set(-5, -5, -2);
+  scene.add(fillLight);
+
+  const logoGroup = new THREE.Group();
+  scene.add(logoGroup);
+
+  const colors = [
+    new THREE.Color('#8b5cf6'), // Purple
+    new THREE.Color('#3b82f6'), // Blue
+    new THREE.Color('#ec4899'), // Pink
+    new THREE.Color('#10b981'), // Emerald
+    new THREE.Color('#f59e0b')  // Amber
+  ];
+  let currentColorIdx = 0;
+
+  const extrudeSettings = {
+    depth: 0.5,
+    bevelEnabled: true,
+    bevelSegments: 4,
+    steps: 1,
+    bevelSize: 0.04,
+    bevelThickness: 0.04
+  };
+
+  const segments = [];
+
+  function addPart(shape, position) {
+    const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    // Не используем geom.center(), чтобы не сбивать координаты отверстий относительно внешнего контура
+
+    const mat = new THREE.MeshStandardMaterial({
+      color: colors[0],
+      metalness: 0.8,
+      roughness: 0.2
+    });
+
+    const mesh = new THREE.Mesh(geom, mat);
+    mesh.position.copy(position);
+
+    mesh.userData = {
+      basePos: position.clone(),
+      baseRot: new THREE.Euler().copy(mesh.rotation)
+    };
+
+    segments.push(mesh);
+    logoGroup.add(mesh);
+  }
+
+  // --- БУКВА "B": СТОЙКА УВЕЛИЧЕНА ПО ВЫСОТЕ (OVERHANG ВВЕРХ И ВНИЗ) ---
+
+  const stemW = 0.75;  // Вернули изящную ширину
+  const stemH = 2.08;   // Чуть-чуть увеличили высоту (было 2.0) — теперь стойка выступает по вертикали
+
+  // Точка стыка
+  const stemX = -1.2;
+  const jointX = stemX + (stemW / 2); // -0.825
+
+  // 1. Верхняя левая вертикаль (вытянута по высоте)
+  const vShape1 = new THREE.Shape();
+  vShape1.moveTo(-stemW / 2, -stemH / 2);
+  vShape1.lineTo(stemW / 2, -stemH / 2);
+  vShape1.lineTo(stemW / 2, stemH / 2);
+  vShape1.lineTo(-stemW / 2, stemH / 2);
+  vShape1.closePath();
+  addPart(vShape1, new THREE.Vector3(stemX, stemH / 2, 0));
+
+  // 2. Нижняя левая вертикаль (вытянута по высоте)
+  const vShape2 = new THREE.Shape();
+  vShape2.moveTo(-stemW / 2, -stemH / 2);
+  vShape2.lineTo(stemW / 2, -stemH / 2);
+  vShape2.lineTo(stemW / 2, stemH / 2);
+  vShape2.lineTo(-stemW / 2, stemH / 2);
+  vShape2.closePath();
+  addPart(vShape2, new THREE.Vector3(stemX, -stemH / 2, 0));
+
+  // Построение дуг с дырочками
+  function createArcShape(outerR, innerR) {
+    const shape = new THREE.Shape();
+    shape.moveTo(0, -outerR);
+    shape.absarc(0, 0, outerR, -Math.PI / 2, Math.PI / 2, false);
+    shape.lineTo(0, innerR);
+    shape.absarc(0, 0, innerR, Math.PI / 2, -Math.PI / 2, true);
+    shape.lineTo(0, -outerR);
+    shape.closePath();
+    return shape;
+  }
+
+  // 3. Верхнее ушко (центрировано по верхней секции стойки)
+  const topArcShape = createArcShape(1.08, 0.48);
+  addPart(topArcShape, new THREE.Vector3(jointX, 1.0, 0));
+
+  // 4. Нижнее ушко (центрировано по нижней секции стойки)
+  const botArcShape = createArcShape(1.09, 0.52);
+  addPart(botArcShape, new THREE.Vector3(jointX, -1.0, 0));
+
+  // 5. Квадратная точка "B."
+  const dotSize = 0.65;
+  const dotShape = new THREE.Shape();
+  dotShape.moveTo(-dotSize / 2, -dotSize / 2);
+  dotShape.lineTo(dotSize / 2, -dotSize / 2);
+  dotShape.lineTo(dotSize / 2, dotSize / 2);
+  dotShape.lineTo(-dotSize / 2, dotSize / 2);
+  dotShape.closePath();
+  addPart(dotShape, new THREE.Vector3(1.15, -stemH + 0.2, 0));
+
+  // Масштабирование и центрирование общей группы
+  logoGroup.scale.set(1.2, 1.2, 1.2);
+
+  function adjustPosition() {
+    if (window.innerWidth > 1024) {
+      logoGroup.position.set(2.4, 0, 0);
+    } else {
+      logoGroup.position.set(0, 1.0, 0);
+    }
+  }
+  adjustPosition();
+
+  // Анимация регулярного вращения
+  let isAnimating = false;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    if (!isAnimating) {
+      logoGroup.rotation.y += 0.006;
+      logoGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.08;
+    }
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // --- ЭФФЕКТНЫЙ РАЗЛЕТ И СБОРКА ПРИ КЛИКЕ ---
+  container.addEventListener('click', () => {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    currentColorIdx = (currentColorIdx + 1) % colors.length;
+    const nextColor = colors[currentColorIdx];
+
+    const tl = gsap.timeline({
+      onComplete: () => { isAnimating = false; }
+    });
+
+    tl.to(logoGroup.rotation, {
+      y: logoGroup.rotation.y + Math.PI * 2,
+      duration: 2.0,
+      ease: "power2.inOut"
+    }, 0);
+
+    segments.forEach((mesh, index) => {
+      const dirX = (mesh.userData.basePos.x || (index % 2 === 0 ? 1 : -1)) * 2.5;
+      const dirY = (mesh.userData.basePos.y || (index % 2 === 0 ? -1 : 1)) * 2.5;
+      const dirZ = (Math.random() - 0.5) * 6;
+
+      tl.to(mesh.position, {
+        x: mesh.userData.basePos.x + dirX,
+        y: mesh.userData.basePos.y + dirY,
+        z: dirZ,
+        duration: 0.8,
+        ease: "power3.out"
+      }, 0);
+
+      tl.to(mesh.rotation, {
+        x: Math.PI * 2 * (Math.random() > 0.5 ? 1 : -1),
+        y: Math.PI * 2 * (Math.random() > 0.5 ? 1 : -1),
+        z: Math.PI * 2 * (Math.random() > 0.5 ? 1 : -1),
+        duration: 0.8,
+        ease: "power2.out"
+      }, 0);
+
+      tl.to(mesh.material.color, {
+        r: nextColor.r,
+        g: nextColor.g,
+        b: nextColor.b,
+        duration: 0.4
+      }, 0.4);
+
+      tl.to(mesh.position, {
+        x: mesh.userData.basePos.x,
+        y: mesh.userData.basePos.y,
+        z: mesh.userData.basePos.z,
+        duration: 0.9,
+        ease: "back.out(1.4)"
+      }, 0.9);
+
+      tl.to(mesh.rotation, {
+        x: mesh.userData.baseRot.x,
+        y: mesh.userData.baseRot.y,
+        z: mesh.userData.baseRot.z,
+        duration: 0.9,
+        ease: "power2.inOut"
+      }, 0.9);
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    adjustPosition();
+  });
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOS.AGENCE — Media & Team Section</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts: Syne + Geist + Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500&family=Space+Mono:wght@400;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Geist', sans-serif;
+      background-color: #050714;
+      color: #f1f1f1;
+    }
+    .font-syne { font-family: 'Syne', sans-serif; }
+    .font-mono-code { font-family: 'Space Mono', monospace; }
+
+    /* Бесконечная бегущая строка */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: 200%;
+      animation: marquee 25s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+  </style>
+</head>
+<body class="bg-[#050714] text-[#f1f1f1] antialiased">
+
+<!-- ================================================================= -->
+<!-- 🔴 START: SECTION — MEDIA & TEAM (ГЛАВНЫЙ ОБЩИЙ КОНТЕЙНЕР)        -->
+<!-- ================================================================= -->
+<section id="media-section" class="relative w-full bg-[#03040c] text-white py-24 md:py-36 overflow-hidden border-t border-white/5">
+  
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    
+    <!-- =============================================================== -->
+    <!-- 1️⃣ START BLOCK: SHOWREEL VIDEO (ЗУМ ПРИ СКРОЛЛЕ)               -->
+    <!-- =============================================================== -->
+    <div id="video-wrapper" class="relative w-full aspect-video md:aspect-[21/9] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-purple-900/10 border border-white/10 mb-28 md:mb-40 transform scale-90 opacity-80 transition-shadow duration-500">
+      
+      <!-- Фоновое некопируемое видео-петля без управления -->
+<video 
+  autoplay 
+  loop 
+  muted 
+  playsinline 
+  class="w-full h-full object-cover pointer-events-none select-none">
+  <source src="assets/videos/showreel.mp4" type="video/mp4">
+</video>
+
+      <!-- Тёмный градиентный оверлей поверх видео -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#03040c] via-transparent to-[#03040c]/40 pointer-events-none"></div>
+
+      <!-- Лейбл в углу видео -->
+      <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 flex items-center gap-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+        <span class="w-2 h-2 rounded-full bg-[#8b5cf6] animate-pulse"></span>
+        <span class="font-mono-code text-[10px] tracking-[0.2em] text-white/80 uppercase">SHOWREEL // 2026</span>
+      </div>
+
+    </div>
+    <!-- ⏹️ END BLOCK: SHOWREEL VIDEO                                   -->
+    <!-- =============================================================== -->
+
+
+    <!-- =============================================================== -->
+    <<!-- =============================================================== -->
+    <!-- 2️⃣ START BLOCK: TEAM & PHILOSOPHY (МЕНЯЮЩИЕСЯ ЦИТАТЫ/ОТЗЫВЫ)     -->
+    <!-- =============================================================== -->
+    <div id="team-section" class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-32 md:mb-44 scroll-mt-28">
+      
+      <!-- Слева: Аватар и точки переключения -->
+      <div class="lg:col-span-5 flex flex-col items-center lg:items-start">
+        <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-2xl overflow-hidden border border-white/10 p-2 bg-gradient-to-b from-white/10 to-transparent">
+          <img 
+            id="team-avatar" 
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop" 
+            alt="Team Member" 
+            class="w-full h-full object-cover rounded-xl transition-all duration-500 filter grayscale contrast-125 hover:grayscale-0">
+        </div>
+
+        <!-- Переключатели (Индикаторы слайдера) -->
+        <div class="flex items-center gap-3 mt-6" id="team-dots">
+          <button data-index="0" class="team-dot w-8 h-1.5 rounded-full bg-[#8b5cf6] transition-all duration-300"></button>
+          <button data-index="1" class="team-dot w-3 h-1.5 rounded-full bg-white/20 hover:bg-white/50 transition-all duration-300"></button>
+          <button data-index="2" class="team-dot w-3 h-1.5 rounded-full bg-white/20 hover:bg-white/50 transition-all duration-300"></button>
+        </div>
+      </div>
+
+      <!-- Справа: Прямая речь / Текст отзыва / Подпись -->
+      <div class="lg:col-span-7 flex flex-col justify-center">
+        
+        <div class="font-mono-code text-[11px] tracking-[0.25em] text-[#8b5cf6] uppercase mb-6 flex items-center gap-2">
+          <span>//</span> <span id="team-role">ARCHITECTURE & VISION</span>
+        </div>
+
+        <blockquote id="team-quote" class="font-syne text-2xl sm:text-3xl md:text-4xl font-normal leading-snug tracking-tight text-white/90 mb-8 min-h-[140px] transition-opacity duration-300">
+          «Мы не просто верстаем интерфейсы — мы проектируем цифровые экосистемы, которые меняют поведение пользователей и масштабируют бизнес без потери эстетики.»
+        </blockquote>
+
+        <div>
+          <div id="team-name" class="text-lg font-medium text-white tracking-wide">Елена Торина</div>
+          <div id="team-title" class="font-mono-code text-xs text-white/40 tracking-wider uppercase mt-1">Founder & Technical Lead</div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- ⏹️ END BLOCK: TEAM & PHILOSOPHY                                -->
+    <!-- =============================================================== -->
+
+  </div>
+
+
+  <!-- =============================================================== -->
+  <!-- 3️⃣ START BLOCK: TECH STACK MARQUEE (БЕГУЩАЯ СТРОКА)            -->
+    <!-- =============================================================== -->
+    <div id="services" class="w-full border-t border-b border-white/5 py-8 bg-black/40 backdrop-blur-sm overflow-hidden select-none scroll-mt-28">
+      <div class="animate-marquee flex items-center gap-16 md:gap-24">
+        
+        <!-- Первый набор (Оригинал) -->
+        <div class="flex items-center gap-16 md:gap-24 shrink-0 font-syne text-xl md:text-2xl font-bold tracking-widest text-white/30 uppercase">
+          <span class="hover:text-[#8b5cf6] transition-colors cursor-default">NEXT.JS 15</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-white transition-colors cursor-default">THREE.JS</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-[#8b5cf6] transition-colors cursor-default">TAILWIND CSS</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-white transition-colors cursor-default">GSAP MOTION</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-[#8b5cf6] transition-colors cursor-default">WEBGL</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-white transition-colors cursor-default">PYTHON BOT API</span>
+          <span class="text-[#8b5cf6]">•</span>
+        </div>
+
+        <!-- Второй набор (Дубликат для бесшовной анимации) -->
+        <div class="flex items-center gap-16 md:gap-24 shrink-0 font-syne text-xl md:text-2xl font-bold tracking-widest text-white/30 uppercase">
+          <span class="hover:text-[#8b5cf6] transition-colors cursor-default">NEXT.JS 15</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-white transition-colors cursor-default">THREE.JS</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-[#8b5cf6] transition-colors cursor-default">TAILWIND CSS</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-white transition-colors cursor-default">GSAP MOTION</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-[#8b5cf6] transition-colors cursor-default">WEBGL</span>
+          <span class="text-[#8b5cf6]">•</span>
+          <span class="hover:text-white transition-colors cursor-default">PYTHON BOT API</span>
+          <span class="text-[#8b5cf6]">•</span>
+        </div>
+
+      </div>
+    </div>
+    <!-- ⏹️ END BLOCK: TECH STACK MARQUEE                                -->
+
+  </div>
+</section>
+<!-- ⏹️ END: SECTION — MEDIA & TEAM -->
+
+
+<!-- ================================================================= -->
+<!-- 🟡 START: JS SCRIPTS & ANIMATIONS                                 -->
+<!-- ================================================================= -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // -----------------------------------------------------------------
+  // 1. GSAP ScrollTrigger: Масштабирование видео при скролле
+  // -----------------------------------------------------------------
+  gsap.to("#video-wrapper", {
+    scale: 1,
+    opacity: 1,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: "#video-wrapper",
+      start: "top 85%",
+      end: "top 30%",
+      scrub: 1
+    }
+  });
+
+  // -----------------------------------------------------------------
+  // 2. Данные команды / отзывы (Женский состав)
+  // -----------------------------------------------------------------
+  const teamData = [
+    {
+      name: "Елена Торина",
+      title: "Founder & Technical Lead",
+      role: "ARCHITECTURE & VISION",
+      quote: "«Мы не просто верстаем интерфейсы — мы проектируем цифровые экосистемы, которые меняют поведение пользователей и масштабируют бизнес без потери эстетики.»",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      name: "Алена Громова",
+      title: "Creative Director",
+      role: "BRAND & DESIGN SYSTEM",
+      quote: "«Каждый пиксель и анимация должны отвечать за эмоцию. Чистый минимализм работает тогда, когда за ним стоит выверенная эстетическая структура.»",
+      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      name: "Мария Сергеева",
+      title: "Head of Backend & AI Integration",
+      role: "HIGH-LOAD SYSTEMS",
+      quote: "«За внешней красотой всегда скрывается отказоустойчивая архитектура. Автоматизация процессов и скорость рендеринга — наш главный приоритет.»",
+      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop"
+    }
+  ];
+
+  // -----------------------------------------------------------------
+  // 3. Логика переключения отзывов
+  // -----------------------------------------------------------------
+  let currentIndex = 0;
+  const avatarEl = document.getElementById('team-avatar');
+  const quoteEl = document.getElementById('team-quote');
+  const nameEl = document.getElementById('team-name');
+  const titleEl = document.getElementById('team-title');
+  const roleEl = document.getElementById('team-role');
+  const dots = document.querySelectorAll('.team-dot');
+
+  function updateTeamMember(index) {
+    currentIndex = index;
+    const member = teamData[index];
+
+    // Анимация затухания и появления
+    gsap.to([avatarEl, quoteEl, nameEl, titleEl, roleEl], {
+      opacity: 0,
+      y: -10,
+      duration: 0.25,
+      onComplete: () => {
+        avatarEl.src = member.avatar;
+        quoteEl.textContent = member.quote;
+        nameEl.textContent = member.name;
+        titleEl.textContent = member.title;
+        roleEl.textContent = member.role;
+
+        gsap.to([avatarEl, quoteEl, nameEl, titleEl, roleEl], {
+          opacity: 1,
+          y: 0,
+          duration: 0.35,
+          stagger: 0.05
+        });
+      }
+    });
+
+    // Обновление визуального состояния точек
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.remove('w-3', 'bg-white/20');
+        dot.classList.add('w-8', 'bg-[#8b5cf6]');
+      } else {
+        dot.classList.remove('w-8', 'bg-[#8b5cf6]');
+        dot.classList.add('w-3', 'bg-white/20');
+      }
+    });
+  }
+
+  // Клики по индикаторам (точкам)
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      const idx = parseInt(e.target.getAttribute('data-index'));
+      updateTeamMember(idx);
+    });
+  });
+
+  // Автоматический таймер слайдера (15 секунд на каждый отзыв)
+  setInterval(() => {
+    let nextIdx = (currentIndex + 1) % teamData.length;
+    updateTeamMember(nextIdx);
+  }, 15000);
+</script>
+<!-- 🟡 END: JS SCRIPTS & ANIMATIONS                                    -->
+<!-- ================================================================= -->
+
+</body>
+</html>
+
+<!-- =============================================================== -->
+<!-- 4️⃣ START SECTION: PHILOSOPHY / ABOUT                            -->
+<!-- =============================================================== -->
+<section id="about-section" class="w-full bg-[#f9f9fb] text-[#0f1117] py-28 sm:py-36 px-8 relative z-20 scroll-mt-20">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Главный крупный тезис -->
+    <div class="max-w-5xl mb-24 sm:mb-32">
+      <h2 class="font-syne text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight leading-[1.15]">
+        <span class="text-[#a1a1aa]">Ваш бренд и сайт делают больше, чем просто объясняют суть.</span>
+        <span class="text-[#0f1117]"> Они помогают людям почувствовать, почему это важно, почему это для них и почему именно сейчас.</span>
+      </h2>
+    </div>
+
+    <!-- Сетка из 3 колонок -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+      
+      <!-- Карточка 1 -->
+      <div class="flex flex-col justify-start border-t border-[#e4e4e7] pt-6">
+        <div class="font-mono-code text-[11px] font-medium text-[#71717a] uppercase tracking-wider mb-6 flex items-center gap-2">
+          <span class="text-[#8b5cf6] text-base leading-none">•</span>
+          <span>найден</span>
+          <span class="text-[#a1a1aa]">/</span>
+        </div>
+        <h3 class="font-syne text-xl sm:text-2xl font-semibold text-[#0f1117] tracking-tight mb-4 leading-snug">
+          Создано для эмоций человека и структуры ИИ.
+        </h3>
+        <p class="text-sm sm:text-base text-[#52525b] font-normal leading-relaxed">
+          У вашего бренда теперь две аудитории: люди открывают бренды эмоционально, а ИИ — структурно. Лучшие бренды создаются для обоих.
+        </p>
+      </div>
+
+      <!-- Карточка 2 -->
+      <div class="flex flex-col justify-start border-t border-[#e4e4e7] pt-6">
+        <div class="font-mono-code text-[11px] font-medium text-[#71717a] uppercase tracking-wider mb-6 flex items-center gap-2">
+          <span class="text-[#8b5cf6] text-base leading-none">•</span>
+          <span>понят</span>
+          <span class="text-[#a1a1aa]">/</span>
+        </div>
+        <h3 class="font-syne text-xl sm:text-2xl font-semibold text-[#0f1117] tracking-tight mb-4 leading-snug">
+          Доносим суть так же четко, как вы ее чувствуете.
+        </h3>
+        <p class="text-sm sm:text-base text-[#52525b] font-normal leading-relaxed">
+          Если людям нужно 10 минут, чтобы понять ваше отличие, вы уже потеряли момент. Каждый основатель знает этот разрыв: объяснить компанию бывает сложнее, чем её создать.
+        </p>
+      </div>
+
+      <!-- Карточка 3 -->
+      <div class="flex flex-col justify-start border-t border-[#e4e4e7] pt-6">
+        <div class="font-mono-code text-[11px] font-medium text-[#71717a] uppercase tracking-wider mb-6 flex items-center gap-2">
+          <span class="text-[#8b5cf6] text-base leading-none">•</span>
+          <span>выбран</span>
+          <span class="text-[#a1a1aa]">/</span>
+        </div>
+        <h3 class="font-syne text-xl sm:text-2xl font-semibold text-[#0f1117] tracking-tight mb-4 leading-snug">
+          Станьте компанией, которой доверяют и которую помнят.
+        </h3>
+        <p class="text-sm sm:text-base text-[#52525b] font-normal leading-relaxed">
+          Мы используем эмоциональную стратегию, айдентику, динамику и интерактив, чтобы сформировать то самое чувство и превратить его в цифровой опыт.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ⏹️ END SECTION: PHILOSOPHY / ABOUT -->
+
+<!-- =============================================================== -->
+<!-- 5️⃣ START SECTION: SELECTED WORKS / PORTFOLIO                   -->
+<!-- =============================================================== -->
+<section id="portfolio" class="w-full bg-[#050714] text-white py-28 sm:py-36 px-8 relative z-20 scroll-mt-28">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Заголовок секции -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6 border-b border-white/10 pb-8">
+      <div>
+        <div class="font-mono-code text-[11px] font-light tracking-[0.25em] text-[#8b5cf6] uppercase mb-4">
+          // SELECTED PROJECTS
+        </div>
+        <h2 class="font-syne text-4xl sm:text-6xl font-bold uppercase tracking-tight">
+          ИЗБРАННЫЕ КЕЙСЫ
+        </h2>
+      </div>
+      <p class="font-mono-code text-xs text-white/40 tracking-widest max-w-xs uppercase">
+        02 / ИНТЕРАКТИВНЫЕ ЦИФРОВЫЕ РЕШЕНИЯ И ЭКОСИСТЕМЫ
+      </p>
+    </div>
+
+    <!-- Сетка карточек проектов -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Проект 1: DANCE KIDS -->
+      <div class="group relative bg-[#ff5322] rounded-2xl p-8 flex flex-col justify-between border border-white/10 hover:border-white/30 transition-all duration-500 overflow-hidden min-h-[540px]">
+        <div class="relative z-10">
+          <h3 class="font-syne text-3xl font-extrabold uppercase text-white mb-6 tracking-tight">
+            DANCE KIDS
+          </h3>
+          <div class="space-y-1.5 font-mono-code text-[10px] uppercase tracking-[0.2em] text-white/70">
+            <div>• WEB DESIGN & DEVELOPMENT</div>
+            <div>• BRAND IDENTITY</div>
+            <div>• UX / MOBILE ADAPTIVE</div>
+            <div>• CONVERSION STRUCTURE</div>
+          </div>
+        </div>
+
+        <div class="my-8 relative rounded-xl overflow-hidden bg-black/20 border border-white/20 transform group-hover:-translate-y-2 transition-transform duration-500 shadow-xl h-48">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover relative z-10 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <source src="assets/videos/dancekids-preview.mp4" type="video/mp4">
+            <div class="w-full h-full bg-black/40 flex flex-col items-center justify-center p-4 text-center">
+              <span class="font-syne text-lg font-bold text-white tracking-wider mb-1">DANCE KIDS STUDIO</span>
+              <span class="font-mono-code text-[10px] text-white/80 uppercase tracking-widest">Детская школа танцев</span>
+            </div>
+          </video>
+        </div>
+
+        <div class="flex items-center justify-between z-10">
+          <button onclick="openCaseModal('dancekids')" class="inline-flex items-center gap-2 font-mono-code text-[11px] tracking-[0.2em] text-white transition-colors uppercase w-max">
+            <span class="border-b border-white/40 hover:border-white pb-0.5">VIEW CASE STUDY</span>
+            <span class="transform group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </button>
+          <a href="https://babydance-dk.tilda.ws/" target="_blank" class="font-mono-code text-[10px] text-white/60 hover:text-white transition-colors uppercase">LIVE SITE ↗</a>
+        </div>
+      </div>
+
+      <!-- Проект 2: ULUTAY ALTAI -->
+      <div class="group relative bg-[#e23854] rounded-2xl p-8 flex flex-col justify-between border border-white/10 hover:border-white/30 transition-all duration-500 overflow-hidden min-h-[540px]">
+        <div class="relative z-10">
+          <h3 class="font-syne text-3xl font-extrabold uppercase text-white mb-6 tracking-tight">
+            ULUTAY ALTAI
+          </h3>
+          <div class="space-y-1.5 font-mono-code text-[10px] uppercase tracking-[0.2em] text-white/70">
+            <div>• PREMIUM LANDING PAGE</div>
+            <div>• ATMOSPHERIC UI/UX</div>
+            <div>• BOOKING SYSTEM INTEGRATION</div>
+            <div>• RESPONSIVE DESIGN</div>
+          </div>
+        </div>
+
+        <div class="my-8 relative rounded-xl overflow-hidden bg-black/20 border border-white/20 transform group-hover:-translate-y-2 transition-transform duration-500 shadow-xl h-48">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover relative z-10 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <source src="assets/videos/ulutay-preview.mp4" type="video/mp4">
+            <div class="w-full h-full bg-black/40 flex flex-col items-center justify-center p-4 text-center">
+              <span class="font-syne text-lg font-bold text-white tracking-wider mb-1">ULUTAY REPUBLIC</span>
+              <span class="font-mono-code text-[10px] text-white/80 uppercase tracking-widest">Центр здоровья на Алтае</span>
+            </div>
+          </video>
+        </div>
+
+        <div class="flex items-center justify-between z-10">
+          <button onclick="openCaseModal('ulutay')" class="inline-flex items-center gap-2 font-mono-code text-[11px] tracking-[0.2em] text-white transition-colors uppercase w-max">
+            <span class="border-b border-white/40 hover:border-white pb-0.5">VIEW CASE STUDY</span>
+            <span class="transform group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </button>
+          <a href="https://altairepublic-ulutay.tilda.ws/" target="_blank" class="font-mono-code text-[10px] text-white/60 hover:text-white transition-colors uppercase">LIVE SITE ↗</a>
+        </div>
+      </div>
+
+      <!-- Проект 3: TERRAFORMA AQUA -->
+      <div class="group relative bg-[#162238] rounded-2xl p-8 flex flex-col justify-between border border-white/10 hover:border-white/30 transition-all duration-500 overflow-hidden min-h-[540px]">
+        <div class="relative z-10">
+          <h3 class="font-syne text-3xl font-extrabold uppercase text-white mb-6 tracking-tight">
+            TERRAFORMA AQUA
+          </h3>
+          <div class="space-y-1.5 font-mono-code text-[10px] uppercase tracking-[0.2em] text-white/70">
+            <div>• ECOLOGICAL ENGINEERING</div>
+            <div>• INTERACTIVE PRESENTATION</div>
+            <div>• 3D VISUALIZATION</div>
+            <div>• CUSTOM WEB SYSTEM</div>
+          </div>
+        </div>
+
+        <div class="my-8 relative rounded-xl overflow-hidden bg-black/20 border border-white/20 transform group-hover:-translate-y-2 transition-transform duration-500 shadow-xl h-48">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover relative z-10 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <source src="assets/videos/terraforma-aqua.mp4" type="video/mp4">
+            <div class="w-full h-full bg-black/40 flex flex-col items-center justify-center p-4 text-center">
+              <span class="font-syne text-lg font-bold text-white tracking-wider mb-1">TERRAFORMA AQUA</span>
+              <span class="font-mono-code text-[10px] text-white/80 uppercase tracking-widest">Инженерные водные экосистемы</span>
+            </div>
+          </video>
+        </div>
+
+        <div class="flex items-center justify-between z-10">
+          <button onclick="openCaseModal('terraforma')" class="inline-flex items-center gap-2 font-mono-code text-[11px] tracking-[0.2em] text-white transition-colors uppercase w-max">
+            <span class="border-b border-white/40 hover:border-white pb-0.5">VIEW CASE STUDY</span>
+            <span class="transform group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </button>
+          <a href="#" target="_blank" class="font-mono-code text-[10px] text-white/60 hover:text-white transition-colors uppercase">LIVE SITE ↗</a>
+        </div>
+      </div>
+
+      <!-- Проект 4: AI VIDEO PRODUCTION -->
+      <div class="group relative bg-[#12100E] rounded-2xl p-8 flex flex-col justify-between border border-[#FF6B00]/30 hover:border-[#FF6B00]/60 transition-all duration-500 overflow-hidden min-h-[540px]">
+        <div class="relative z-10">
+          <h3 class="font-syne text-3xl font-extrabold uppercase text-white mb-6 tracking-tight">
+            AI VIDEO PRODUCTION
+          </h3>
+          <div class="space-y-1.5 font-mono-code text-[10px] uppercase tracking-[0.2em] text-[#FF6B00]">
+            <div>• AI GENERATIVE VIDEO</div>
+            <div>• DIGITAL AVATARS & VOICE</div>
+            <div>• VISUAL EFFECTS ENGINE</div>
+            <div>• AUTOMATED PIPELINE</div>
+          </div>
+        </div>
+
+        <div class="my-8 relative rounded-xl overflow-hidden bg-black/40 border border-[#FF6B00]/20 transform group-hover:-translate-y-2 transition-transform duration-500 shadow-xl h-48">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover relative z-10 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <source src="assets/videos/agence-video-ai.mp4" type="video/mp4">
+            <div class="w-full h-full bg-black/40 flex flex-col items-center justify-center p-4 text-center">
+              <span class="font-syne text-lg font-bold text-white tracking-wider mb-1">AI VIDEO STUDIO</span>
+              <span class="font-mono-code text-[10px] text-[#FF6B00] uppercase tracking-widest">Генеративное видео & ИИ Аватары</span>
+            </div>
+          </video>
+        </div>
+
+        <div class="flex items-center justify-between z-10">
+          <button onclick="openCaseModal('aivideo')" class="inline-flex items-center gap-2 font-mono-code text-[11px] tracking-[0.2em] text-white transition-colors uppercase w-max">
+            <span class="border-b border-[#FF6B00] hover:border-white pb-0.5">VIEW CASE STUDY</span>
+            <span class="transform group-hover:translate-x-1 transition-transform text-[#FF6B00]">&rarr;</span>
+          </button>
+          <a href="#" target="_blank" class="font-mono-code text-[10px] text-white/60 hover:text-white transition-colors uppercase">LIVE SITE ↗</a>
+        </div>
+      </div>
+
+      <!-- Проект 5: BOS AUTOMATION -->
+      <div class="group relative bg-[#0D111A] rounded-2xl p-8 flex flex-col justify-between border border-[#FF6363]/30 hover:border-[#FF6363]/60 transition-all duration-500 overflow-hidden min-h-[540px]">
+        <div class="relative z-10">
+          <h3 class="font-syne text-3xl font-extrabold uppercase text-white mb-6 tracking-tight">
+            BOS AUTOMATION
+          </h3>
+          <div class="space-y-1.5 font-mono-code text-[10px] uppercase tracking-[0.2em] text-[#FF6363]">
+            <div>• WORKFLOW AUTOMATION</div>
+            <div>• BOXED SOLUTIONS</div>
+            <div>• AI AGENTS & INTEGRATIONS</div>
+            <div>• BUSINESS ECOSYSTEMS</div>
+          </div>
+        </div>
+
+        <div class="my-8 relative rounded-xl overflow-hidden bg-black/40 border border-[#FF6363]/20 transform group-hover:-translate-y-2 transition-transform duration-500 shadow-xl h-48">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover relative z-10 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <source src="assets/videos/bos-automatisation.mp4" type="video/mp4">
+            <div class="w-full h-full bg-black/40 flex flex-col items-center justify-center p-4 text-center">
+              <span class="font-syne text-lg font-bold text-white tracking-wider mb-1">BOS AUTOMATION</span>
+              <span class="font-mono-code text-[10px] text-[#FF6363] uppercase tracking-widest">Коробочные решения и авто-процессы</span>
+            </div>
+          </video>
+        </div>
+
+        <div class="flex items-center justify-between z-10">
+          <button onclick="openCaseModal('automation')" class="inline-flex items-center gap-2 font-mono-code text-[11px] tracking-[0.2em] text-white transition-colors uppercase w-max">
+            <span class="border-b border-[#FF6363] hover:border-white pb-0.5">VIEW CASE STUDY</span>
+            <span class="transform group-hover:translate-x-1 transition-transform text-[#FF6363]">&rarr;</span>
+          </button>
+          <a href="#" target="_blank" class="font-mono-code text-[10px] text-white/60 hover:text-white transition-colors uppercase">LIVE SITE ↗</a>
+        </div>
+      </div>
+
+      <!-- Карточка 6: CTA -->
+      <div class="group relative bg-[#090b1e] rounded-2xl p-8 flex flex-col justify-between border border-[#8b5cf6]/40 hover:border-[#8b5cf6] transition-all duration-500 overflow-hidden min-h-[540px] shadow-[0_0_30px_rgba(139,92,246,0.15)] hover:shadow-[0_0_50px_rgba(139,92,246,0.3)]">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-[#8b5cf6]/20 rounded-full blur-3xl pointer-events-none group-hover:bg-[#8b5cf6]/35 transition-all duration-500"></div>
+
+        <div class="relative z-10">
+          <div class="inline-block px-3 py-1 bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 rounded-full font-mono-code text-[9px] uppercase tracking-[0.2em] text-[#8b5cf6] mb-4">
+            // YOUR FUTURE PROJECT
+          </div>
+          <h3 class="font-syne text-3xl font-extrabold uppercase text-white mb-6 tracking-tight leading-none">
+            YOUR PROJECT<br/><span class="text-[#8b5cf6]">NEXT?</span>
+          </h3>
+          <div class="space-y-1.5 font-mono-code text-[10px] uppercase tracking-[0.2em] text-white/70">
+            <div>• HIGH-CONVERSION UI/UX</div>
+            <div>• AI & AUTOMATION AGENTS</div>
+            <div>• CUSTOM WEB ECOSYSTEMS</div>
+            <div>• SCALABLE ARCHITECTURE</div>
+          </div>
+        </div>
+
+        <div class="my-8 relative rounded-xl overflow-hidden bg-black/40 border border-[#8b5cf6]/30 flex flex-col items-center justify-center p-6 text-center transform group-hover:-translate-y-2 transition-transform duration-500 shadow-xl h-48">
+          <span class="font-syne text-xl font-bold text-white tracking-wider mb-2">ГОТОВЫ К СТАРТУ?</span>
+          <p class="font-mono-code text-[11px] text-white/70 uppercase tracking-widest leading-relaxed">
+            Разработаем цифровое решение под задачи вашего бизнеса
+          </p>
+        </div>
+
+        <div class="flex items-center justify-between z-10">
+          <a href="#main-footer" class="inline-flex items-center gap-2 font-mono-code text-[11px] tracking-[0.2em] text-white transition-colors uppercase w-max bg-[#8b5cf6] hover:bg-[#7c3aed] px-5 py-2.5 rounded-lg shadow-lg hover:shadow-[#8b5cf6]/50">
+            <span class="font-bold">START PROJECT</span>
+            <span class="transform group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </a>
+          <span class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-wider font-semibold">LET'S TALK ↗</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ⏹️ END SECTION: SELECTED WORKS / PORTFOLIO -->
+
+<!-- FULLSCREEN CASE STUDY POPUP -->
+<div id="case-modal" class="fixed inset-0 z-[300] hidden overflow-y-auto bg-[#050714]/95 backdrop-blur-xl transition-all duration-500">
+  
+  <!-- Шапка модального окна -->
+  <div class="sticky top-0 z-50 flex justify-between items-center px-6 py-6 md:px-12 backdrop-blur-md bg-black/40 border-b border-white/10">
+    <div class="font-mono-code text-[11px] text-white/70 uppercase tracking-widest flex items-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-[#8b5cf6] animate-pulse"></span>
+      <span>// CASE STUDY VIEW</span>
+    </div>
+    <button onclick="closeCaseModal()" class="group flex items-center gap-2 font-mono-code text-xs text-white uppercase tracking-widest hover:text-white/70 transition-colors bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full border border-white/20">
+      <span>[ CLOSE</span>
+      <span class="transform group-hover:rotate-90 transition-transform">✕</span>
+      <span>]</span>
+    </button>
+  </div>
+
+  <!-- Контент модального окна -->
+  <div class="max-w-6xl mx-auto px-6 py-12 md:px-12 md:py-20 text-white overflow-x-hidden">
+    
+    <!-- 1. Название кейса -->
+    <h1 id="pop-title" class="font-syne text-5xl sm:text-7xl font-extrabold uppercase tracking-tight mb-8"></h1>
+    <div class="w-full h-[1px] bg-white/20 mb-12"></div>
+
+    <!-- 2. Описание задач и сервисов -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+      <div class="lg:col-span-8">
+        <h3 class="font-mono-code text-xs text-white/50 uppercase tracking-widest mb-4">// OVERVIEW & TASKS</h3>
+        <p id="pop-desc" class="font-light text-lg sm:text-xl leading-relaxed text-white/90"></p>
+      </div>
+      
+      <div class="lg:col-span-4 space-y-6 font-mono-code text-xs tracking-wider border-l border-white/10 pl-6">
+        <div>
+          <span class="text-white/40 uppercase block mb-1">● LOCATION /</span>
+          <span id="pop-location" class="uppercase font-bold text-white/90">MOSCOW, RUSSIA</span>
+        </div>
+        <div>
+          <span class="text-white/40 uppercase block mb-1">● SERVICES /</span>
+          <div id="pop-services" class="space-y-1 text-white/90 uppercase"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Блок с превью изображений (СЕТКА ДОНОРА) -->
+    <div id="pop-hero-backdrop" class="w-full rounded-3xl p-4 sm:p-8 mb-20 relative overflow-hidden border border-white/15 bg-gradient-to-br from-white/10 to-black/30 backdrop-blur-3xl shadow-2xl space-y-6">
+      
+      <!-- РЯД 1: Маленькое горизонт слева + Квадрат повыше справа -->
+      <div class="grid grid-cols-12 gap-4 items-end">
+        <div class="col-span-12 sm:col-span-5 h-44 sm:h-56 rounded-2xl overflow-hidden border border-white/20 shadow-xl group">
+          <img id="pop-img-top-left" src="" alt="Detail 1" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+        </div>
+        <div class="col-span-12 sm:col-span-7 h-60 sm:h-72 rounded-2xl overflow-hidden border border-white/20 shadow-xl group">
+          <img id="pop-img-top-right" src="" alt="Detail 2" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+        </div>
+      </div>
+
+      <!-- РЯД 2: ТРИ КАРТИНКИ -->
+<div class="relative w-full flex justify-center items-center gap-2 sm:gap-4 py-2 overflow-hidden">
+  
+  <!-- 1. Обрезанный край слева -->
+  <div class="w-16 sm:w-36 h-56 sm:h-80 rounded-2xl overflow-hidden border border-white/20 bg-black/40 opacity-40 flex-shrink-0">
+    <img id="pop-img-mid-left" src="" alt="Overflow Left" class="w-full h-full object-cover">
+  </div>
+  
+  <!-- 2. Центральный основной кадр (ИСПРАВЛЕНО) -->
+  <div class="w-[70vw] sm:w-[600px] h-64 sm:h-[400px] rounded-2xl overflow-hidden border border-white/30 shadow-2xl flex-shrink-0 relative z-10 bg-white/5">
+    <img id="pop-img-mid-center" src="" alt="Main Center" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700">
+  </div>
+  
+  <!-- 3. Обрезанный край справа -->
+  <div class="w-16 sm:w-36 h-56 sm:h-80 rounded-2xl overflow-hidden border border-white/20 bg-black/40 opacity-40 flex-shrink-0">
+    <img id="pop-img-mid-right" src="" alt="Overflow Right" class="w-full h-full object-cover">
+  </div>
+
+</div>
+
+      <!-- РЯД 3: Квадрат слева + Горизонт справа -->
+      <div class="grid grid-cols-12 gap-4 items-center">
+        <div class="col-span-12 sm:col-span-5 h-60 sm:h-80 rounded-2xl overflow-hidden border border-white/20 shadow-xl group">
+          <img id="pop-img-bot-left" src="" alt="Detail 3" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+        </div>
+        <div class="col-span-12 sm:col-span-7 h-60 sm:h-80 rounded-2xl overflow-hidden border border-white/20 shadow-xl group">
+          <img id="pop-img-bot-right" src="" alt="Detail 4" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4. Бегущая строка изображений (ВЕРТИКАЛЬНЫЕ МОБИЛЬНЫЕ СЛАЙДЫ 9:16) -->
+    <div class="mb-24 overflow-hidden -mx-6 md:-mx-12 py-4">
+      <div class="font-mono-code text-[10px] text-white/50 uppercase tracking-[0.25em] mb-6 px-6 md:px-12">// MOBILE INTERFACE EXPLORATION</div>
+      
+      <div class="marquee-track flex gap-6 w-max animate-marquee">
+        <div class="marquee-content flex gap-6" id="pop-marquee-items"></div>
+      </div>
+    </div>
+
+    <!-- 5. Полноразмерный скриншот -->
+    <div class="bg-black/40 rounded-3xl p-6 sm:p-10 border border-white/10 mb-20 text-center">
+      <div class="font-mono-code text-xs text-white/40 uppercase tracking-widest mb-6">// FULL PAGE ARCHITECTURE</div>
+      <div class="rounded-xl overflow-hidden border border-white/15 max-h-[900px] overflow-y-auto custom-scroll">
+        <img id="pop-img-full" src="" alt="Full Page" class="w-full h-auto">
+      </div>
+    </div>
+
+    <!-- 6. Результат кейса и ссылки -->
+    <div class="space-y-8 mb-20">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/20 pb-6 gap-4">
+        <div class="font-mono-code text-sm uppercase tracking-wider flex items-center gap-2">
+          <span class="text-white/40">●</span>
+          <span>OUTCOME /</span>
+        </div>
+        <a id="pop-live-link" href="#" target="_blank" class="font-mono-code text-sm font-bold uppercase tracking-widest text-white hover:underline flex items-center gap-2">
+          <span>LIVE WEBSITE</span>
+          <span>↗</span>
+        </a>
+      </div>
+
+      <p id="pop-outcome" class="font-light text-base text-white/80 max-w-3xl leading-relaxed"></p>
+
+      <div class="pt-6 border-t border-white/10 flex flex-wrap gap-8 font-mono-code text-xs text-white/50 uppercase">
+        <div class="flex items-center gap-2"><span class="text-white/20">/</span><span>CSSDA HONORED</span></div>
+        <div class="flex items-center gap-2"><span class="text-white/20">/</span><span>SITE OF THE DAY</span></div>
+        <div class="flex items-center gap-2"><span class="text-white/20">/</span><span>UI/UX DESIGN AWARD</span></div>
+      </div>
+    </div>
+
+    <!-- 7. Нижний призыв к action -->
+    <div class="mt-32 pt-20 border-t border-white/20 text-center relative overflow-hidden rounded-3xl bg-black/30 p-12">
+      <span class="font-mono-code text-xs text-white/50 uppercase tracking-[0.3em] block mb-4">// HAVE A SIMILAR PROJECT?</span>
+      <h2 class="font-syne text-4xl sm:text-6xl font-black uppercase mb-8 tracking-tight">START A PROJECT</h2>
+      
+      <a href="#contact" onclick="closeCaseModal()" class="inline-flex items-center gap-3 font-mono-code text-sm uppercase tracking-widest border-b-2 border-white pb-2 hover:text-white/70 hover:border-white/70 transition-all">
+        <span>CONTACT US</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    display: flex;
+    animation: marquee 40s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+  .custom-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  .custom-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+  }
+</style>
+
+<!-- ================= БЕЛЫЙ СМЫСЛОВОЙ БЛОК ================= -->
+<section class="relative z-10 bg-white text-neutral-900 rounded-b-[40px] sm:rounded-b-[60px] shadow-2xl py-20 lg:py-32 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- 1. ВВОДНЫЙ ТЕЗИС С РАЗНОЙ ПРОЗРАЧНОСТЬЮ -->
+    <div class="max-w-4xl mb-24 lg:mb-36">
+      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-light leading-tight tracking-tight">
+        <span class="text-neutral-400">Мы не просто верстаем сайты,</span>
+        <span class="text-neutral-900 font-normal"> мы формируем эмоции и опыт, которые заставляют людей доверять вашему бренду.</span>
+      </h2>
+    </div>
+
+    <!-- ТОНКАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ -->
+    <div class="w-full h-[1px] bg-neutral-200 mb-16 lg:mb-24"></div>
+
+    <!-- 2. БЛОК 1: БРЕНДИНГ И СТРАТЕГИЯ -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-24 lg:mb-32">
+      <div class="lg:col-span-4">
+        <span class="text-xs font-mono uppercase tracking-widest text-neutral-400 block mb-2">• БРЕНД-СТРАТЕГИЯ & КРЕАТИВ</span>
+        <h3 class="text-3xl sm:text-4xl font-semibold tracking-tight">Дизайн-система и позиционирование</h3>
+      </div>
+      <div class="lg:col-span-8 space-y-8">
+        <p class="text-lg sm:text-xl text-neutral-600 font-light leading-relaxed">
+          Превращаем вашу уникальность в понятный визуальный язык. Создаем решения, которые выделяют продукт на фоне конкурентов и вызывают нужный эмоциональный отклик.
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-neutral-100">
+          <div>
+            <h4 class="font-semibold text-base mb-2">Суть и смыслы</h4>
+            <p class="text-sm text-neutral-500">Выявляем ключевые преимущества и формулируем точное сообщение для вашей аудитории.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-base mb-2">Эмоциональный контакт</h4>
+            <p class="text-sm text-neutral-500">Задаем настроение и характер бренда, создающие доверие с первых секунд.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-base mb-2">Визуальный код</h4>
+            <p class="text-sm text-neutral-500">Типографика, цвет, UI-киты, анимации и микродетали, делающие стиль узнаваемым.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ТОНКАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ -->
+    <div class="w-full h-[1px] bg-neutral-200 mb-16 lg:mb-24"></div>
+
+    <!-- 3. БЛОК 2: ВЕБ-РАЗРАБОТКА -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-24 lg:mb-36">
+      <div class="lg:col-span-4">
+        <span class="text-xs font-mono uppercase tracking-widest text-neutral-400 block mb-2">• ПРОДАКШН & РАЗРАБОТКА</span>
+        <h3 class="text-3xl sm:text-4xl font-semibold tracking-tight">Веб-сайты и сервисы</h3>
+      </div>
+      <div class="lg:col-span-8 space-y-8">
+        <p class="text-lg sm:text-xl text-neutral-600 font-light leading-relaxed">
+          Сайт — это главный инструмент продаж и презентации бизнеса. Мы верстаем интерфейсы с фокусом на высокую скорость, эстетику и конверсию.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-neutral-100">
+          <div>
+            <h4 class="font-semibold text-base mb-2">Логика и CJM</h4>
+            <p class="text-sm text-neutral-500">Продумываем удобную структуру, где каждый элемент ведет к целевому действию.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-base mb-2">Анимации и 3D</h4>
+            <p class="text-sm text-neutral-500">Интерактивные эффекты и мягкий скролл без потери скорости загрузки.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-base mb-2">Готовность к масштабированию</h4>
+            <p class="text-sm text-neutral-500">Чистый код, продуманная адаптивность и SEO-оптимизация под поиск и AI.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ЗАГОЛОВОК ТАБЛИЦЫ С КРУПНОЙ ЦИФРОЙ -->
+    <div class="mb-12">
+      <span class="text-xs font-mono uppercase tracking-widest text-neutral-400 block mb-2">• КАЧЕСТВО & СТАНДАРТЫ</span>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <h3 class="text-3xl sm:text-5xl font-semibold tracking-tight max-w-xl">
+          Стандарты и метрики нашей разработки
+        </h3>
+        <div class="flex items-baseline gap-3">
+          <span class="text-6xl sm:text-7xl font-bold tracking-tight text-neutral-900">100%</span>
+          <span class="text-sm text-neutral-500 font-medium max-w-[140px] leading-snug">Гарантия качества и соблюдение сроков</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. ГИБРИДНАЯ ТАБЛИЦА СТАНДАРТОВ (УВЕЛИЧЕННАЯ И ПОНЯТНАЯ) -->
+    <div class="w-full border-t border-neutral-200">
+      
+      <!-- Строка 1 -->
+      <div class="grid grid-cols-12 py-5 sm:py-6 border-b border-neutral-200 text-sm sm:text-base hover:bg-neutral-50/80 transition-colors items-center">
+        <div class="col-span-4 sm:col-span-3 font-semibold text-neutral-900">Performance</div>
+        <div class="col-span-4 sm:col-span-4 text-neutral-500">Скорость и оптимизация</div>
+        <div class="col-span-4 sm:col-span-5 font-mono text-neutral-800 text-right sm:text-left font-medium">95+ PageSpeed / Мгновенный отклик</div>
+      </div>
+
+      <!-- Строка 2 -->
+      <div class="grid grid-cols-12 py-5 sm:py-6 border-b border-neutral-200 text-sm sm:text-base hover:bg-neutral-50/80 transition-colors items-center">
+        <div class="col-span-4 sm:col-span-3 font-semibold text-neutral-900">Responsiveness</div>
+        <div class="col-span-4 sm:col-span-4 text-neutral-500">Адаптивность под устройства</div>
+        <div class="col-span-4 sm:col-span-5 font-mono text-neutral-800 text-right sm:text-left font-medium">100% Pixel Perfect (Mobile / Desktop)</div>
+      </div>
+
+      <!-- Строка 3 -->
+      <div class="grid grid-cols-12 py-5 sm:py-6 border-b border-neutral-200 text-sm sm:text-base hover:bg-neutral-50/80 transition-colors items-center">
+        <div class="col-span-4 sm:col-span-3 font-semibold text-neutral-900">Tech Stack</div>
+        <div class="col-span-4 sm:col-span-4 text-neutral-500">Современный стек</div>
+        <div class="col-span-4 sm:col-span-5 font-mono text-neutral-800 text-right sm:text-left font-medium">Tailwind CSS / GSAP / Native JS</div>
+      </div>
+
+      <!-- Строка 4 -->
+      <div class="grid grid-cols-12 py-5 sm:py-6 border-b border-neutral-200 text-sm sm:text-base hover:bg-neutral-50/80 transition-colors items-center">
+        <div class="col-span-4 sm:col-span-3 font-semibold text-neutral-900">SEO & AI Ready</div>
+        <div class="col-span-4 sm:col-span-4 text-neutral-500">Видимость в поиске</div>
+        <div class="col-span-4 sm:col-span-5 font-mono text-neutral-800 text-right sm:text-left font-medium">Семантическая верстка и микроразметка</div>
+      </div>
+
+      <!-- Строка 5 -->
+      <div class="grid grid-cols-12 py-5 sm:py-6 border-b border-neutral-200 text-sm sm:text-base hover:bg-neutral-50/80 transition-colors items-center">
+        <div class="col-span-4 sm:col-span-3 font-semibold text-neutral-900">Motion & UX</div>
+        <div class="col-span-4 sm:col-span-4 text-neutral-500">Интерактивность</div>
+        <div class="col-span-4 sm:col-span-5 font-mono text-neutral-800 text-right sm:text-left font-medium">Плавный скролл 60 FPS без лагов</div>
+      </div>
+
+      <!-- Строка 6 -->
+      <div class="grid grid-cols-12 py-5 sm:py-6 border-b border-neutral-200 text-sm sm:text-base hover:bg-neutral-50/80 transition-colors items-center">
+        <div class="col-span-4 sm:col-span-3 font-semibold text-neutral-900">Code Architecture</div>
+        <div class="col-span-4 sm:col-span-4 text-neutral-500">Стандарты верстки</div>
+        <div class="col-span-4 sm:col-span-5 font-mono text-neutral-800 text-right sm:text-left font-medium">Чистый, валидный и модульный код</div>
+      </div>
+
+      <!-- Дополнительная строка 7 (увеличиваем объем таблицы) -->
+      <div class="grid grid-cols-12 py-5 sm:py-6 border-b border-neutral-200 text-sm sm:text-base hover:bg-neutral-50/80 transition-colors items-center">
+        <div class="col-span-4 sm:col-span-3 font-semibold text-neutral-900">QA Testing</div>
+        <div class="col-span-4 sm:col-span-4 text-neutral-500">Контроль качества</div>
+        <div class="col-span-4 sm:col-span-5 font-mono text-neutral-800 text-right sm:text-left font-medium">Тестирование в 8+ браузерах и ОС</div>
+      </div>
+
+    </div>
+
+    <!-- 6. МИНМАЛИСТИЧНЫЙ ФИНАЛЬНЫЙ ТЕКСТ ВМЕСТО ШАБЛОННОЙ ПЛАШКИ -->
+    <div class="mt-12 flex items-center justify-between pt-4 border-t border-neutral-100 text-xs font-mono text-neutral-400 uppercase tracking-widest">
+      <div class="flex items-center gap-3">
+        <span class="text-neutral-900 font-bold">[01]</span>
+        <span>Каждый проект проходит ручной и автоматический QA-аудит перед релизом</span>
+      </div>
+      <div class="hidden sm:block">
+        <span>PASSED / NO ERRORS</span>
+      </div>
+    </div>
+
+    <!-- СОЦИАЛЬНЫЕ СЕТИ В КОНЦЕ БЕЛОГО БЛОКА -->
+    <div class="mt-16 pt-8 border-t border-neutral-200 flex items-center justify-between flex-wrap gap-6">
+      <div class="flex items-center gap-3">
+        <!-- Telegram -->
+        <a href="https://t.me/your_telegram" target="_blank" class="w-12 h-12 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-800 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-1.97 9.28c-.15.67-.55.83-1.12.52l-3.05-2.25-1.47 1.42c-.16.16-.3.3-.62.3l.22-3.11 5.67-5.12c.25-.22-.05-.34-.38-.12l-7.01 4.41-3.02-.95c-.66-.21-.67-.66.14-.98l11.81-4.55c.55-.2 1.03.14.82.95z"/></svg>
+        </a>
+        <!-- WhatsApp / VK / GitHub -->
+        <a href="#" class="w-12 h-12 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-800 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all font-mono text-xs font-bold">
+          VK
+        </a>
+        <a href="#" class="w-12 h-12 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-800 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all font-mono text-xs font-bold">
+          GH
+        </a>
+      </div>
+
+      <div class="text-xs font-mono text-neutral-400 uppercase tracking-widest">
+        GET IN TOUCH WITH US
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ФУТЕР C ЭФФЕКТОМ GSAP REVEAL ================= -->
+<footer id="main-footer" class="relative z-20 w-full bg-[#050714] text-white overflow-hidden pt-16 pb-8 border-t border-[#8b5cf6]/20">
+  
+  <!-- Фоновое неоновое свечение -->
+  <div class="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#8b5cf6]/15 rounded-full blur-[140px] pointer-events-none"></div>
+
+  <!-- 1. БЕГУЩАЯ СТРОКА-ПРИЗЫВ (Текстура) -->
+  <div class="w-full overflow-hidden mb-12 opacity-30 select-none">
+    <div class="animate-marquee whitespace-nowrap flex gap-8 font-syne text-6xl sm:text-8xl font-extrabold uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white/40 to-white/10">
+      <span>LET'S BUILD SOMETHING ICONIC • BOS.AGENCE • NEXT-GEN PRODUCTION •</span>
+      <span>LET'S BUILD SOMETHING ICONIC • BOS.AGENCE • NEXT-GEN PRODUCTION •</span>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+    
+    <!-- 2. ЦЕНТРАЛЬНАЯ КАРТОЧКА "НАЧАТЬ ПРОЕКТ" -->
+    <div class="bg-gradient-to-br from-[#0e0c1f] via-[#130f2e] to-[#0d111a] border border-[#8b5cf6]/30 hover:border-[#8b5cf6]/60 transition-all duration-500 rounded-3xl p-8 sm:p-12 lg:p-16 text-white relative overflow-hidden group cursor-pointer shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_80px_rgba(139,92,246,0.25)]">
+      
+      <!-- Интерактивный световой блик при наведении -->
+      <div class="absolute -right-20 -top-20 w-96 h-96 bg-[#8b5cf6]/25 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+      
+      <div class="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+        <div>
+          <div class="flex items-center gap-2 mb-6">
+            <span class="w-2 h-2 rounded-full bg-[#8b5cf6] animate-pulse"></span>
+            <span class="text-xs font-mono-code uppercase tracking-[0.25em] text-[#8b5cf6]">• START A PROJECT</span>
+          </div>
+          
+          <h2 class="font-syne text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] uppercase mb-6">
+            ГОТОВЫ СОЗДАТЬ <br />
+            <span class="animated-gradient-text">ЧТО-ТО МОЩНОЕ?</span>
+          </h2>
+          
+          <p class="text-white/60 text-base sm:text-lg max-w-lg font-light tracking-wide leading-relaxed">
+            Расскажите о вашей задаче. Мы спроектируем цифровую экосистему, которая выведет ваш бренд в лидеры рынка.
+          </p>
+        </div>
+
+        <!-- Кнопка со стрелкой -->
+        <button type="button" onclick="openContactModal()" class="flex items-center justify-between sm:justify-start gap-6 bg-white/5 hover:bg-[#8b5cf6] border border-white/10 hover:border-[#8b5cf6] px-8 py-5 rounded-2xl transition-all duration-300 group/btn w-full sm:w-fit cursor-pointer">
+  <span class="font-mono-code text-sm tracking-[0.15em] uppercase font-medium">Обсудить проект</span>
+  <svg class="w-5 h-5 transform group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+  </svg>
+</button>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- 3. НИЖНЯЯ ТЕХНИЧЕСКАЯ ЧАСТЬ -->
+    <div class="pt-12 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-white/40 font-mono-code">
+      
+      <!-- Копирайт и ссылки -->
+      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6">
+        <span>© 2026 BOS.AGENCE</span>
+        <span class="hidden sm:inline">•</span>
+        <a href="#" class="hover:text-white transition-colors">PRIVACY POLICY</a>
+        <span class="hidden sm:inline">•</span>
+        <span class="text-[#8b5cf6]">MOSCOW / GLOBAL</span>
+      </div>
+
+      <!-- Бейдж технологий -->
+      <div class="flex items-center gap-3 bg-white/[0.03] border border-white/10 px-4 py-2 rounded-xl">
+        <span class="w-2 h-2 rounded-full bg-[#8b5cf6]"></span>
+        <span class="text-white/80 font-medium tracking-wide text-[11px]">Next.js & Three.js</span>
+        <span class="bg-[#8b5cf6]/20 text-[#8b5cf6] border border-[#8b5cf6]/30 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Enterprise</span>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+<!-- GSAP Скрипт плавного проявления подвала -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Анимация раскрытия футера при скролле
+      gsap.from("#main-footer", {
+        y: 80,
+        opacity: 0,
+        scale: 0.96,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#main-footer",
+          start: "top 92%", // Анимация запускается, когда футер появляется снизу
+          toggleActions: "play none none reverse"
+        }
+      });
+    }
+  });
+</script>
