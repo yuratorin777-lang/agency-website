@@ -1079,10 +1079,13 @@
       
       <!-- Фоновое некопируемое видео-петля без управления -->
 <video 
+  id="showreel-video"
   autoplay 
   loop 
   muted 
   playsinline 
+  webkit-playsinline 
+  preload="auto" 
   class="w-full h-full object-cover pointer-events-none select-none">
   <source src="assets/videos/showreel.mp4" type="video/mp4">
 </video>
@@ -1112,7 +1115,7 @@
         <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-2xl overflow-hidden border border-white/10 p-2 bg-gradient-to-b from-white/10 to-transparent">
           <img 
             id="team-avatar" 
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop" 
+            src="assets/images/team-elena.png" 
             alt="Team Member" 
             class="w-full h-full object-cover rounded-xl transition-all duration-500 filter grayscale contrast-125 hover:grayscale-0">
         </div>
@@ -1228,21 +1231,21 @@
       title: "Founder & Technical Lead",
       role: "ARCHITECTURE & VISION",
       quote: "«Мы не просто верстаем интерфейсы — мы проектируем цифровые экосистемы, которые меняют поведение пользователей и масштабируют бизнес без потери эстетики.»",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
+      avatar: "assets/images/team-elena.png"
     },
     {
       name: "Алена Громова",
       title: "Creative Director",
       role: "BRAND & DESIGN SYSTEM",
       quote: "«Каждый пиксель и анимация должны отвечать за эмоцию. Чистый минимализм работает тогда, когда за ним стоит выверенная эстетическая структура.»",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+      avatar: "assets/images/team-alena.png"
     },
     {
       name: "Мария Сергеева",
       title: "Head of Backend & AI Integration",
       role: "HIGH-LOAD SYSTEMS",
       quote: "«За внешней красотой всегда скрывается отказоустойчивая архитектура. Автоматизация процессов и скорость рендеринга — наш главный приоритет.»",
-      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop"
+      avatar: "assets/images/team-alena.png"
     }
   ];
 
@@ -2041,13 +2044,14 @@
   </div>
 </footer>
 
-<!-- GSAP Скрипт плавного проявления подвала -->
+<!-- Скрипты инициализации (GSAP и видео) -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Инициализация GSAP-анимации футера
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Анимация раскрытия футера при скролле
       gsap.from("#main-footer", {
         y: 80,
         opacity: 0,
@@ -2056,10 +2060,32 @@
         ease: "power3.out",
         scrollTrigger: {
           trigger: "#main-footer",
-          start: "top 92%", // Анимация запускается, когда футер появляется снизу
+          start: "top 92%",
           toggleActions: "play none none reverse"
         }
       });
     }
+
+    // 2. Обработка воспроизведения шоурила
+    const showreelVideo = document.getElementById('showreel-video');
+    if (showreelVideo) {
+      showreelVideo.muted = true;
+      
+      const playPromise = showreelVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const forcePlay = () => {
+            showreelVideo.play();
+            window.removeEventListener('click', forcePlay);
+            window.removeEventListener('touchstart', forcePlay);
+            window.removeEventListener('scroll', forcePlay);
+          };
+          window.addEventListener('click', forcePlay);
+          window.addEventListener('touchstart', forcePlay);
+          window.addEventListener('scroll', forcePlay);
+        });
+      }
+    }
+
   });
 </script>
