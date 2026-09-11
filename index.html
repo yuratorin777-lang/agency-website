@@ -721,7 +721,11 @@
       // NEXT-GEN DIGITAL PRODUCTION
     </div>
 
-    <h1 class="font-syne text-[10.5vw] sm:text-7xl md:text-8xl lg:text-[8.5rem] font-medium tracking-normal sm:tracking-tight leading-[1.05] sm:leading-[0.9] mb-8 uppercase text-white max-w-5xl break-words">
+    <!-- Скрытый H1 для SEO-индексации (не влияет на дизайн и анимации) -->
+<h1 class="sr-only">Разработка сайтов под ключ в Москве — Веб-студия BOS.AGENCE</h1>
+
+<!-- Видимый заголовок с сохранением всех стилей, классов и GSAP-анимаций -->
+<p class="font-syne text-[10.5vw] sm:text-7xl md:text-8xl lg:text-[8.5rem] font-medium tracking-normal sm:tracking-tight leading-[1.05] sm:leading-[0.9] mb-8 uppercase text-white max-w-5xl break-words">
   <span class="hero-title-line overflow-visible block">
     <span class="hero-title-word inline-block font-medium">ИНЖЕНЕРИЯ</span>
   </span>
@@ -730,7 +734,7 @@
       ВПЕЧАТЛЕНИЙ
     </span>
   </span>
-</h1>
+</p>
 
     <p class="hero-anim-item max-w-xl text-sm sm:text-base text-white/50 font-extralight tracking-widest leading-relaxed opacity-0">
       Проектируем и разрабатываем высоконагруженные цифровые экосистемы, интерактивные веб-сервисы и бренды, формирующие новые стандарты рынка.
@@ -1199,6 +1203,28 @@
 </section>
 <!-- ⏹️ END: SECTION — MEDIA & TEAM -->
 
+<!-- SEO & LSI: FAQ SECTION -->
+<section id="faq" class="py-24 px-6 sm:px-12 border-t border-white/10 relative z-10">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="font-syne text-4xl sm:text-5xl font-bold text-white mb-12 text-center">
+      ВОПРОСЫ И ОТВЕТЫ
+    </h2>
+    <div class="space-y-6">
+      <div class="p-6 rounded-xl bg-white/5 border border-white/10">
+        <h3 class="text-xl font-bold text-white mb-2">Сколько времени занимает создание сайта под ключ?</h3>
+        <p class="text-gray-400 text-sm">В среднем разработка лендинга или промо-сайта занимает от 2 до 4 недель. Сложные корпоративные порталы и веб-сервисы с AI требуют от 1,5 до 3 месяцев.</p>
+      </div>
+      <div class="p-6 rounded-xl bg-white/5 border border-white/10">
+        <h3 class="text-xl font-bold text-white mb-2">Входит ли SEO-оптимизация в стоимость разработки?</h3>
+        <p class="text-gray-400 text-sm">Да, мы проводим базовую техническую SEO-оптимизацию: прописываем метатеги, настраиваем микроразметку Schema.org, ускоряем загрузку и оптимизируем сайт под мобильные устройства.</p>
+      </div>
+      <div class="p-6 rounded-xl bg-white/5 border border-white/10">
+        <h3 class="text-xl font-bold text-white mb-2">Какие технологии используются при разработке?</h3>
+        <p class="text-gray-400 text-sm">Мы используем современный стек: HTML5, Tailwind CSS, JavaScript, Three.js для 3D-графики, а также кастомные решения на Python/Node.js для AI-интеграций.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ================================================================= -->
 <!-- 🟡 START: JS SCRIPTS & ANIMATIONS                                 -->
@@ -1612,6 +1638,44 @@
   </div>
 </section>
 <!-- ⏹️ END SECTION: SELECTED WORKS / PORTFOLIO -->
+
+<!-- SEO & Commercial: PRICES SECTION -->
+<section id="prices" class="py-24 px-6 sm:px-12 border-t border-white/10 relative z-10">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="font-syne text-4xl sm:text-5xl font-bold text-white mb-12">
+      СТОИМОСТЬ РАЗРАБОТКИ САЙТОВ
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Тариф 1 -->
+      <div class="p-8 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between">
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-4">Promo / Landing Page</h3>
+          <p class="text-gray-400 text-sm mb-6">Продающие страницы с высокой конверсией и 3D-анимацией.</p>
+          <div class="text-3xl font-bold text-[#8b5cf6] mb-6">от 150 000 ₽</div>
+        </div>
+        <a href="#contact" class="inline-block text-center py-3 px-6 rounded-full bg-white/10 text-white font-medium hover:bg-[#8b5cf6] transition-colors">Заказать сайт</a>
+      </div>
+      <!-- Тариф 2 -->
+      <div class="p-8 rounded-2xl bg-white/5 border border-[#8b5cf6]/50 flex flex-col justify-between relative overflow-hidden">
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-4">Корпоративный сайт</h3>
+          <p class="text-gray-400 text-sm mb-6">Многостраничные решения для бизнеса с уникальным дизайном.</p>
+          <div class="text-3xl font-bold text-[#8b5cf6] mb-6">от 300 000 ₽</div>
+        </div>
+        <a href="#contact" class="inline-block text-center py-3 px-6 rounded-full bg-[#8b5cf6] text-white font-medium hover:bg-[#7c3aed] transition-colors">Заказать сайт</a>
+      </div>
+      <!-- Тариф 3 -->
+      <div class="p-8 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between">
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-4">Web-сервисы & AI</h3>
+          <p class="text-gray-400 text-sm mb-6">Сложные веб-приложения, личные кабинеты и интеграция ИИ.</p>
+          <div class="text-3xl font-bold text-[#8b5cf6] mb-6">от 500 000 ₽</div>
+        </div>
+        <a href="#contact" class="inline-block text-center py-3 px-6 rounded-full bg-white/10 text-white font-medium hover:bg-[#8b5cf6] transition-colors">Заказать сервисы</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FULLSCREEN CASE STUDY POPUP -->
 <div id="case-modal" class="fixed inset-0 z-[300] hidden overflow-y-auto bg-[#050714]/95 backdrop-blur-md md:backdrop-blur-xl transition-all duration-500">
