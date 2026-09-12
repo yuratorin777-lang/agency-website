@@ -1,0 +1,10 @@
+﻿{
+    "main":  "seo/generator/build.js",
+    "description":  "BOS.AGENCE SEO Programmatic Engine",
+    "name":  "bos-agency-seo-engine",
+    "version":  "1.0.0",
+    "scripts":  {
+                    "import":  "node seo/sources/wordstat/import.js",
+                    "build":  "node seo/generator/build.js"
+                }
+}

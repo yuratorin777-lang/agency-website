@@ -1,0 +1,153 @@
+готовый
+├── assets
+│   ├── images
+│   │   ├── aivideo-bot-left.jpg
+│   │   ├── aivideo-bot-right.jpg
+│   │   ├── aivideo-full.jpg
+│   │   ├── aivideo-m1.jpg
+│   │   ├── aivideo-m10.jpg
+│   │   ├── aivideo-m11.jpg
+│   │   ├── aivideo-m12.jpg
+│   │   ├── aivideo-m2.jpg
+│   │   ├── aivideo-m3.jpg
+│   │   ├── aivideo-m4.jpg
+│   │   ├── aivideo-m5.jpg
+│   │   ├── aivideo-m6.jpg
+│   │   ├── aivideo-m7.jpg
+│   │   ├── aivideo-m8.jpg
+│   │   ├── aivideo-m9.jpg
+│   │   ├── aivideo-mid-center.jpg
+│   │   ├── aivideo-mid-left.jpg
+│   │   ├── aivideo-mid-right.jpg
+│   │   ├── aivideo-top-left.jpg
+│   │   ├── aivideo-top-right.jpg
+│   │   ├── dancekids-bot-left.jpg
+│   │   ├── dancekids-bot-right.jpg
+│   │   ├── dancekids-full.jpg
+│   │   ├── dancekids-m1.jpg
+│   │   ├── dancekids-m2.jpg
+│   │   ├── dancekids-m3.jpg
+│   │   ├── dancekids-m4.jpg
+│   │   ├── dancekids-m5.jpg
+│   │   ├── dancekids-m6.jpg
+│   │   ├── dancekids-m7.jpg
+│   │   ├── dancekids-mid-center.jpg
+│   │   ├── dancekids-mid-left.jpg
+│   │   ├── dancekids-mid-right.jpg
+│   │   ├── dancekids-top-left.jpg
+│   │   ├── dancekids-top-right.jpg
+│   │   ├── favicon.png
+│   │   ├── og-image.jpg
+│   │   ├── team-alena.png
+│   │   ├── team-elena.png
+│   │   ├── team-maria.png
+│   │   ├── terraforma-bot-left.jpg
+│   │   ├── terraforma-bot-right.jpg
+│   │   ├── terraforma-full.jpg
+│   │   ├── terraforma-m1.jpg
+│   │   ├── terraforma-m2.jpg
+│   │   ├── terraforma-m3.jpg
+│   │   ├── terraforma-m4.jpg
+│   │   ├── terraforma-m5.jpg
+│   │   ├── terraforma-m6.jpg
+│   │   ├── terraforma-mid-center.jpg
+│   │   ├── terraforma-mid-left.jpg
+│   │   ├── terraforma-mid-right.jpg
+│   │   ├── terraforma-top-left.jpg
+│   │   ├── terraforma-top-right.jpg
+│   │   ├── ulutay-bot-left.jpg
+│   │   ├── ulutay-bot-right.jpg
+│   │   ├── ulutay-full.jpg
+│   │   ├── ulutay-m1.jpg
+│   │   ├── ulutay-m10.jpg
+│   │   ├── ulutay-m2.jpg
+│   │   ├── ulutay-m3.jpg
+│   │   ├── ulutay-m4.jpg
+│   │   ├── ulutay-m5.jpg
+│   │   ├── ulutay-m6.jpg
+│   │   ├── ulutay-m7.jpg
+│   │   ├── ulutay-m8.jpg
+│   │   ├── ulutay-m9.jpg
+│   │   ├── ulutay-mid-center.jpg
+│   │   ├── ulutay-mid-left.jpg
+│   │   ├── ulutay-mid-right.jpg
+│   │   ├── ulutay-top-left.jpg
+│   │   └── ulutay-top-right.jpg
+│   └── videos
+│       ├── agence-video-ai.mp4
+│       ├── bos-automatisation.mp4
+│       ├── dancekids-preview.mp4
+│       ├── showreel.mp4
+│       ├── terraforma-aqua.mp4
+│       └── ulutay-preview.mp4
+├── seo
+│   ├── analysis
+│   ├── data
+│   │   ├── core
+│   │   │   ├── seo_core.json
+│   │   │   └── seo_matrix.csv
+│   │   ├── pages
+│   │   │   ├── avtomatizatsiya.json
+│   │   │   ├── kupit-internet-magazin.json
+│   │   │   ├── kupit-sayt.json
+│   │   │   ├── kupit-zhd-ofitsialnyy-sayt.json
+│   │   │   ├── ofitsialnyy-sayt-kupit-onlayn.json
+│   │   │   ├── sozdat-sayt.json
+│   │   │   ├── tsena-sayta.json
+│   │   │   ├── tsenam-internet-magazin-katalog.json
+│   │   │   ├── valdberies-internet-magazin-kupit.json
+│   │   │   └── zhd-sayt-kupit.json
+│   │   └── raw
+│   │       └── raw_keywords.csv
+│   ├── generator
+│   │   ├── templates
+│   │   │   ├── template_1.js
+│   │   │   ├── template_2.js
+│   │   │   ├── template_3.js
+│   │   │   ├── template_4.js
+│   │   │   ├── template_5.js
+│   │   │   ├── template_6.js
+│   │   │   └── template_7.js
+│   │   ├── build_seo_matrix.py
+│   │   ├── build.js
+│   │   ├── generate_pages.py
+│   │   └── template_base.html
+│   └── sources
+│       └── wordstat
+│           ├── wordstat_top_queries (1).csv
+│           ├── wordstat_top_queries (10).csv
+│           ├── wordstat_top_queries (11).csv
+│           ├── wordstat_top_queries (12).csv
+│           ├── wordstat_top_queries (13).csv
+│           ├── wordstat_top_queries (2).csv
+│           ├── wordstat_top_queries (3).csv
+│           ├── wordstat_top_queries (4).csv
+│           ├── wordstat_top_queries (5).csv
+│           ├── wordstat_top_queries (6).csv
+│           ├── wordstat_top_queries (7).csv
+│           ├── wordstat_top_queries (8).csv
+│           ├── wordstat_top_queries (9).csv
+│           └── wordstat_top_queries.csv
+├── services
+│   ├── avtomatizatsiya.html
+│   ├── dizajn-sajta-pod-klyuch.html
+│   ├── kupit-internet-magazin.html
+│   ├── kupit-sayt.html
+│   ├── kupit-zhd-ofitsialnyy-sayt.html
+│   ├── ofitsialnyy-sayt-kupit-onlayn.html
+│   ├── razrabotka-internet-magazina.html
+│   ├── razrabotka-sajta-pod-klyuch-moskva.html
+│   ├── razrabotka-veb-servisov.html
+│   ├── seo-prodvizhenie-sajtov.html
+│   ├── services.zip
+│   ├── sozdanie-lendinga-s-vysokoj-konversiej.html
+│   ├── sozdat-sayt.html
+│   ├── tsena-sayta.html
+│   ├── tsenam-internet-magazin-katalog.html
+│   ├── valdberies-internet-magazin-kupit.html
+│   ├── vnedrenie-ai-v-biznes.html
+│   └── zhd-sayt-kupit.html
+├── index.html
+├── package.json
+├── robots.txt
+└── sitemap.xml
