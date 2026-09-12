@@ -6,7 +6,7 @@
   "scripts": {
     "import": "node seo/sources/wordstat/import.js",
     "generate": "python seo/generator/generate_pages.py",
-    "build": "python seo/generator/generate_pages.py && node seo/generator/build.js"
+    "build": "echo 'Skip build step for Vercel'"
   },
   "dependencies": {
     "@google/genai": "latest"
