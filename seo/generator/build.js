@@ -280,30 +280,36 @@ pageFiles.forEach((file) => {
 if (fs.existsSync(INDEX_PATH)) {
   let indexContent = fs.readFileSync(INDEX_PATH, 'utf-8');
 
-  // Формируем сетку всех сгенерированных услуг
+  // Формируем карточки для всех реальных сгенерированных файлов из pages
   const serviceCardsHtml = pageFiles.map(file => {
     const pageData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
     const rawSlug = (pageData.slug || file.replace('.json', '')).replace(/\.html$/, '');
     const title = pageData.seo?.h1 || pageData.hero?.title || rawSlug;
 
     return `
-      <a href="/services/${rawSlug}.html" class="p-5 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] transition-all group block">
-        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase mb-2">// УСЛУГА</div>
-        <div class="font-syne text-sm font-bold text-white group-hover:text-[#8b5cf6] transition-colors uppercase">${title} &rarr;</div>
+      <a href="/services/${rawSlug}" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] transition-all group block">
+        <div class="font-mono-code text-xs text-[#8b5cf6] mb-3">// УСЛУГА</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors">${title} &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60">${pageData.seo?.description || 'Разработка и автоматизация решений под ключ.'}</p>
       </a>`;
   }).join('\n');
 
-  const servicesContainerHtml = `
-  <!-- DYNAMIC_SERVICES_START -->
-  <section id="all-services" class="max-w-7xl mx-auto px-6 py-12">
-    <h2 class="font-syne text-2xl font-bold uppercase mb-8 text-white">// ВСЕ НАПРАВЛЕНИЯ РАЗРАБОТКИ</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      ${serviceCardsHtml}
+  const servicesContainerHtml = `<!-- DYNAMIC_SERVICES_START -->
+<section id="seo-services" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/10">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+    <div>
+      <div class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase mb-2">// НАПРАВЛЕНИЯ РАЗРАБОТКИ</div>
+      <h2 class="font-syne text-3xl sm:text-5xl font-bold uppercase text-white tracking-tight">УСЛУГИ & AI-РЕШЕНИЯ</h2>
     </div>
-  </section>
-  <!-- DYNAMIC_SERVICES_END -->`;
+    <p class="font-mono-code text-xs text-white/50 max-w-sm uppercase">Проектируем цифровые продукты под задачи вашего бизнеса с фокусировкой на SEO и конверсию.</p>
+  </div>
 
-  // Заменяем или вставляем перед подвалом
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    ${serviceCardsHtml}
+  </div>
+</section>
+<!-- DYNAMIC_SERVICES_END -->`;
+
   if (indexContent.includes('<!-- DYNAMIC_SERVICES_START -->')) {
     indexContent = indexContent.replace(
       /<!-- DYNAMIC_SERVICES_START -->[\s\S]*?<!-- DYNAMIC_SERVICES_END -->/,
@@ -314,7 +320,7 @@ if (fs.existsSync(INDEX_PATH)) {
   }
 
   fs.writeFileSync(INDEX_PATH, indexContent, 'utf-8');
-  console.log('✅ Главная страница (index.html) автоматически обновлена ссылками!');
+  console.log('✅ Главная страница (index.html) успешно обновлена динамическими услугами!');
 }
 
 // Sitemap

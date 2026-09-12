@@ -1,4 +1,10 @@
 {
   "cleanUrls": true,
-  "outputDirectory": "."
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/services/:path*",
+      "destination": "/services/:path*.html"
+    }
+  ]
 }
