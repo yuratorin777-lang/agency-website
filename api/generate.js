@@ -18,8 +18,6 @@ export default async function handler(req, res) {
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-    
-    // Используем модель из запроса или по дефолту gemini-2.5-flash
     const selectedModel = model || 'gemini-3.5-flash-lite';
 
     const generativeModel = genAI.getGenerativeModel({
@@ -27,14 +25,16 @@ export default async function handler(req, res) {
       systemInstruction: systemInstruction || undefined,
       generationConfig: {
         responseMimeType: 'application/json',
-        temperature: 0.3,
+        temperature: 0.2, // Снижаем температуру для максимальной строгости JSON
       },
     });
 
     const result = await generativeModel.generateContent(prompt);
-    const text = result.response.text();
+    let text = result.response.text();
+
+    // Очищаем от возможных markdown оберток ```json ... ```
+    text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
     
-    // Парсим гарантированный JSON от Gemini
     const parsedJson = JSON.parse(text);
     return res.status(200).json(parsedJson);
 
