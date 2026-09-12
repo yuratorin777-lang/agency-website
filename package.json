@@ -9,6 +9,6 @@
     "build": "echo 'Skip build step for Vercel'"
   },
   "dependencies": {
-    "@google/genai": "latest"
+    "@google/generative-ai": "^0.21.0"
   }
 }

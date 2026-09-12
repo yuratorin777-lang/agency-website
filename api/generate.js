@@ -1,4 +1,4 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -17,26 +17,27 @@ export default async function handler(req, res) {
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const genAI = new GoogleGenerativeAI(apiKey);
     
-    // Используем переданную модель или по дефолту gemini-2.5-flash
+    // Используем модель из запроса или по дефолту gemini-2.5-flash
     const selectedModel = model || 'gemini-2.5-pro';
 
-    const response = await ai.models.generateContent({
+    const generativeModel = genAI.getGenerativeModel({
       model: selectedModel,
-      contents: prompt,
-      config: {
-        systemInstruction: systemInstruction || '',
+      systemInstruction: systemInstruction || undefined,
+      generationConfig: {
         responseMimeType: 'application/json',
         temperature: 0.3,
       },
     });
 
-    // Безопасный парсинг ответа
-    const text = response.text;
-    const parsedJson = typeof text === 'string' ? JSON.parse(text) : text;
+    const result = await generativeModel.generateContent(prompt);
+    const text = result.response.text();
     
+    // Парсим гарантированный JSON от Gemini
+    const parsedJson = JSON.parse(text);
     return res.status(200).json(parsedJson);
+
   } catch (error) {
     console.error('Vercel Gemini Proxy Error:', error);
     return res.status(500).json({ 
