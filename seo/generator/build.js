@@ -280,17 +280,24 @@ pageFiles.forEach((file) => {
 if (fs.existsSync(INDEX_PATH)) {
   let indexContent = fs.readFileSync(INDEX_PATH, 'utf-8');
 
-  // Формируем карточки для всех реальных сгенерированных файлов из pages
-  const serviceCardsHtml = pageFiles.map(file => {
+  // Берем только первые 6 услуг для главной страницы
+  const topServices = pageFiles.slice(0, 6);
+
+  const serviceCardsHtml = topServices.map(file => {
     const pageData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
     const rawSlug = (pageData.slug || file.replace('.json', '')).replace(/\.html$/, '');
-    const title = pageData.seo?.h1 || pageData.hero?.title || rawSlug;
+    
+    // Форматируем заголовок с заглавной буквы
+    let title = pageData.seo?.h1 || pageData.hero?.title || rawSlug;
+    title = title.charAt(0).toUpperCase() + title.slice(1);
+
+    const desc = pageData.seo?.description || 'Индивидуальная разработка и автоматизация бизнес-процессов.';
 
     return `
-      <a href="/services/${rawSlug}" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] transition-all group block">
-        <div class="font-mono-code text-xs text-[#8b5cf6] mb-3">// УСЛУГА</div>
-        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors">${title} &rarr;</h3>
-        <p class="font-mono-code text-xs text-white/60">${pageData.seo?.description || 'Разработка и автоматизация решений под ключ.'}</p>
+      <a href="/services/${rawSlug}" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block">
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug">${title} &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed">${desc}</p>
       </a>`;
   }).join('\n');
 
@@ -304,8 +311,15 @@ if (fs.existsSync(INDEX_PATH)) {
     <p class="font-mono-code text-xs text-white/50 max-w-sm uppercase">Проектируем цифровые продукты под задачи вашего бизнеса с фокусировкой на SEO и конверсию.</p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
     ${serviceCardsHtml}
+  </div>
+
+  <div class="text-center pt-4">
+    <a href="/services/tsena-sayta" class="inline-flex items-center gap-3 bg-white/5 hover:bg-[#8b5cf6] border border-white/10 hover:border-[#8b5cf6] text-white font-mono-code text-xs font-semibold px-8 py-4 rounded-xl transition-all uppercase tracking-widest">
+      <span>Смотреть все направления (${pageFiles.length})</span>
+      <span>&rarr;</span>
+    </a>
   </div>
 </section>
 <!-- DYNAMIC_SERVICES_END -->`;
@@ -320,7 +334,7 @@ if (fs.existsSync(INDEX_PATH)) {
   }
 
   fs.writeFileSync(INDEX_PATH, indexContent, 'utf-8');
-  console.log('✅ Главная страница (index.html) успешно обновлена динамическими услугами!');
+  console.log('✅ Главная страница (index.html) успешно обновлена (топ-6 аккуратных карточек)!');
 }
 
 // Sitemap
