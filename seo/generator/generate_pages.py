@@ -1,14 +1,16 @@
 import os
 import json
 import random
-import time  # Для предотвращения ошибки 429 (лимиты API)
+import time
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
 load_dotenv()
 
-MOCK_MODE = False  # False = Боевой режим через Gemini 2.5 Flash
+# Авто-определение: на Vercel работаем в БОЕВОМ режиме, локально — в MOCK
+# (Если на локальном ПК есть GEMINI_API_KEY и VPN, можно явно поставить MOCK_MODE = False)
+MOCK_MODE = os.getenv("VERCEL") is None
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 TEMPLATES = [f"template_{i}" for i in range(1, 8)]
@@ -100,7 +102,7 @@ def generate_page_data(client, slug, query, meta_title, meta_description, hero_t
 
 def main():
     if not MOCK_MODE and not GEMINI_API_KEY:
-        raise ValueError("❌ GEMINI_API_KEY не найден в файле .env!")
+        raise ValueError("❌ GEMINI_API_KEY не найден в переменных окружения Vercel!")
 
     client = genai.Client(api_key=GEMINI_API_KEY) if not MOCK_MODE else None
 
@@ -113,7 +115,7 @@ def main():
     with open(core_json_path, "r", encoding="utf-8") as f:
         seo_items = json.load(f)
 
-    print(f"📊 Режим: {'MOCK' if MOCK_MODE else 'БОЕВОЙ (Gemini 2.5 Flash)'}")
+    print(f"📊 Режим: {'MOCK' if MOCK_MODE else 'БОЕВОЙ (Gemini 2.5 Flash на Vercel)'}")
     print(f"🔄 Обработка страниц...")
 
     for item in seo_items[:10]:
@@ -134,7 +136,7 @@ def main():
 
             print(f"✅ Сохранено: {output_file}")
 
-            # Задержка 13 секунд для соблюдения лимитов Free Tier (5 RPM)
+            # Задержка 13 секунд для соблюдения лимита Free Tier (5 RPM)
             if not MOCK_MODE:
                 print("⏳ Пауза 13 сек для лимита API...")
                 time.sleep(13)

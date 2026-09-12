@@ -130,23 +130,17 @@
 │           └── wordstat_top_queries.csv
 ├── services
 │   ├── avtomatizatsiya.html
-│   ├── dizajn-sajta-pod-klyuch.html
 │   ├── kupit-internet-magazin.html
 │   ├── kupit-sayt.html
 │   ├── kupit-zhd-ofitsialnyy-sayt.html
 │   ├── ofitsialnyy-sayt-kupit-onlayn.html
-│   ├── razrabotka-internet-magazina.html
-│   ├── razrabotka-sajta-pod-klyuch-moskva.html
-│   ├── razrabotka-veb-servisov.html
-│   ├── seo-prodvizhenie-sajtov.html
-│   ├── services.zip
-│   ├── sozdanie-lendinga-s-vysokoj-konversiej.html
 │   ├── sozdat-sayt.html
 │   ├── tsena-sayta.html
 │   ├── tsenam-internet-magazin-katalog.html
 │   ├── valdberies-internet-magazin-kupit.html
-│   ├── vnedrenie-ai-v-biznes.html
 │   └── zhd-sayt-kupit.html
+├── .env
+├── .gitignore
 ├── index.html
 ├── package.json
 ├── robots.txt

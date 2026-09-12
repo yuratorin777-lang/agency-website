@@ -1,10 +1,11 @@
 {
-    "main":  "seo/generator/build.js",
-    "description":  "BOS.AGENCE SEO Programmatic Engine",
-    "name":  "bos-agency-seo-engine",
-    "version":  "1.0.0",
-    "scripts":  {
-                    "import":  "node seo/sources/wordstat/import.js",
-                    "build":  "node seo/generator/build.js"
-                }
+  "name": "bos-agency-seo-engine",
+  "version": "1.0.0",
+  "description": "BOS.AGENCE SEO Programmatic Engine",
+  "main": "seo/generator/build.js",
+  "scripts": {
+    "import": "node seo/sources/wordstat/import.js",
+    "generate": "python seo/generator/generate_pages.py",
+    "build": "python seo/generator/generate_pages.py && node seo/generator/build.js"
+  }
 }
