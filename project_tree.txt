@@ -1,4 +1,6 @@
 готовый
+├── api
+│   └── generate.js
 ├── assets
 │   ├── images
 │   │   ├── aivideo-bot-left.jpg
@@ -80,6 +82,8 @@
 │       ├── showreel.mp4
 │       ├── terraforma-aqua.mp4
 │       └── ulutay-preview.mp4
+├── public
+│   └── .gitkeep
 ├── seo
 │   ├── analysis
 │   ├── data
