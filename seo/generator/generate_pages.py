@@ -7,13 +7,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Если True — не слать запросы, генерировать mock
 MOCK_MODE = False
-
-# URL вашего API на Vercel (берется из .env или дефолтный)
-VERCEL_API_URL = os.getenv("VERCEL_API_URL", "https://ваш-проект.vercel.app/api/generate")
+VERCEL_API_URL = os.getenv("VERCEL_API_URL", "https://agency-website-virid-rho.vercel.app/api/generate")
 
 TEMPLATES = [f"template_{i}" for i in range(1, 8)]
+
+# Стоп-слова для отсечения мусорных SEO-запросов (ЖД, маркетплейсы, билеты)
+STOP_WORDS = [
+    "жд", "билет", "поезд", "авиа", "одежд", "расписание",
+    "wildberries", "wildberies", "valdberies", "valberries", 
+    "валдберис", "вайлдберриз", "вайлдбериз", "валдбериз"
+]
 
 SYSTEM_PROMPT = """
 Ты — шеф-редактор и главный архитектор IT-агентства BOS.AGENCE.
@@ -22,12 +26,6 @@ SYSTEM_PROMPT = """
 ВАЖНЕЙШИЕ ПРАВИЛА КОПИРАЙТИНГА:
 1. НИКАКОЙ ИИ-ВОДЫ. Запрещены клише: "в современном мире", "динамично развивающийся", "мы предлагаем широкий спектр", "индивидуальный подход к каждому".
 2. ПИШИ КАК ЧЕЛОВЕК-ЭКСПЕРТ. Используй конкретику, цифры, стек (React, Node.js, Python, PostgreSQL, Docker), понятную выгоду для бизнеса (ROI, конверсия, автоматизация).
-3. ЗАЩИТА ОТ МУСОРНЫХ SEO-КЛЮЧЕЙ:
-   - Если входной запрос содержит нерелевантные слова (например, "купить жд билеты", "вайлдберриз каталог", "расписание поездов"):
-   - НЕ ПИШИ про продажу билетов или работу маркетплейса!
-   - Обыграй этот ключ в контексте БИЗНЕС-РАЗРАБОТКИ.
-   - Пример для "купить жд билеты": "Разработка highload-систем бронирования билетов и интеграция с АСУ Экспресс".
-   - Пример для "вайлдберриз": "Разработка e-commerce платформ и интеграция с Wildberries API / сервисами аналитики".
 
 СТРУКТУРА JSON (Верни строго валидный JSON):
 - slug: латинский url страницы
@@ -56,11 +54,10 @@ def generate_page_data_via_vercel(slug, query, meta_title, meta_description, her
     - H1: {hero_title}
     - Назначенный шаблон: {assigned_template}
 
-    Верни экспертный JSON без ИИ-вода.
+    Верни экспертный JSON без ИИ-воды.
     """
 
     if MOCK_MODE:
-        print(f"⚠️ MOCK MODE: Генерируем тестовый JSON для {slug}")
         return {
             "slug": slug,
             "template_id": assigned_template,
@@ -87,14 +84,12 @@ def generate_page_data_via_vercel(slug, query, meta_title, meta_description, her
             ]
         }
 
-    # Отправка HTTP-запроса на Vercel (проксирование)
     payload = {
         "prompt": user_prompt,
         "systemInstruction": SYSTEM_PROMPT
     }
 
     headers = {"Content-Type": "application/json"}
-    
     response = requests.post(VERCEL_API_URL, json=payload, headers=headers, timeout=60)
     
     if response.status_code != 200:
@@ -113,27 +108,53 @@ def main():
     with open(core_json_path, "r", encoding="utf-8") as f:
         seo_items = json.load(f)
 
-    print(f"📊 Режим: {'MOCK' if MOCK_MODE else 'БОЕВОЙ (Через Vercel API Proxy)'}")
-    print(f"🌐 Vercel Endpoint: {VERCEL_API_URL}")
+    # Жесткие стоп-слова
+    STOP_WORDS = [
+        "жд", "билет", "поезд", "авиа", "одежд", "расписание",
+        "wildberries", "wildberies", "valdberies", "valberries", 
+        "валдберис", "вайлдберриз", "вайлдбериз", "валдбериз", "валберес"
+    ]
+
+    # 1. Точная фильтрация по всем полям ключа
+    valid_items = []
+    for item in seo_items:
+        kw = str(item.get("keyword") or item.get("query") or item.get("slug") or "").lower()
+        if not any(sw in kw for sw in STOP_WORDS):
+            valid_items.append(item)
+
+    print(f"📊 Всего релевантных ключей после фильтрации: {len(valid_items)}")
     print(f"🔄 Обработка страниц...")
 
-    for item in seo_items[:1]:
-        slug = item.get("slug")
-        query = item.get("query", "")
-        meta_title = item.get("meta_title", "")
-        meta_description = item.get("meta_description", "")
-        hero_title = item.get("hero_title", "")
+    TARGET_NEW_PAGES = 10  # Ровно 10 новых страниц за запуск
+    generated_count = 0
 
-        print(f"🚀 Генерация через Vercel -> Gemini: {slug} (Ключ: {query})...")
+    for item in valid_items:
+        if generated_count >= TARGET_NEW_PAGES:
+            print(f"🎉 План выполнен! Сгенерировано новых страниц: {generated_count}")
+            break
+
+        slug = item.get("slug", "").replace(".html", "")
+        query = item.get("keyword") or item.get("query") or slug
+        meta_title = item.get("title") or item.get("meta_title") or f"{query} | BOS.AGENCE"
+        meta_description = item.get("description") or item.get("meta_description") or f"Услуги {query} от BOS.AGENCE."
+        hero_title = item.get("h1") or item.get("hero_title") or query
+
+        output_file = os.path.join(output_dir, f"{slug}.json")
+
+        if os.path.exists(output_file) and os.path.getsize(output_file) > 100:
+            print(f"⏭️ Пропуск (уже сгенерировано): {slug}")
+            continue
+
+        print(f"🚀 Генерация через Vercel -> Gemini [{generated_count + 1}/{TARGET_NEW_PAGES}]: {slug} (Ключ: {query})...")
 
         try:
             page_json = generate_page_data_via_vercel(slug, query, meta_title, meta_description, hero_title)
             
-            output_file = os.path.join(output_dir, f"{slug}.json")
             with open(output_file, "w", encoding="utf-8") as out:
                 json.dump(page_json, out, ensure_ascii=False, indent=2)
 
-            print(f"✅ Успешно сгенерировано и сохранено локально: {output_file}")
+            print(f"✅ Успешно сгенерировано: {output_file}")
+            generated_count += 1
 
             if not MOCK_MODE:
                 print("⏳ Пауза 5 сек...")

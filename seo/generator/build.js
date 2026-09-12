@@ -45,16 +45,25 @@ console.log(`🚀 Сборка ${pageFiles.length} HTML-страниц...`);
 pageFiles.forEach((file) => {
   const pageData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
   
-  const rawSlug = pageData.slug.replace(/\.html$/, '');
-  const pageSlug = `${rawSlug}.html`;
+  // ИСПРАВЛЕНИЕ: Объявление pageSlug и pageUrl
+  let rawSlug = pageData.slug || file.replace('.json', '');
+  const pageSlug = rawSlug.endsWith('.html') ? rawSlug : `${rawSlug}.html`;
   const pageUrl = `${BASE_URL}/services/${pageSlug}`;
-  
+
+  // NORMALIZE KEYS (поддержка обеих схем JSON)
   const seo = pageData.seo || {};
   const hero = pageData.hero || {};
-  const valueProps = pageData.value_props || [];
+  
+  const valueProps = pageData.value_props || pageData.features || [];
   const techStack = pageData.technical_stack || [];
-  const businessProblems = pageData.business_problems || [];
-  const faq = pageData.faq || [];
+  const businessProblems = pageData.business_problems || pageData.problem_solution || [];
+  
+  const rawFaq = pageData.faq || [];
+  const faq = rawFaq.map(f => ({
+    question: f.question || f.q || '',
+    answer: f.answer || f.a || ''
+  }));
+  
   const templateId = String(pageData.template_id || 'template_1');
 
   // Хелперы элементов
@@ -70,8 +79,8 @@ pageFiles.forEach((file) => {
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
       ${valueProps.map(v => `
         <div class="p-6 bg-[#07091e]/80 border border-white/10 rounded-xl">
-          <h3 class="font-syne font-bold text-lg text-white mb-2">${v.title}</h3>
-          <p class="text-white/70 text-xs font-light leading-relaxed">${v.desc}</p>
+          <h3 class="font-syne font-bold text-lg text-white mb-2">${v.title || ''}</h3>
+          <p class="text-white/70 text-xs font-light leading-relaxed">${v.desc || v.description || ''}</p>
         </div>
       `).join('')}
     </div>` : '';
@@ -112,11 +121,11 @@ pageFiles.forEach((file) => {
     .slice(0, 4)
     .map(relFile => {
       const relData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, relFile), 'utf-8'));
-      const relSlug = relData.slug.replace(/\.html$/, '') + '.html';
+      const relSlug = (relData.slug || relFile.replace('.json', '')).replace(/\.html$/, '') + '.html';
       return `
         <a href="/services/${relSlug}" class="p-4 border border-white/10 rounded-xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all block group">
           <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase mb-1">// НАПРАВЛЕНИЕ</div>
-          <div class="font-syne text-xs font-bold text-white group-hover:text-[#8b5cf6] transition-colors uppercase">${relData.seo?.h1 || relData.slug} &rarr;</div>
+          <div class="font-syne text-xs font-bold text-white group-hover:text-[#8b5cf6] transition-colors uppercase">${relData.seo?.h1 || relData.hero?.title || relData.slug} &rarr;</div>
         </a>`;
     }).join('');
 
@@ -266,6 +275,47 @@ pageFiles.forEach((file) => {
 
   sitemapUrls.push(`  <url>\n    <loc>${pageUrl}</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <priority>0.8</priority>\n  </url>`);
 });
+
+// Авто-обновление блока услуг на главной странице (index.html)
+if (fs.existsSync(INDEX_PATH)) {
+  let indexContent = fs.readFileSync(INDEX_PATH, 'utf-8');
+
+  // Формируем сетку всех сгенерированных услуг
+  const serviceCardsHtml = pageFiles.map(file => {
+    const pageData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
+    const rawSlug = (pageData.slug || file.replace('.json', '')).replace(/\.html$/, '');
+    const title = pageData.seo?.h1 || pageData.hero?.title || rawSlug;
+
+    return `
+      <a href="/services/${rawSlug}.html" class="p-5 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] transition-all group block">
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase mb-2">// УСЛУГА</div>
+        <div class="font-syne text-sm font-bold text-white group-hover:text-[#8b5cf6] transition-colors uppercase">${title} &rarr;</div>
+      </a>`;
+  }).join('\n');
+
+  const servicesContainerHtml = `
+  <!-- DYNAMIC_SERVICES_START -->
+  <section id="all-services" class="max-w-7xl mx-auto px-6 py-12">
+    <h2 class="font-syne text-2xl font-bold uppercase mb-8 text-white">// ВСЕ НАПРАВЛЕНИЯ РАЗРАБОТКИ</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      ${serviceCardsHtml}
+    </div>
+  </section>
+  <!-- DYNAMIC_SERVICES_END -->`;
+
+  // Заменяем или вставляем перед подвалом
+  if (indexContent.includes('<!-- DYNAMIC_SERVICES_START -->')) {
+    indexContent = indexContent.replace(
+      /<!-- DYNAMIC_SERVICES_START -->[\s\S]*?<!-- DYNAMIC_SERVICES_END -->/,
+      servicesContainerHtml
+    );
+  } else if (indexContent.includes('</main>')) {
+    indexContent = indexContent.replace('</main>', `${servicesContainerHtml}\n</main>`);
+  }
+
+  fs.writeFileSync(INDEX_PATH, indexContent, 'utf-8');
+  console.log('✅ Главная страница (index.html) автоматически обновлена ссылками!');
+}
 
 // Sitemap
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.join('\n')}\n</urlset>`;
