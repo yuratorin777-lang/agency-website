@@ -283,49 +283,54 @@
     }
 
     function generatePDF() {
-      const btn = document.getElementById('download-pdf-btn');
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '<span>Формирование PDF...</span>';
-      btn.disabled = true;
+  const btn = document.getElementById('download-pdf-btn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<span>Формирование PDF...</span>';
+  btn.disabled = true;
 
-      const element = document.createElement('div');
-      element.style.padding = '30px';
-      element.style.fontFamily = 'sans-serif';
-      element.style.color = '#171717';
+  // 1. Создаем временный контейнер для сборки ВСЕГО контента страницы
+  const element = document.createElement('div');
+  element.style.padding = '30px';
+  element.style.fontFamily = 'sans-serif';
+  element.style.color = '#171717';
 
-      const title = document.getElementById('pdf-tool-title').innerText;
-      const desc = document.getElementById('pdf-tool-desc').innerText;
-      const checklist = document.getElementById('pdf-content').innerHTML;
+  const title = document.getElementById('pdf-tool-title') ? document.getElementById('pdf-tool-title').innerText : '';
+  const desc = document.getElementById('pdf-tool-desc') ? document.getElementById('pdf-tool-desc').innerText : '';
+  
+  // 2. Берем весь основной тег <main>, чтобы захватить ВСЕ блоки страницы
+  const mainContent = document.querySelector('main');
+  // Клонируем его, чтобы не изменять исходную страницу
+  const contentClone = mainContent.cloneNode(true);
 
-      element.innerHTML = `
-        <div style="margin-bottom: 25px; border-bottom: 2px solid #e5e5e5; padding-bottom: 15px;">
-          <div style="font-size: 20px; font-weight: bold; font-family: monospace; letter-spacing: 2px;">BOS.AGENCE</div>
-          <div style="font-size: 11px; color: #737373; font-family: monospace; margin-top: 4px;">ПРАКТИЧЕСКИЙ МАТЕРИАЛ // AI & AUTOMATION</div>
-        </div>
-        <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">${title}</h1>
-        <p style="font-size: 13px; color: #525252; margin-bottom: 25px; line-height: 1.5;">${desc}</p>
-        <hr style="border: 0; border-top: 1px solid #e5e5e5; margin-bottom: 20px;" />
-        ${checklist}
-      `;
+  // Убираем из копии саму кнопку скачивания и крошки, чтобы они не дублировались в PDF
+  const downloadBtn = contentClone.querySelector('#download-pdf-btn');
+  if (downloadBtn) downloadBtn.remove();
 
-      const opt = {
-        margin:       10,
-        filename:     `BOS_AGENCE_${title.toLowerCase().replace(/[^a-z0-9а-я]/g, '_')}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
+  element.innerHTML = `
+    <div style="margin-bottom: 25px; border-bottom: 2px solid #e5e5e5; padding-bottom: 15px;">
+      <div style="font-size: 20px; font-weight: bold; font-family: monospace; letter-spacing: 2px;">BOS.AGENCE</div>
+      <div style="font-size: 11px; color: #737373; font-family: monospace; margin-top: 4px;">ПРАКТИЧЕСКИЙ МАТЕРИАЛ // AI & AUTOMATION</div>
+    </div>
+    ${contentClone.innerHTML}
+  `;
 
-      html2pdf().set(opt).from(element).save().then(() => {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-      }).catch(err => {
-        console.error('Ошибка PDF:', err);
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-      });
-    }
+  const opt = {
+    margin:       10,
+    filename:     `BOS_AGENCE_${title.toLowerCase().replace(/[^a-z0-9а-я]/g, '_')}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
 
+  html2pdf().set(opt).from(element).save().then(() => {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }).catch(err => {
+    console.error('Ошибка PDF:', err);
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  });
+}
     document.addEventListener("DOMContentLoaded", () => {
       const menuBtn = document.getElementById("menu-btn");
       const closeMenuBtn = document.getElementById("close-menu-btn");

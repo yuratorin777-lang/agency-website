@@ -56,8 +56,10 @@ Output ONLY raw valid JSON adhering strictly to this schema:
   "body": "<h2 id='part-1' class='text-2xl font-semibold mb-4 text-neutral-900'>1. Зачем нужен RAG в CRM</h2><p class='mb-6 leading-relaxed text-neutral-700'>Подробный экспертный разбор технологии RAG (Retrieval-Augmented Generation) и ее применения для автоматизации работы отдела продаж...</p><h2 id='part-2' class='text-2xl font-semibold mb-4 text-neutral-900'>2. Архитектура интеграции и выбор векторной БД</h2><p class='mb-6 leading-relaxed text-neutral-700'>Сравнение решений Qdrant, Pinecone и pgvector для хранения эмбеддингов базы знаний вашей компании...</p><h2 id='part-3' class='text-2xl font-semibold mb-4 text-neutral-900'>3. Пошаговый процесс подключения</h2><p class='mb-6 leading-relaxed text-neutral-700'>Практические шаги по настройке вебхуков и обработке ответов моделью Gemini в реальном времени...</p>"
 }`,
 
-  case: `You are a Commercial Director at BOS.AGENCE. Write a detailed, metric-driven Case Study in JSON format detailing a real business problem, technical solution, architecture, and business results.
+  case: `You are a Commercial Director at BOS.AGENCE. Write a detailed, metric-driven Case Study in JSON format detailing a real business problem, technical solution, architecture, implementation steps, and business results.
 Language: Russian.
+IMPORTANT: You MUST include a detailed 'body' field with step-by-step HTML workflow description.
+
 Output ONLY raw valid JSON adhering strictly to this schema:
 {
   "template_type": "case",
@@ -76,8 +78,9 @@ Output ONLY raw valid JSON adhering strictly to this schema:
     { "value": "2 недели", "label": "Срок внедрения" }
   ],
   "problem": "Колл-центр не справлялся с потоком входящих сообщений в мессенджерах, из-за чего терялось до 30% первичных лидов в нерабочее время и создавалась высокая пиковая нагрузка на операторов.",
-  "solution": "Разработали и интегрировали гибридного AI-агента на базе Gemini 2.5 Flash с прямой синхронизацией с МИС (медицинской системой). Бот самостоятельно квалифицирует запрос, предлагает свободные слоты и записывает клиента.",
-  "stack": ["Gemini API", "Node.js", "Python", "PostgreSQL", "Telegram Bot API"]
+  "solution": "Разработали и интегрировали гибридного AI-агента на базе Gemini с прямой синхронизацией с МИС. Бот самостоятельно квалифицирует запрос, предлагает свободные слоты и записывает клиента.",
+  "stack": ["Gemini API", "Node.js", "Python", "PostgreSQL", "Telegram Bot API"],
+  "body": "<div class='space-y-6'><h3 class='text-lg sm:text-xl font-semibold text-neutral-900 mb-3'>Ход работ по проекту:</h3><ul class='list-disc pl-5 space-y-3 text-sm sm:text-base text-neutral-700 leading-relaxed'><li><strong>Аудит процессов:</strong> Провели полный разбор типовых диалогов колл-центра и выделили ключевые сценарии записи.</li><li><strong>Архитектура и интеграция:</strong> Разработали модуль бесшовной интеграции с МИС через REST API для синхронизации расписания в реальном времени.</li><li><strong>Обучение LLM-модели:</strong> Загрузили базу знаний клиники и настроили RAG-систему для точных ответов на вопросы по услугам и прайсу.</li><li><strong>Тестирование и запуск:</strong> Провели A/B тестирование на 20% входящего трафика, после чего полностью перевели ночные обращения на AI-агента.</li></ul></div>"
 }`,
 
   service: `You are a Lead AI Architect at BOS.AGENCE. Generate a detailed, high-converting service landing page in JSON format.
@@ -131,7 +134,7 @@ export default async function handler(req, res) {
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-    const selectedModel = model || 'gemini-3.5-flash-lite';
+    const selectedModel = model || 'gemini-2.5-flash';
 
     const generativeModel = genAI.getGenerativeModel({
       model: selectedModel,

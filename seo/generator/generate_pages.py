@@ -39,9 +39,19 @@ PROMPTS = {
     },
     "blog": {
         "prefix": "blog",
-        "system": """Ты — Lead Tech Writer в BOS.AGENCE. Напиши подробную статью/гайд в формате JSON.
+        "system": """Ты — Lead Tech Writer в BOS.AGENCE. Напиши подробную экспертную статью/гайд в формате JSON.
 Язык: Русский.
-Выдавай ТОЛЬКО валидный JSON по следующей схеме:
+
+СТРОГИЕ ПРАВИЛА ОФОРМЛЕНИЯ BODY:
+1. Поле 'toc' должно содержать минимум 3-4 раздела: [{ "id": "part-1", "title": "1. ..." }, ...].
+2. Поле 'body' должно быть единой HTML-строкой.
+3. Каждый раздел из 'toc' ОБЯЗАН начинаться с тега <h2> с соответствующим id и классами:
+   <h2 id='part-1' class='text-2xl font-semibold mb-4 text-neutral-900 mt-8'>1. Название раздела</h2>
+4. Текст внутри разделов разбивай на абзацы <p class='mb-6 leading-relaxed text-neutral-700'>...</p>.
+5. Для списков ОБЯЗАТЕЛЬНО используй теги <ul> и <li>:
+   <ul class='list-disc pl-6 mb-6 text-neutral-700 space-y-2'><li><strong>Пункт:</strong> описание</li></ul>
+
+Схема JSON:
 {
   "template_type": "blog",
   "slug": "...",
@@ -51,8 +61,11 @@ PROMPTS = {
   "author": { "name": "Юрий Торин", "role": "Solution Architect & CTO", "avatar": "../assets/images/author-default.png" },
   "seo": { "title": "...", "description": "..." },
   "hero": { "title": "..." },
-  "toc": [ { "id": "part-1", "title": "1. ..." } ],
-  "body": "<h2 id='part-1' class='text-2xl font-semibold mb-4 text-neutral-900'>1. ...</h2><p class='mb-6 leading-relaxed text-neutral-700'>...</p>"
+  "toc": [
+    { "id": "part-1", "title": "1. Введение и контекст" },
+    { "id": "part-2", "title": "2. Ключевые шаги внедрения" }
+  ],
+  "body": "<h2 id='part-1' class='text-2xl font-semibold mb-4 text-neutral-900 mt-8'>1. Введение и контекст</h2><p class='mb-6 leading-relaxed text-neutral-700'>Подробный вводный текст...</p><h2 id='part-2' class='text-2xl font-semibold mb-4 text-neutral-900 mt-8'>2. Ключевые шаги внедрения</h2><p class='mb-6 leading-relaxed text-neutral-700'>Основной текст...</p><ul class='list-disc pl-6 mb-6 text-neutral-700 space-y-2'><li><strong>Шаг 1:</strong> Подготовка</li></ul>"
 }"""
     },
     "case": {
@@ -126,21 +139,42 @@ def clean_json_response(raw_text):
     cleaned = re.sub(r'```$', '', cleaned, flags=re.MULTILINE)
     return cleaned.strip()
 
+def make_human_title(raw_text):
+    if not raw_text:
+        return ""
+    # Если строка латинская/slug вида "vnedrenie-ai-agentov"
+    if not re.search(r'[а-яА-ЯёЁ]', raw_text):
+        text = raw_text.replace('-', ' ').replace('_', ' ').strip()
+        return text.capitalize()
+    # Если это просто сырой ключевик на русском
+    return raw_text.strip().capitalize()
+
 def generate_page_data_via_vercel(slug, query, meta_title, meta_description, hero_title, page_type="service", retries=3):
     type_config = PROMPTS.get(page_type, PROMPTS["service"])
     system_instruction = type_config["system"]
 
+    human_query = make_human_title(query)
+
     user_prompt = f"""
     Сгенерируй SEO-оптимизированную страницу типа '{page_type.upper()}' для IT-агентства BOS.AGENCE.
+    
+    ВАЖНОЕ ПРАВИЛО ДЛЯ ЗАГОЛОВКОВ: 
+    - Поисковый ключ/тема: "{query}"
+    - НЕ ИСПОЛЬЗУЙ этот ключ "тупо как есть" или в виде транслита/slug!
+    - Преобразуй его в КРАСИВЫЙ, читаемый, профессиональный русский заголовок H1 и Title.
+    - Например, если ключ "vnedrenie-ai", заголовок должен быть "Внедрение AI-агентов и нейросетей для бизнеса".
+
+    Параметры генерации:
     - Тип: {page_type}
     - Slug (для URL): {slug}
-    - Поисковый запрос/Тема: {query}
-    - Мета Title: {meta_title}
-    - Мета Description: {meta_description}
-    - H1 Заголовок: {hero_title}
+    - Тема: {human_query}
+    - Базовый Title: {meta_title}
+    - Базовый Description: {meta_description}
 
-    Сгенерируй строго JSON согласно системной инструкции. Убедись, что поле template_type равно "{page_type}", а slug в JSON совпадает с "{slug}".
+    Сгенерируй строго JSON согласно системной инструкции. 
+    В полях seo.h1, seo.title и hero.title ДОЛЖЕН БЫТЬ полноценный русский заголовок, а не сырой ключ или slug.
     """
+    # ... оставшаяся часть функции без изменений
 
     if MOCK_MODE:
         return {
@@ -204,7 +238,6 @@ def main():
         if not any(re.search(pat, str(item.get("keyword") or item.get("query") or "").lower()) for pat in STOP_PATTERNS)
     ]
 
-    # Разбиваем релевантные ключи по 4 корзинам
     buckets = {
         "blog": [],
         "service": [],
@@ -219,13 +252,10 @@ def main():
     print(f"📊 Всего ключей: {len(valid_items)} | В корзинах: Blog={len(buckets['blog'])}, Service={len(buckets['service'])}, Case={len(buckets['case'])}, Tool={len(buckets['tool'])}")
 
     generated_count = 0
-    
-    # Ротация по типам
     type_order = ["blog", "service", "case", "tool"]
     order_idx = 0
 
     while generated_count < BATCH_SIZE:
-        # Проверяем, есть ли хоть одна непустая корзина
         if not any(buckets.values()):
             print("⚠️ Все корзины с ключами исчерпаны.")
             break
@@ -233,7 +263,6 @@ def main():
         current_type = type_order[order_idx % len(type_order)]
         order_idx += 1
 
-        # Если текущая корзина пуста, берем следующую по циклу
         if not buckets[current_type]:
             continue
 
@@ -243,13 +272,14 @@ def main():
         file_name = f"{clean_slug.replace('/', '_')}.json"
         output_file = os.path.join(output_dir, file_name)
 
-        # Пропускаем, если уже создан
         if os.path.exists(output_file) and os.path.getsize(output_file) > 100:
             continue
 
-        query = item.get("keyword") or item.get("query") or clean_slug
-        meta_title = item.get("title") or item.get("meta_title") or f"{query} | BOS.AGENCE"
-        meta_description = item.get("description") or item.get("meta_description") or f"Решения по {query} от BOS.AGENCE."
+        raw_query = item.get("keyword") or item.get("query") or clean_slug
+        query = make_human_title(raw_query)
+
+        meta_title = item.get("title") or item.get("meta_title") or f"{query} — BOS.AGENCE"
+        meta_description = item.get("description") or item.get("meta_description") or f"Услуги и решения по направлению {query} от IT-агентства BOS.AGENCE."
         hero_title = item.get("h1") or item.get("hero_title") or query
 
         print(f"🚀 Генерация [{current_type.upper()}] [{generated_count + 1}/{BATCH_SIZE}]: {clean_slug}...")

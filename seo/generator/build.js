@@ -8,6 +8,19 @@ const INDEX_PATH = path.join(ROOT_DIR, 'index.html');
 const SITEMAP_PATH = path.join(ROOT_DIR, 'sitemap.xml');
 const BASE_URL = 'https://agency-website-virid-rho.vercel.app';
 
+// ХЕЛПЕР: Форматирование заголовков (превращение slugs/сырых ключей в читаемый текст)
+function formatTitle(rawString, fallback = '') {
+  let text = rawString || fallback;
+  if (!text) return '';
+  
+  // Если строка похожа на slug (содержит дефисы/подчеркивания и нет пробелов)
+  if (/^[a-z0-9-_]+$/i.test(text.trim())) {
+    text = text.replace(/[-_]+/g, ' ').trim();
+  }
+  
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 // 1. ПОДГОТОВКА ЦЕЛЕВЫХ ДИРЕКТОРИЙ
 const DIRS = {
   service: path.join(ROOT_DIR, 'services'),
@@ -23,14 +36,17 @@ Object.values(DIRS).forEach(dir => {
 // 2. ЗАГРУЗКА БАЗОВЫХ ШАБЛОНОВ И МОДУЛЕЙ
 const baseTemplate = fs.existsSync(path.join(__dirname, 'template_base.html')) 
   ? fs.readFileSync(path.join(__dirname, 'template_base.html'), 'utf-8') : '';
-const headModule = fs.existsSync(path.join(MODULES_DIR, 'head.html')) 
+let headModule = fs.existsSync(path.join(MODULES_DIR, 'head.html')) 
   ? fs.readFileSync(path.join(MODULES_DIR, 'head.html'), 'utf-8') : '';
 
 const headerMatch = baseTemplate.match(/<header[\s\S]*?<\/header>/i);
 const footerMatch = baseTemplate.match(/<footer[\s\S]*?<\/footer>/i);
 const modalMatch = baseTemplate.match(/<div id="contact-modal"[\s\S]*?<\/form>\s*<\/div>\s*<\/div>\s*<\/div>/i);
 
-const headerModule = headerMatch ? headerMatch[0] : '';
+// Исправление заглавной "В." в логотипе шапки (если есть сокращение)
+let headerModule = headerMatch ? headerMatch[0] : '';
+headerModule = headerModule.replace(/>B\.</g, '>BOS.AGENCE<');
+
 const footerModule = footerMatch ? footerMatch[0] : '';
 const modalModule = modalMatch ? modalMatch[0] : '';
 
@@ -64,96 +80,134 @@ if (!fs.existsSync(PAGES_DIR)) {
 }
 
 const pageFiles = fs.readdirSync(PAGES_DIR).filter(file => file.endsWith('.json'));
+
+// Предварительное сканирование для перелинковки
+const pagesRegistry = pageFiles.map(file => {
+  const data = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
+  const templateType = data.template_type || data.type || 'service';
+  let rawSlug = data.slug || file.replace('.json', '');
+  rawSlug = rawSlug.replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
+  
+  const folderName = templateType === 'service' ? 'services' : templateType === 'case' ? 'cases' : templateType === 'blog' ? 'blog' : 'tools';
+  const title = formatTitle(data.seo?.h1 || data.hero?.title || data.seo?.title, rawSlug);
+
+  return {
+    file,
+    data,
+    type: templateType,
+    slug: rawSlug,
+    url: `/${folderName}/${rawSlug}.html`,
+    title,
+    desc: data.seo?.description || data.description || 'Индивидуальная разработка и автоматизация бизнес-процессов.'
+  };
+});
+
 let sitemapUrls = [`  <url>\n    <loc>${BASE_URL}/</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <priority>1.0</priority>\n  </url>`];
 
-console.log(`🚀 Сборка ${pageFiles.length} HTML-страниц...`);
+console.log(`🚀 Сборка ${pagesRegistry.length} HTML-страниц...`);
 
-pageFiles.forEach((file) => {
-  const pageData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
-  const templateType = pageData.template_type || pageData.type || 'service';
+pagesRegistry.forEach((pageItem) => {
+  const { file, data: pageData, type: templateType, slug: cleanName, url: pageUrlPath } = pageItem;
   let currentTemplateHtml = getTemplateHtml(templateType);
 
-  // Очистка slug от повторных префиксов разделов и корректное создание имени файла
-  let rawSlug = pageData.slug || file.replace('.json', '');
-  rawSlug = rawSlug.replace(/^(blog|services|cases|tools)\//, '');
-  const cleanName = rawSlug.replace(/\.html$/, '');
   const pageSlug = `${cleanName}.html`;
-  
   const targetDir = DIRS[templateType] || DIRS.service;
   const folderName = templateType === 'service' ? 'services' : templateType === 'case' ? 'cases' : templateType === 'blog' ? 'blog' : 'tools';
   const pageUrl = `${BASE_URL}/${folderName}/${pageSlug}`;
 
   const seo = pageData.seo || {};
   const hero = pageData.hero || {};
+  
+  const pageTitle = formatTitle(seo.title || hero.title, cleanName);
+  const pageH1 = formatTitle(seo.h1 || hero.title, cleanName);
+
   let schemaScript = '';
 
-  // ПОДСТАНОВКА ДАННЫХ ПО ТИПАМ ШАБЛОНОВ
+  // 4. ПОДСТАНОВКА ДАННЫХ ПО ТИПАМ ШАБЛОНОВ
   if (templateType === 'blog') {
     const tocLinks = (pageData.toc || []).map(item => 
-      `<a href="#${item.id}" class="block hover:text-neutral-900 transition-colors py-1">${item.title}</a>`
+      `<a href="#${item.id}" class="block hover:text-neutral-900 transition-colors py-1 break-words">${item.title}</a>`
     ).join('');
 
-    const relatedPosts = pageFiles
-      .filter(f => f !== file)
+    const relatedPosts = pagesRegistry
+      .filter(p => p.type === 'blog' && p.file !== file)
       .slice(0, 3)
-      .map(relFile => {
-        const relData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, relFile), 'utf-8'));
-        const cleanRelSlug = (relData.slug || relFile.replace('.json', '')).replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
-        return `
-          <a href="../blog/${cleanRelSlug}.html" class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl hover:border-neutral-400 transition-all block group">
-            <div class="font-mono text-xs text-neutral-400 uppercase mb-2">// ${relData.category || 'СТАТЬЯ'}</div>
-            <div class="text-sm font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">${relData.seo?.title || relData.slug} &rarr;</div>
-          </a>`;
-      }).join('');
+      .map(rel => `
+        <a href="${rel.url}" class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl hover:border-neutral-400 transition-all block group min-h-[140px] flex flex-col justify-between break-words">
+          <div>
+            <div class="font-mono text-xs text-neutral-400 uppercase mb-2">// ${rel.data.category || 'СТАТЬЯ'}</div>
+            <div class="text-sm font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors leading-snug">${rel.title} &rarr;</div>
+          </div>
+        </a>`
+      ).join('');
 
     currentTemplateHtml = currentTemplateHtml
-      .replace('{{ARTICLE_CATEGORY}}', pageData.category || 'БЛОГ')
-      .replace('{{ARTICLE_TITLE}}', seo.title || hero.title || '')
-      .replace('{{AUTHOR_AVATAR}}', pageData.author?.avatar || '../assets/images/author-default.png')
-      .replace('{{AUTHOR_NAME}}', pageData.author?.name || 'BOS.AGENCE')
-      .replace('{{AUTHOR_ROLE}}', pageData.author?.role || 'Digital & AI Team')
-      .replace('{{PUBLISH_DATE}}', pageData.publish_date || '')
-      .replace('{{READ_TIME}}', pageData.read_time || '5')
-      .replace('{{TOC_LINKS}}', tocLinks)
-      .replace('{{ARTICLE_BODY}}', pageData.body || '')
-      .replace('{{RELATED_POSTS}}', relatedPosts);
+      .replace(/{{ARTICLE_CATEGORY}}/g, pageData.category || 'БЛОГ')
+      .replace(/{{ARTICLE_TITLE}}/g, pageH1)
+      .replace(/{{AUTHOR_AVATAR}}/g, pageData.author?.avatar || '../assets/images/author-default.png')
+      .replace(/{{AUTHOR_NAME}}/g, pageData.author?.name || 'BOS.AGENCE')
+      .replace(/{{AUTHOR_ROLE}}/g, pageData.author?.role || 'Digital & AI Team')
+      .replace(/{{PUBLISH_DATE}}/g, pageData.publish_date || '')
+      .replace(/{{READ_TIME}}/g, String(pageData.read_time || '5').replace(/\s*мин.*/i, ''))
+      .replace(/{{TOC_LINKS}}/g, tocLinks)
+      .replace(/{{ARTICLE_BODY}}/g, pageData.body || pageData.content || '')
+      .replace(/{{RELATED_POSTS}}/g, relatedPosts);
 
   } else if (templateType === 'case') {
     const stackTags = (pageData.stack || []).map(tag => 
-      `<span class="px-3 py-1 bg-neutral-100 border border-neutral-200 rounded-lg text-xs font-mono text-neutral-800">${tag}</span>`
+      `<span class="px-3 py-1 bg-neutral-100 border border-neutral-200 rounded-lg text-xs font-mono text-neutral-800 break-words">${tag}</span>`
     ).join('');
 
     const metricsBlocks = (pageData.metrics || []).map(m => `
-      <div class="text-center">
+      <div class="text-center p-2 break-words">
         <div class="text-2xl sm:text-4xl font-light text-neutral-900 mb-1">${m.value}</div>
         <div class="font-mono text-xs text-neutral-400 uppercase">${m.label}</div>
       </div>
     `).join('');
 
+    const fallbackBody = `
+      <div class="space-y-8 my-8">
+        ${pageData.problem ? `
+          <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl break-words">
+            <h3 class="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-3">// 01. Проблема и вызов</h3>
+            <p class="text-neutral-700 leading-relaxed text-sm sm:text-base">${pageData.problem}</p>
+          </div>` : ''}
+        
+        ${pageData.solution ? `
+          <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl break-words">
+            <h3 class="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-3">// 02. Наше решение</h3>
+            <p class="text-neutral-700 leading-relaxed text-sm sm:text-base">${pageData.solution}</p>
+          </div>` : ''}
+      </div>
+    `;
+
+    const caseBodyContent = pageData.body || pageData.content || fallbackBody;
+
     currentTemplateHtml = currentTemplateHtml
-      .replace('{{CLIENT_NAME}}', pageData.client_name || 'CLIENT')
-      .replace('{{CASE_TITLE}}', seo.title || hero.title || '')
-      .replace('{{CASE_METRICS}}', metricsBlocks)
-      .replace('{{CASE_PROBLEM}}', pageData.problem || '')
-      .replace('{{CASE_SOLUTION}}', pageData.solution || '')
-      .replace('{{CASE_STACK}}', stackTags);
+      .replace(/{{CLIENT_NAME}}/g, pageData.client_name || 'CLIENT')
+      .replace(/{{CASE_TITLE}}/g, pageH1)
+      .replace(/{{CASE_METRICS}}/g, metricsBlocks)
+      .replace(/{{CASE_PROBLEM}}/g, pageData.problem || '')
+      .replace(/{{CASE_SOLUTION}}/g, pageData.solution || '')
+      .replace(/{{CASE_STACK}}/g, stackTags)
+      .replace(/{{CASE_BODY}}/g, caseBodyContent);
 
   } else if (templateType === 'tool') {
     const checklistItems = (pageData.checklist || []).map((item, idx) => `
-      <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl flex items-start gap-4">
+      <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl flex items-start gap-4 break-words">
         <span class="font-mono text-neutral-400 font-semibold text-sm">0${idx + 1}.</span>
-        <div>
+        <div class="flex-1">
           <h3 class="text-base font-semibold text-neutral-900 mb-1">${item.title}</h3>
-          <p class="font-mono text-xs text-neutral-600 leading-relaxed">${item.desc}</p>
+          <p class="font-mono text-xs text-neutral-600 leading-relaxed break-words">${item.desc}</p>
         </div>
       </div>
     `).join('');
 
     currentTemplateHtml = currentTemplateHtml
-      .replace(/{{TOOL_TITLE}}/g, seo.title || hero.title || '')
-      .replace('{{TOOL_DESCRIPTION}}', pageData.description || seo.description || '')
-      .replace('{{RESOURCE_DOWNLOAD_LINK}}', pageData.download_link || '#')
-      .replace('{{CHECKLIST_ITEMS}}', checklistItems);
+      .replace(/{{TOOL_TITLE}}/g, pageH1)
+      .replace(/{{TOOL_DESCRIPTION}}/g, pageData.description || seo.description || '')
+      .replace(/{{RESOURCE_DOWNLOAD_LINK}}/g, pageData.download_link || '#')
+      .replace(/{{CHECKLIST_ITEMS}}/g, checklistItems);
 
   } else {
     // ЛОГИКА ДЛЯ УСЛУГ (SERVICE)
@@ -166,19 +220,21 @@ pageFiles.forEach((file) => {
 
     const renderTechStack = () => techStack.length ? `
       <div class="my-6"><div class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase mb-3">// СТЕК</div>
-      <div class="flex flex-wrap gap-2">${techStack.map(t => `<span class="px-3 py-1.5 bg-[#07091e] border border-white/10 rounded-lg text-xs font-mono-code text-white/80">${t}</span>`).join('')}</div></div>` : '';
+      <div class="flex flex-wrap gap-2">${techStack.map(t => `<span class="px-3 py-1.5 bg-[#07091e] border border-white/10 rounded-lg text-xs font-mono-code text-white/80 break-words">${t}</span>`).join('')}</div></div>` : '';
 
     const renderValueProps = () => valueProps.length ? `
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">${valueProps.map(v => `
-        <div class="p-6 bg-[#07091e]/80 border border-white/10 rounded-xl">
-          <h3 class="font-syne font-bold text-lg text-white mb-2">${v.title || ''}</h3>
-          <p class="text-white/70 text-xs font-light leading-relaxed">${v.desc || v.description || ''}</p>
+        <div class="p-6 bg-[#07091e]/80 border border-white/10 rounded-xl min-h-[160px] flex flex-col justify-between break-words">
+          <div>
+            <h3 class="font-syne font-bold text-lg text-white mb-2">${v.title || ''}</h3>
+            <p class="text-white/70 text-xs font-light leading-relaxed break-words">${v.desc || v.description || ''}</p>
+          </div>
         </div>`).join('')}</div>` : '';
 
     const renderProblems = () => businessProblems.length ? `
       <div class="my-8"><h2 class="font-syne text-xl font-bold uppercase mb-6 text-white">// ЗАДАЧИ И РЕШЕНИЯ</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${businessProblems.map(p => `
-        <div class="p-5 bg-black/50 border border-white/10 rounded-xl">
+        <div class="p-5 bg-black/50 border border-white/10 rounded-xl break-words">
           <div class="text-red-400 text-xs font-semibold mb-2">✕ ${p.problem}</div>
           <div class="text-emerald-400 text-xs font-semibold">✓ ${p.solution}</div>
         </div>`).join('')}</div></div>` : '';
@@ -186,33 +242,34 @@ pageFiles.forEach((file) => {
     const renderFAQ = () => faq.length ? `
       <section class="my-12"><h2 class="font-syne text-2xl font-bold uppercase mb-6 text-white">// ВОПРОСЫ И ОТВЕТЫ</h2>
       <div class="space-y-4">${faq.map(f => `
-        <details class="p-5 bg-[#07091e]/60 border border-white/10 rounded-xl group">
-          <summary class="font-syne font-bold text-base text-white cursor-pointer flex justify-between items-center list-none">
-            <span>${f.question}</span><span class="text-[#8b5cf6] group-open:rotate-180 transition-transform">+</span>
-          </summary><p class="font-mono-code text-xs text-white/70 mt-4 leading-relaxed">${f.answer}</p>
+        <details class="p-5 bg-[#07091e]/60 border border-white/10 rounded-xl group break-words">
+          <summary class="font-syne font-bold text-base text-white cursor-pointer flex justify-between items-center list-none gap-4">
+            <span class="break-words">${f.question}</span><span class="text-[#8b5cf6] group-open:rotate-180 transition-transform flex-shrink-0">+</span>
+          </summary><p class="font-mono-code text-xs text-white/70 mt-4 leading-relaxed break-words">${f.answer}</p>
         </details>`).join('')}</div></section>` : '';
 
-    const relatedLinks = pageFiles.filter(f => f !== file).slice(0, 4).map(relFile => {
-      const relData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, relFile), 'utf-8'));
-      const cleanRelSlug = (relData.slug || relFile.replace('.json', '')).replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
-      return `<a href="/services/${cleanRelSlug}.html" class="p-4 border border-white/10 rounded-xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all block group">
-        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase mb-1">// НАПРАВЛЕНИЕ</div>
-        <div class="font-syne text-xs font-bold text-white group-hover:text-[#8b5cf6] transition-colors uppercase">${relData.seo?.h1 || relData.hero?.title || relData.slug} &rarr;</div>
-      </a>`;
-    }).join('');
+    const relatedLinks = pagesRegistry
+      .filter(p => p.type === 'service' && p.file !== file)
+      .slice(0, 4)
+      .map(rel => `
+        <a href="${rel.url}" class="p-4 border border-white/10 rounded-xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all block group min-h-[140px] flex flex-col justify-between break-words">
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase mb-1">// НАПРАВЛЕНИЕ</div>
+          <div class="font-syne text-xs font-bold text-white group-hover:text-[#8b5cf6] transition-colors uppercase leading-snug break-words">${rel.title} &rarr;</div>
+        </a>`
+      ).join('');
 
-    const renderRelated = () => `<section class="my-12"><h2 class="font-syne text-lg font-bold uppercase mb-4 text-white/80">// ДРУГИЕ УСЛУГИ</h2><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">${relatedLinks}</div></section>`;
+    const renderRelated = () => relatedLinks ? `<section class="my-12"><h2 class="font-syne text-lg font-bold uppercase mb-4 text-white/80">// ДРУГИЕ УСЛУГИ</h2><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">${relatedLinks}</div></section>` : '';
 
     let textContentHtml = '';
     if (pageData.text_content) {
       if (pageData.text_content.intro) {
-        textContentHtml += `<p class="text-lg text-white/80 font-light leading-relaxed mb-8">${pageData.text_content.intro}</p>`;
+        textContentHtml += `<p class="text-lg text-white/80 font-light leading-relaxed mb-8 break-words">${pageData.text_content.intro}</p>`;
       }
       if (Array.isArray(pageData.text_content.sections)) {
         textContentHtml += pageData.text_content.sections.map(sec => `
-          <div class="mb-8">
-            <h2 class="font-syne text-2xl font-bold uppercase text-white mb-4">${sec.h2}</h2>
-            <p class="text-white/70 font-light leading-relaxed">${sec.body}</p>
+          <div class="mb-8 break-words">
+            <h2 class="font-syne text-2xl font-bold uppercase text-white mb-4">${formatTitle(sec.h2)}</h2>
+            <p class="text-white/70 font-light leading-relaxed break-words">${sec.body}</p>
           </div>
         `).join('');
       }
@@ -224,10 +281,10 @@ pageFiles.forEach((file) => {
       case 'template_2':
         layoutContent = `
           <div class="max-w-6xl mx-auto px-6 py-12 space-y-12">
-            <section class="text-center max-w-3xl mx-auto pt-6">
+            <section class="text-center max-w-3xl mx-auto pt-6 break-words">
               <span class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase mb-4 block">// ${hero.badge || 'SAAS SYSTEM'}</span>
-              <h1 class="font-syne text-4xl sm:text-6xl font-bold uppercase tracking-tight mb-6 text-white">${seo.h1 || hero.title}</h1>
-              <p class="text-base text-white/70 font-light mb-8">${hero.subtitle || seo.description}</p>
+              <h1 class="font-syne text-4xl sm:text-6xl font-bold uppercase tracking-tight mb-6 text-white leading-tight break-words">${pageH1}</h1>
+              <p class="text-base text-white/70 font-light mb-8 break-words">${hero.subtitle || seo.description || ''}</p>
               <button onclick="openContactModal()" class="bg-white text-black hover:bg-white/90 font-syne font-bold px-8 py-4 rounded-xl text-xs uppercase tracking-widest">Обсудить проект &rarr;</button>
             </section>
             ${textContentHtml} ${renderProblems()} ${renderValueProps()} ${portfolioSectionHtml} ${renderFAQ()} ${renderRelated()}
@@ -239,13 +296,13 @@ pageFiles.forEach((file) => {
         layoutContent = `
           <div class="max-w-7xl mx-auto px-6 py-12 space-y-12">
             <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              <div class="lg:col-span-8 bg-gradient-to-br from-[#0b0f29] to-[#07091e] border border-white/10 p-8 rounded-3xl">
+              <div class="lg:col-span-8 bg-gradient-to-br from-[#0b0f29] to-[#07091e] border border-white/10 p-8 rounded-3xl break-words">
                 <span class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase">// BENTO SYSTEM</span>
-                <h1 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase text-white mt-4 mb-4">${seo.h1 || hero.title}</h1>
-                <p class="font-mono-code text-white/70 text-xs">${hero.subtitle || seo.description}</p>
+                <h1 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase text-white mt-4 mb-4 leading-tight break-words">${pageH1}</h1>
+                <p class="font-mono-code text-white/70 text-xs break-words">${hero.subtitle || seo.description || ''}</p>
               </div>
-              <div class="lg:col-span-4 bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 p-8 rounded-3xl flex flex-col justify-between">
-                <div class="font-syne text-xl font-bold text-white mb-4">БЫСТРЫЙ СТАРТ</div>
+              <div class="lg:col-span-4 bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 p-8 rounded-3xl flex flex-col justify-between min-h-[200px]">
+                <div class="font-syne text-xl font-bold text-white mb-4">// БЫСТРЫЙ СТАРТ</div>
                 <button onclick="openContactModal()" class="w-full bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-syne py-4 rounded-xl text-xs font-bold uppercase tracking-widest">Заказать</button>
               </div>
             </section>
@@ -259,8 +316,8 @@ pageFiles.forEach((file) => {
     const serviceSchema = {
       "@context": "https://schema.org",
       "@type": "Service",
-      "name": seo.h1 || hero.title,
-      "description": seo.description,
+      "name": pageH1,
+      "description": seo.description || '',
       "provider": { "@type": "Organization", "name": "BOS.AGENCE", "url": BASE_URL }
     };
     const faqSchema = faq.length ? {
@@ -285,7 +342,7 @@ pageFiles.forEach((file) => {
     .replace('{{HEADER_MODULE}}', headerModule)
     .replace('{{FOOTER_MODULE}}', footerModule)
     .replace('{{MODAL_MODULE}}', modalModule)
-    .replace(/{{META_TITLE}}/g, seo.title || hero.title || '')
+    .replace(/{{META_TITLE}}/g, pageTitle)
     .replace(/{{META_DESCRIPTION}}/g, seo.description || '')
     .replace(/{{CANONICAL_URL}}/g, pageUrl)
     .replace('{{SCHEMA_JSON}}', schemaScript);
@@ -297,29 +354,19 @@ pageFiles.forEach((file) => {
   sitemapUrls.push(`  <url>\n    <loc>${pageUrl}</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <priority>0.8</priority>\n  </url>`);
 });
 
-// 4. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ БЛОКА УСЛУГ НА ГЛАВНОЙ (INDEX.HTML)
+// 5. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ БЛОКА УСЛУГ НА ГЛАВНОЙ (INDEX.HTML)
 if (fs.existsSync(INDEX_PATH)) {
   let indexContent = fs.readFileSync(INDEX_PATH, 'utf-8');
-  const serviceFiles = pageFiles.filter(file => {
-    const data = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
-    return (data.template_type || data.type || 'service') === 'service';
-  });
+  const servicePages = pagesRegistry.filter(p => p.type === 'service').slice(0, 6);
 
-  const topServices = serviceFiles.slice(0, 6);
-  const serviceCardsHtml = topServices.map(file => {
-    const pageData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
-    const rawSlug = (pageData.slug || file.replace('.json', '')).replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
-    let title = pageData.seo?.h1 || pageData.hero?.title || rawSlug;
-    title = title.charAt(0).toUpperCase() + title.slice(1);
-    const desc = pageData.seo?.description || 'Индивидуальная разработка и автоматизация бизнес-процессов.';
-
-    return `
-      <a href="/services/${rawSlug}.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block">
-        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
-        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug">${title} &rarr;</h3>
-        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed">${desc}</p>
-      </a>`;
-  }).join('\n');
+  const serviceCardsHtml = servicePages.map(srv => `
+      <a href="${srv.url}" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">${srv.title} &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">${srv.desc}</p>
+        </div>
+      </a>`).join('\n');
 
   const servicesContainerHtml = `<!-- DYNAMIC_SERVICES_START -->
 <section id="seo-services" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/10">
@@ -344,7 +391,107 @@ if (fs.existsSync(INDEX_PATH)) {
   console.log('  Обновлен блок услуг на главной странице (index.html)');
 }
 
-// 5. ГЕНЕРАЦИЯ SITEMAP.XML
+// 6. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ КОНТЕНТ-ХАБА (КЕЙСЫ, БЛОГ, БАЗА ЗНАНИЙ) НА ГЛАВНОЙ (INDEX.HTML)
+function renderContentHub() {
+  if (!fs.existsSync(INDEX_PATH)) return;
+
+  const cases = pagesRegistry.filter(p => p.type === 'case');
+  const blog = pagesRegistry.filter(p => p.type === 'blog');
+  const knowledge = pagesRegistry.filter(p => p.type === 'tool');
+
+  // 1. Генерация HTML для кейсов
+  const casesHtml = cases.map(item => `
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-6 py-8 hover:bg-neutral-50/80 transition-colors group items-center">
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${(item.data.stack || []).slice(0, 2).join(' / ') || 'BOS.AGENCE'}</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">BOS.AGENCE CASE</span>
+      </div>
+      <div class="lg:col-span-6">
+        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
+          ${item.title}
+        </h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">
+          ${item.desc}
+        </p>
+      </div>
+      <div class="lg:col-span-3 text-right flex lg:flex-col justify-between items-center lg:items-end gap-2">
+        <span class="font-mono text-2xl font-bold text-neutral-900">${item.data.metrics?.[0]?.value || '100%'} ${item.data.metrics?.[0]?.label || ''}</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+    </a>
+  `).join('');
+
+  // 2. Генерация HTML для блога
+  const blogHtml = blog.map(item => `
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-6 py-8 hover:bg-neutral-50/80 transition-colors group items-center">
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${item.data.publish_date || '2026'} • ${item.data.read_time || '5'} мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">${item.data.category || 'БЛОГ'}</span>
+      </div>
+      <div class="lg:col-span-6">
+        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
+          ${item.title}
+        </h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">
+          ${item.desc}
+        </p>
+      </div>
+      <div class="lg:col-span-3 text-right">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+    </a>
+  `).join('');
+
+  // 3. Генерация HTML для базы знаний / инструментов
+  const knowledgeHtml = knowledge.map(item => `
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-6 py-8 hover:bg-neutral-50/80 transition-colors group items-center">
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ / CHECKLIST</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+      <div class="lg:col-span-6">
+        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
+          ${item.title}
+        </h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">
+          ${item.desc}
+        </p>
+      </div>
+      <div class="lg:col-span-3 text-right">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+    </a>
+  `).join('');
+
+  // Подстановка в index.html
+  let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
+
+  indexHtml = indexHtml.replace(/<span id="count-cases">.*?<\/span>/g, `<span id="count-cases">${cases.length}</span>`);
+  indexHtml = indexHtml.replace(/<span id="count-blog">.*?<\/span>/g, `<span id="count-blog">${blog.length}</span>`);
+  indexHtml = indexHtml.replace(/<span id="count-knowledge">.*?<\/span>/g, `<span id="count-knowledge">${knowledge.length}</span>`);
+
+  indexHtml = indexHtml.replace(
+    /<div id="tab-content-cases"[^>]*>[\s\S]*?<\/div>/,
+    `<div id="tab-content-cases" class="tab-pane space-y-0 divide-y divide-neutral-200">${casesHtml}</div>`
+  );
+
+  indexHtml = indexHtml.replace(
+    /<div id="tab-content-blog"[^>]*>[\s\S]*?<\/div>/,
+    `<div id="tab-content-blog" class="tab-pane hidden space-y-0 divide-y divide-neutral-200">${blogHtml}</div>`
+  );
+
+  indexHtml = indexHtml.replace(
+    /<div id="tab-content-knowledge"[^>]*>[\s\S]*?<\/div>/,
+    `<div id="tab-content-knowledge" class="tab-pane hidden space-y-0 divide-y divide-neutral-200">${knowledgeHtml}</div>`
+  );
+
+  fs.writeFileSync(INDEX_PATH, indexHtml, 'utf-8');
+  console.log(`  Обновлен контент-хаб на главной: Кейсы [${cases.length}], Блог [${blog.length}], Инструменты [${knowledge.length}]`);
+}
+
+renderContentHub();
+
+// 7. ГЕНЕРАЦИЯ SITEMAP.XML
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.join('\n')}\n</urlset>`;
 fs.writeFileSync(SITEMAP_PATH, sitemapContent, 'utf-8');
 console.log(`[+] Сгенерирован sitemap.xml (${sitemapUrls.length} ссылок)`);
