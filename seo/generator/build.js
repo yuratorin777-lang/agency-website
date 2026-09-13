@@ -381,6 +381,7 @@ if (fs.existsSync(INDEX_PATH)) {
 }
 
 // 6. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ КОНТЕНТ-ХАБА (КЕЙСЫ, БЛОГ, БАЗА ЗНАНИЙ) НА ГЛАВНОЙ (INDEX.HTML)
+// 6. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ КОНТЕНТ-ХАБА (КЕЙСЫ, БЛОГ, БАЗА ЗНАНИЙ) НА ГЛАВНОЙ (INDEX.HTML)
 function renderContentHub() {
   if (!fs.existsSync(INDEX_PATH)) return;
 
@@ -388,23 +389,23 @@ function renderContentHub() {
   const blog = pagesRegistry.filter(p => p.type === 'blog');
   const knowledge = pagesRegistry.filter(p => p.type === 'tool');
 
-  // 1. Генерация HTML для кейсов
+  // 1. Генерация HTML для кейсов (адаптирована под мобильные и ПК)
   const casesHtml = cases.map(item => `
-    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-6 py-8 hover:bg-neutral-50/80 transition-colors group items-center">
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${(item.data.stack || []).slice(0, 2).join(' / ') || 'BOS.AGENCE'}</span>
-        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">BOS.AGENCE CASE</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
       </div>
       <div class="lg:col-span-6">
-        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
           ${item.title}
         </h3>
         <p class="text-neutral-500 text-sm font-light line-clamp-2">
           ${item.desc}
         </p>
       </div>
-      <div class="lg:col-span-3 text-right flex lg:flex-col justify-between items-center lg:items-end gap-2">
-        <span class="font-mono text-2xl font-bold text-neutral-900">${item.data.metrics?.[0]?.value || '100%'} ${item.data.metrics?.[0]?.label || ''}</span>
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">${item.data.metrics?.[0]?.value || '100%'} ${item.data.metrics?.[0]?.label || ''}</span>
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
       </div>
     </a>
@@ -412,20 +413,20 @@ function renderContentHub() {
 
   // 2. Генерация HTML для блога
   const blogHtml = blog.map(item => `
-    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-6 py-8 hover:bg-neutral-50/80 transition-colors group items-center">
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${item.data.publish_date || '2026'} • ${item.data.read_time || '5'} мин</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">${item.data.category || 'БЛОГ'}</span>
       </div>
       <div class="lg:col-span-6">
-        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
           ${item.title}
         </h3>
         <p class="text-neutral-500 text-sm font-light line-clamp-2">
           ${item.desc}
         </p>
       </div>
-      <div class="lg:col-span-3 text-right">
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
       </div>
     </a>
@@ -433,46 +434,47 @@ function renderContentHub() {
 
   // 3. Генерация HTML для базы знаний / инструментов
   const knowledgeHtml = knowledge.map(item => `
-    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-6 py-8 hover:bg-neutral-50/80 transition-colors group items-center">
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
       <div class="lg:col-span-3">
-        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ / CHECKLIST</span>
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${item.data.type || 'ИНСТРУМЕНТ'}</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
       </div>
       <div class="lg:col-span-6">
-        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
           ${item.title}
         </h3>
         <p class="text-neutral-500 text-sm font-light line-clamp-2">
           ${item.desc}
         </p>
       </div>
-      <div class="lg:col-span-3 text-right">
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
       </div>
     </a>
   `).join('');
 
-  // Подстановка в index.html
   let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
 
+  // Обновляем цифры счетчиков в табах
   indexHtml = indexHtml.replace(/<span id="count-cases">.*?<\/span>/g, `<span id="count-cases">${cases.length}</span>`);
   indexHtml = indexHtml.replace(/<span id="count-blog">.*?<\/span>/g, `<span id="count-blog">${blog.length}</span>`);
   indexHtml = indexHtml.replace(/<span id="count-knowledge">.*?<\/span>/g, `<span id="count-knowledge">${knowledge.length}</span>`);
 
-  indexHtml = indexHtml.replace(
-    /<div id="tab-content-cases"[^>]*>[\s\S]*?<\/div>/,
-    `<div id="tab-content-cases" class="tab-pane space-y-0 divide-y divide-neutral-200">${casesHtml}</div>`
-  );
-
-  indexHtml = indexHtml.replace(
-    /<div id="tab-content-blog"[^>]*>[\s\S]*?<\/div>/,
-    `<div id="tab-content-blog" class="tab-pane hidden space-y-0 divide-y divide-neutral-200">${blogHtml}</div>`
-  );
-
-  indexHtml = indexHtml.replace(
-    /<div id="tab-content-knowledge"[^>]*>[\s\S]*?<\/div>/,
-    `<div id="tab-content-knowledge" class="tab-pane hidden space-y-0 divide-y divide-neutral-200">${knowledgeHtml}</div>`
-  );
+  // Замена по безопасности маркерных комментариев (не зависит от внутренних <div>)
+  if (indexHtml.includes('<!-- CASES_CONTENT_START -->')) {
+    indexHtml = indexHtml.replace(
+      /<!-- CASES_CONTENT_START -->[\s\S]*?<!-- CASES_CONTENT_END -->/,
+      `<!-- CASES_CONTENT_START -->\n${casesHtml}\n<!-- CASES_CONTENT_END -->`
+    );
+    indexHtml = indexHtml.replace(
+      /<!-- BLOG_CONTENT_START -->[\s\S]*?<!-- BLOG_CONTENT_END -->/,
+      `<!-- BLOG_CONTENT_START -->\n${blogHtml}\n<!-- BLOG_CONTENT_END -->`
+    );
+    indexHtml = indexHtml.replace(
+      /<!-- KNOWLEDGE_CONTENT_START -->[\s\S]*?<!-- KNOWLEDGE_CONTENT_END -->/,
+      `<!-- KNOWLEDGE_CONTENT_START -->\n${knowledgeHtml}\n<!-- KNOWLEDGE_CONTENT_END -->`
+    );
+  }
 
   fs.writeFileSync(INDEX_PATH, indexHtml, 'utf-8');
   console.log(`  Обновлен контент-хаб на главной: Кейсы [${cases.length}], Блог [${blog.length}], Инструменты [${knowledge.length}]`);
