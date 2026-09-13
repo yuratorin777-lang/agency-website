@@ -82,8 +82,6 @@
 │       ├── showreel.mp4
 │       ├── terraforma-aqua.mp4
 │       └── ulutay-preview.mp4
-├── public
-│   └── .gitkeep
 ├── seo
 │   ├── analysis
 │   ├── data
@@ -94,16 +92,20 @@
 │   │   │   ├── avtomatizatsiya.json
 │   │   │   ├── kupit-internet-magazin.json
 │   │   │   ├── kupit-sayt.json
-│   │   │   ├── kupit-zhd-ofitsialnyy-sayt.json
 │   │   │   ├── ofitsialnyy-sayt-kupit-onlayn.json
+│   │   │   ├── seo.json
+│   │   │   ├── sozdanie-sayta.json
 │   │   │   ├── sozdat-sayt.json
+│   │   │   ├── tsena-internet-sayta.json
+│   │   │   ├── tsena-sayta-internet-magazina.json
 │   │   │   ├── tsena-sayta.json
 │   │   │   ├── tsenam-internet-magazin-katalog.json
-│   │   │   ├── valdberies-internet-magazin-kupit.json
-│   │   │   └── zhd-sayt-kupit.json
+│   │   │   └── zakazat-sayt.json
 │   │   └── raw
 │   │       └── raw_keywords.csv
 │   ├── generator
+│   │   ├── modules
+│   │   │   └── head.html
 │   │   ├── templates
 │   │   │   ├── template_1.js
 │   │   │   ├── template_2.js
@@ -115,37 +117,44 @@
 │   │   ├── build_seo_matrix.py
 │   │   ├── build.js
 │   │   ├── generate_pages.py
-│   │   └── template_base.html
-│   └── sources
-│       └── wordstat
-│           ├── wordstat_top_queries (1).csv
-│           ├── wordstat_top_queries (10).csv
-│           ├── wordstat_top_queries (11).csv
-│           ├── wordstat_top_queries (12).csv
-│           ├── wordstat_top_queries (13).csv
-│           ├── wordstat_top_queries (2).csv
-│           ├── wordstat_top_queries (3).csv
-│           ├── wordstat_top_queries (4).csv
-│           ├── wordstat_top_queries (5).csv
-│           ├── wordstat_top_queries (6).csv
-│           ├── wordstat_top_queries (7).csv
-│           ├── wordstat_top_queries (8).csv
-│           ├── wordstat_top_queries (9).csv
-│           └── wordstat_top_queries.csv
+│   │   ├── template_base.html
+│   │   ├── template_blog.html
+│   │   ├── template_case.html
+│   │   └── template_tool.html
+│   ├── sources
+│   │   └── wordstat
+│   │       ├── wordstat_top_queries (1).csv
+│   │       ├── wordstat_top_queries (10).csv
+│   │       ├── wordstat_top_queries (11).csv
+│   │       ├── wordstat_top_queries (12).csv
+│   │       ├── wordstat_top_queries (13).csv
+│   │       ├── wordstat_top_queries (2).csv
+│   │       ├── wordstat_top_queries (3).csv
+│   │       ├── wordstat_top_queries (4).csv
+│   │       ├── wordstat_top_queries (5).csv
+│   │       ├── wordstat_top_queries (6).csv
+│   │       ├── wordstat_top_queries (7).csv
+│   │       ├── wordstat_top_queries (8).csv
+│   │       ├── wordstat_top_queries (9).csv
+│   │       └── wordstat_top_queries.csv
+│   └── cron_runner.py
 ├── services
 │   ├── avtomatizatsiya.html
 │   ├── kupit-internet-magazin.html
 │   ├── kupit-sayt.html
-│   ├── kupit-zhd-ofitsialnyy-sayt.html
 │   ├── ofitsialnyy-sayt-kupit-onlayn.html
+│   ├── seo.html
+│   ├── sozdanie-sayta.html
 │   ├── sozdat-sayt.html
+│   ├── tsena-internet-sayta.html
+│   ├── tsena-sayta-internet-magazina.html
 │   ├── tsena-sayta.html
 │   ├── tsenam-internet-magazin-katalog.html
-│   ├── valdberies-internet-magazin-kupit.html
-│   └── zhd-sayt-kupit.html
+│   └── zakazat-sayt.html
 ├── .env
 ├── .gitignore
 ├── index.html
 ├── package.json
 ├── robots.txt
-└── sitemap.xml
+├── sitemap.xml
+└── vercel.json

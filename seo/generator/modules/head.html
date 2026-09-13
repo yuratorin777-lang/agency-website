@@ -1,0 +1,53 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{META_TITLE}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}">
+<link rel="canonical" href="{{CANONICAL_URL}}">
+
+<!-- Tailwind CSS & Icons -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/images/favicon.png" />
+
+<!-- Open Graph / Social Media Metas -->
+<meta property="og:type" content="{{OG_TYPE}}" />
+<meta property="og:url" content="{{CANONICAL_URL}}" />
+<meta property="og:title" content="{{META_TITLE}}" />
+<meta property="og:description" content="{{META_DESCRIPTION}}" />
+<meta property="og:image" content="{{OG_IMAGE}}" />
+<meta property="og:site_name" content="BOS.AGENCE" />
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{META_TITLE}}" />
+<meta name="twitter:description" content="{{META_DESCRIPTION}}" />
+<meta name="twitter:image" content="{{OG_IMAGE}}" />
+
+<style>
+  body { font-family: 'Geist', sans-serif; background-color: #050714; color: #f1f1f1; }
+  .font-syne { font-family: 'Syne', sans-serif; }
+  .font-mono-code { font-family: 'Space Mono', monospace; }
+  
+  .glow-purple { box-shadow: 0 0 50px -10px rgba(139, 92, 246, 0.3); }
+  .animated-gradient-text {
+    background: linear-gradient(120deg, #ffffff 0%, #8b5cf6 30%, #3b82f6 60%, #ffffff 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position: 200% center; } }
+  @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+  .animate-marquee { display: flex; width: 200%; animation: marquee 25s linear infinite; }
+</style>
+
+{{SCHEMA_JSON}}
