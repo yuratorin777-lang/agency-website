@@ -11,7 +11,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://agency-website-virid-rho.vercel.app/blog/blog-seo-ru.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://agency-website-virid-rho.vercel.app/blog/kak-nazyvaetsya-seo.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/blog/kak-prodvinut-seo.html</loc>
     <lastmod>2026-09-13</lastmod>
     <priority>0.8</priority>
   </url>
@@ -21,7 +31,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://agency-website-virid-rho.vercel.app/blog/razrabotka-sayta-kak-nazyvaetsya.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://agency-website-virid-rho.vercel.app/blog/seo-kak-zarabatyvat.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/cases/opyt-raboty-v-marketinge.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/cases/primery-razrabotok-saytov.html</loc>
     <lastmod>2026-09-13</lastmod>
     <priority>0.8</priority>
   </url>
@@ -142,6 +167,21 @@
   </url>
   <url>
     <loc>https://agency-website-virid-rho.vercel.app/services/sozdat-sayt.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/tools/instrumenty-veb-razrabotki.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/tools/sayt-instrument-razrabotki.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/tools/seo-instrument-sayta.html</loc>
     <lastmod>2026-09-13</lastmod>
     <priority>0.8</priority>
   </url>

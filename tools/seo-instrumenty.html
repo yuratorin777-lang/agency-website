@@ -67,7 +67,7 @@
       </button>
 
       <a href="../index.html" class="font-syne text-2xl sm:text-3xl font-extrabold tracking-tighter text-neutral-900 hover:opacity-80 transition-opacity">
-        B<span class="text-neutral-400">.</span>
+        BOS<span class="text-neutral-400">.AGENCE</span>
       </a>
 
       <a href="javascript:void(0)" 
@@ -438,56 +438,45 @@
   btn.innerHTML = '<span>Формирование PDF...</span>';
   btn.disabled = true;
 
-  // 1. Берем строго контейнер с чек-листом, а не весь main
-  const targetElement = document.getElementById('pdf-content');
-  if (!targetElement) {
-    btn.innerHTML = originalText;
-    btn.disabled = false;
-    return;
-  }
+  // 1. Создаем временный контейнер для сборки ВСЕГО контента страницы
+  const element = document.createElement('div');
+  element.style.padding = '30px';
+  element.style.fontFamily = 'sans-serif';
+  element.style.color = '#171717';
 
-  // 2. Клонируем нужный контент
-  const contentClone = targetElement.cloneNode(true);
+  const title = document.getElementById('pdf-tool-title') ? document.getElementById('pdf-tool-title').innerText : '';
+  const desc = document.getElementById('pdf-tool-desc') ? document.getElementById('pdf-tool-desc').innerText : '';
+  
+  // 2. Берем весь основной тег <main>, чтобы захватить ВСЕ блоки страницы
+  const mainContent = document.querySelector('main');
+  // Клонируем его, чтобы не изменять исходную страницу
+  const contentClone = mainContent.cloneNode(true);
 
-  // Делаем видимыми блоки, которые помечены как "hidden print:block"
-  const printOnlyElements = contentClone.querySelectorAll('.print\\:block');
-  printOnlyElements.forEach(el => el.classList.remove('hidden'));
+  // Убираем из копии саму кнопку скачивания и крошки, чтобы они не дублировались в PDF
+  const downloadBtn = contentClone.querySelector('#download-pdf-btn');
+  if (downloadBtn) downloadBtn.remove();
 
-  // 3. Собираем чистый HTML-контейнер с изолированными базовыми стилями
-  const wrapper = document.createElement('div');
-  wrapper.style.padding = '20px';
-  wrapper.style.fontFamily = 'sans-serif';
-  wrapper.style.color = '#171717';
-  wrapper.style.backgroundColor = '#ffffff';
-
-  // Вставляем шапку и клонированный чек-лист
-  wrapper.innerHTML = `
-    <div style="margin-bottom: 20px; border-bottom: 2px solid #171717; padding-bottom: 10px;">
-      <div style="font-size: 22px; font-weight: 800; font-family: monospace; letter-spacing: 2px;">BOS.AGENCE</div>
-      <div style="font-size: 10px; color: #737373; font-family: monospace; margin-top: 2px;">ПРАКТИЧЕСКИЙ МАТЕРИАЛ // AI & AUTOMATION</div>
+  element.innerHTML = `
+    <div style="margin-bottom: 25px; border-bottom: 2px solid #e5e5e5; padding-bottom: 15px;">
+      <div style="font-size: 20px; font-weight: bold; font-family: monospace; letter-spacing: 2px;">BOS.AGENCE</div>
+      <div style="font-size: 11px; color: #737373; font-family: monospace; margin-top: 4px;">ПРАКТИЧЕСКИЙ МАТЕРИАЛ // AI & AUTOMATION</div>
     </div>
     ${contentClone.innerHTML}
   `;
 
-  // 4. Настройки html2pdf
-  const title = document.getElementById('pdf-tool-title')?.innerText || 'document';
-  const cleanFileName = title.toLowerCase().replace(/[^a-z0-9а-я]/g, '_');
-
   const opt = {
-    margin:       [10, 10, 10, 10], // верх, лево, низ, право (в мм)
-    filename:     `BOS_AGENCE_${cleanFileName}.pdf`,
+    margin:       10,
+    filename:     `BOS_AGENCE_${title.toLowerCase().replace(/[^a-z0-9а-я]/g, '_')}.pdf`,
     image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true, logging: false },
-    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] } // предотвращает разрыв блоков
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
-  // 5. Генерация и скачивание
-  html2pdf().set(opt).from(wrapper).save().then(() => {
+  html2pdf().set(opt).from(element).save().then(() => {
     btn.innerHTML = originalText;
     btn.disabled = false;
   }).catch(err => {
-    console.error('Ошибка генерации PDF:', err);
+    console.error('Ошибка PDF:', err);
     btn.innerHTML = originalText;
     btn.disabled = false;
   });
