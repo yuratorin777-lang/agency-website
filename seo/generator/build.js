@@ -385,9 +385,13 @@ if (fs.existsSync(INDEX_PATH)) {
 function renderContentHub() {
   if (!fs.existsSync(INDEX_PATH)) return;
 
+  //console.log('--- ТРАССИРОВКА РЕЕСТРА ---');
+  //console.log('Всего страниц сканировано:', pagesRegistry.length);
+  console.log('Найденные типы:', pagesRegistry.map(p => ({ title: p.title, type: p.type })));
+
   const cases = pagesRegistry.filter(p => p.type === 'case');
   const blog = pagesRegistry.filter(p => p.type === 'blog');
-  const knowledge = pagesRegistry.filter(p => p.type === 'tool');
+  const knowledge = pagesRegistry.filter(p => p.type === 'tool' || p.type === 'knowledge'); // добавили 'knowledge' на случай разницы в названии
 
   // 1. Генерация HTML для кейсов (адаптирована под мобильные и ПК)
   const casesHtml = cases.map(item => `
