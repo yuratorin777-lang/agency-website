@@ -2475,18 +2475,14 @@
 </section>
 
 <!-- СКРИПТ ПЕРЕКЛЮЧЕНИЯ ТАБОВ -->
-<!-- СКТРИПТ ПЕРЕКЛЮЧЕНИЯ ТАБОВ -->
 <script>
   function switchTab(tabName) {
     // 1. Скрываем все таб-панели
     document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
     
-    // 2. Сбрасываем стили абсолютно всех кнопок табов
+    // 2. Сбрасываем стили всех кнопок (серый текст, прозрачный фон)
     document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.classList.remove('bg-neutral-900', 'text-white', 'shadow-sm');
-      btn.classList.add('text-neutral-500');
-      
-      // Снимаем фокус с кнопки, чтобы браузер не подсвечивал её после клика
+      btn.className = 'tab-btn px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold transition-colors !text-neutral-500 hover:!text-neutral-900 bg-transparent outline-none focus:outline-none';
       btn.blur();
     });
 
@@ -2494,11 +2490,10 @@
     const activePane = document.getElementById('tab-content-' + tabName);
     if (activePane) activePane.classList.remove('hidden');
 
-    // 4. Подсвечиваем активную кнопку (темный фон + белый текст)
+    // 4. Ставим активной кнопке темный фон и МГНОВЕННО БЕЛЫЙ ТЕКСТ (!text-white)
     const activeBtn = document.getElementById('tab-btn-' + tabName);
     if (activeBtn) {
-      activeBtn.classList.add('bg-neutral-900', 'text-white', 'shadow-sm');
-      activeBtn.classList.remove('text-neutral-500');
+      activeBtn.className = 'tab-btn px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold transition-colors !bg-neutral-900 !text-white shadow-sm outline-none focus:outline-none';
     }
   }
 </script>
