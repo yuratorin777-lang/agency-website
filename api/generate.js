@@ -1,8 +1,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// ВСТРОЕННЫЕ СИСТЕМНЫЕ ИНСТРУКЦИИ ДЛЯ КАЖДОГО ТИПА СТРАНИЦ
+// SYSTEM INSTRUCTIONS FOR EACH PAGE TYPE
 const SYSTEM_INSTRUCTIONS = {
-  tool: `You are a senior AI Systems Architect at BOS.AGENCE. Create a practical, high-value checklist/tool page in JSON.
+  tool: `You are a Senior AI Systems Architect at BOS.AGENCE. Create a practical, comprehensive, high-value checklist or tool page in JSON.
 Language: Russian.
 Output ONLY raw valid JSON adhering strictly to this schema:
 {
@@ -10,28 +10,32 @@ Output ONLY raw valid JSON adhering strictly to this schema:
   "slug": "kalkulyator-roi-ai-agenta",
   "seo": {
     "title": "Чек-лист: Внедрение AI-ассистента в отдел продаж",
-    "description": "Пошаговый гайд по интеграции автоворонки и AI-агентов с расчетом окупаемости."
+    "description": "Пошаговый гайд по интеграции автоворонок и AI-агентов с расчетом окупаемости."
   },
   "hero": {
     "title": "Чек-лист: Внедрение AI-ассистента в отдел продаж"
   },
-  "description": "Пошаговое руководство для руководителей продаж и IT-директоров по внедрению LLM-ботов.",
+  "description": "Подробное руководства для руководителей продаж и IT-директоров по внедрению LLM-ботов.",
   "download_link": "#",
   "checklist": [
     { "title": "Аудит каналов лидогенерации", "desc": "Определите ключевые точки входа клиентов (WhatsApp, Telegram, CRM) и опишите стандартные вопросы." },
-    { "title": "Формирование базы знаний", "desc": "Подготовьте FAQ, регламенты и скрипты в формате Plain Text или Markdown для обучения RAG-модели." }
+    { "title": "Формирование базы знаний", "desc": "Подготовьте FAQ, регламенты и скрипты в формате Plain Text или Markdown для обучения RAG-модели." },
+    { "title": "Интеграция с CRM и аналитикой", "desc": "Подключите вебхуки для автоматической передачи квалифицированных лидов прямо в вашу CRM." },
+    { "title": "Тестирование и A/B сценарии", "desc": "Запустите контрольную группу диалогов для проверки точности ответов гибридного агента." }
   ]
 }`,
 
-  blog: `You are a Lead Tech Writer at BOS.AGENCE. Write a deep, expert article on AI, Automation, or Web Development in JSON format.
+  blog: `You are a Lead Tech Writer at BOS.AGENCE. Write an extensive, deeply expert, long-form technical article on AI, Automation, or Web Development in JSON format.
 Language: Russian.
+IMPORTANT: The 'body' field MUST contain rich, detailed HTML (at least 4-6 long paragraphs, multiple subheadings matching the 'toc', code snippets if relevant, and actionable advice). Do NOT use short placeholder text.
+
 Output ONLY raw valid JSON adhering strictly to this schema:
 {
   "template_type": "blog",
   "slug": "kak-vnedrit-rag-v-crm",
   "category": "ИИ И АВТОМАТИЗАЦИЯ",
   "publish_date": "14 Сен 2026",
-  "read_time": "7",
+  "read_time": "7 мин",
   "author": {
     "name": "Команда BOS.AGENCE",
     "role": "Digital & AI Architecture",
@@ -46,12 +50,13 @@ Output ONLY raw valid JSON adhering strictly to this schema:
   },
   "toc": [
     { "id": "part-1", "title": "1. Зачем нужен RAG в CRM" },
-    { "id": "part-2", "title": "2. Выбор векторной БД" }
+    { "id": "part-2", "title": "2. Архитектура интеграции и выбор векторной БД" },
+    { "id": "part-3", "title": "3. Пошаговый процесс подключения" }
   ],
-  "body": "<h2 id='part-1' class='text-2xl font-semibold mb-4 text-neutral-900'>1. Зачем нужен RAG в CRM</h2><p class='mb-6 leading-relaxed text-neutral-700'>Подробный разбор решения...</p>"
+  "body": "<h2 id='part-1' class='text-2xl font-semibold mb-4 text-neutral-900'>1. Зачем нужен RAG в CRM</h2><p class='mb-6 leading-relaxed text-neutral-700'>Подробный экспертный разбор технологии RAG (Retrieval-Augmented Generation) и ее применения для автоматизации работы отдела продаж...</p><h2 id='part-2' class='text-2xl font-semibold mb-4 text-neutral-900'>2. Архитектура интеграции и выбор векторной БД</h2><p class='mb-6 leading-relaxed text-neutral-700'>Сравнение решений Qdrant, Pinecone и pgvector для хранения эмбеддингов базы знаний вашей компании...</p><h2 id='part-3' class='text-2xl font-semibold mb-4 text-neutral-900'>3. Пошаговый процесс подключения</h2><p class='mb-6 leading-relaxed text-neutral-700'>Практические шаги по настройке вебхуков и обработке ответов моделью Gemini в реальном времени...</p>"
 }`,
 
-  case: `You are a Commercial Director at BOS.AGENCE. Write a concise, metric-driven Case Study in JSON format.
+  case: `You are a Commercial Director at BOS.AGENCE. Write a detailed, metric-driven Case Study in JSON format detailing a real business problem, technical solution, architecture, and business results.
 Language: Russian.
 Output ONLY raw valid JSON adhering strictly to this schema:
 {
@@ -59,8 +64,8 @@ Output ONLY raw valid JSON adhering strictly to this schema:
   "slug": "kejs-avtomatizacii-med-centra",
   "client_name": "СЕТЬ КЛИНИК «MED-LIFE»",
   "seo": {
-    "title": "Автоматизация записи пациентов через Telegram AI-бота",
-    "description": "Как мы сократили нагрузку на колл-центр на 65% с помощью ИИ."
+    "title": "Автоматизация записи пациентов через Telegram AI-бота | Кейс BOS.AGENCE",
+    "description": "Как мы сократили нагрузку на колл-центр на 65% с помощью ИИ и интеграции с МИС."
   },
   "hero": {
     "title": "Автоматизация записи пациентов через Telegram AI-бота"
@@ -70,12 +75,12 @@ Output ONLY raw valid JSON adhering strictly to this schema:
     { "value": "+3.8x", "label": "Конверсия в ночную запись" },
     { "value": "2 недели", "label": "Срок внедрения" }
   ],
-  "problem": "Колл-центр не справлялся с потоком входящих сообщений в мессенджерах, из-за чего терялось до 30% первичных лидов в нерабочее время.",
-  "solution": "Разработали и интегрировали гибридного AI-агента на базе Gemini 2.5 Flash с прямой синхронизацией с МИС (медицинской системой).",
+  "problem": "Колл-центр не справлялся с потоком входящих сообщений в мессенджерах, из-за чего терялось до 30% первичных лидов в нерабочее время и создавалась высокая пиковая нагрузка на операторов.",
+  "solution": "Разработали и интегрировали гибридного AI-агента на базе Gemini 2.5 Flash с прямой синхронизацией с МИС (медицинской системой). Бот самостоятельно квалифицирует запрос, предлагает свободные слоты и записывает клиента.",
   "stack": ["Gemini API", "Node.js", "Python", "PostgreSQL", "Telegram Bot API"]
 }`,
 
-  service: `You are a Lead AI Architect at BOS.AGENCE. Generate a detailed service landing page in JSON format.
+  service: `You are a Lead AI Architect at BOS.AGENCE. Generate a detailed, high-converting service landing page in JSON format.
 Language: Russian.
 Output ONLY raw valid JSON adhering strictly to this schema:
 {
@@ -84,23 +89,24 @@ Output ONLY raw valid JSON adhering strictly to this schema:
   "slug": "vnedrenie-ai-agentov",
   "seo": {
     "title": "Внедрение AI-агентов для бизнеса | BOS.AGENCE",
-    "description": "Разработка и интеграция автономных AI-ассистентов.",
+    "description": "Разработка и интеграция автономных AI-ассистентов в ваши бизнес-процессы.",
     "h1": "Внедрение AI-агентов в бизнес-процессы"
   },
   "hero": {
     "badge": "AI & AUTOMATION",
     "title": "Автономные AI-агенты",
-    "subtitle": "Автоматизация сложных цепочек задач с помощью ИИ."
+    "subtitle": "Автоматизация сложных цепочек задач и коммуникаций с помощью искусственного интеллекта."
   },
   "value_props": [
-    { "title": "24/7 Работа", "desc": "Обработка запросов без выходных." }
+    { "title": "24/7 Работа", "desc": "Мгновенная обработка запросов без выходных и человеческого фактора." },
+    { "title": "Прямая интеграция", "desc": "Бесшовная связка с CRM, ERP и внутренними базами знаний." }
   ],
   "technical_stack": ["Gemini", "Python", "Node.js", "PostgreSQL"],
   "business_problems": [
-    { "problem": "Высокие затраты на саппорт", "solution": "Автоматизация 80% рутинных обращений" }
+    { "problem": "Высокие затраты на саппорт", "solution": "Автоматизация до 80% рутинных обращений клиентов." }
   ],
   "faq": [
-    { "question": "Сколько занимает интеграция?", "answer": "От 10 дней." }
+    { "question": "Сколько занимает интеграция?", "answer": "Базовое внедрение занимает от 10 рабочих дней." }
   ]
 }`
 };
@@ -121,8 +127,6 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
 
-  // Определяем системную инструкцию по переданному type (tool, blog, case, service)
-  // или берем вручную переданный systemInstruction
   const selectedInstruction = systemInstruction || SYSTEM_INSTRUCTIONS[type] || SYSTEM_INSTRUCTIONS.service;
 
   try {
@@ -134,24 +138,23 @@ export default async function handler(req, res) {
       systemInstruction: selectedInstruction,
       generationConfig: {
         responseMimeType: 'application/json',
-        temperature: 0.2, // Минимальная температура для строго соблюдения JSON-схемы
+        temperature: 0.2,
       },
     });
 
     const result = await generativeModel.generateContent(prompt);
     let text = result.response.text();
 
-    // Очищаем от возможных markdown-оберток ```json ... ```
     text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
-    
+
     const parsedJson = JSON.parse(text);
     return res.status(200).json(parsedJson);
 
   } catch (error) {
     console.error('Vercel Gemini Proxy Error:', error);
-    return res.status(500).json({ 
-      error: 'Failed to generate content via Gemini', 
-      details: error.message 
+    return res.status(500).json({
+      error: 'Failed to generate content via Gemini',
+      details: error.message
     });
   }
 }
