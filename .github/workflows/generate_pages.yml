@@ -1,40 +1,43 @@
-﻿name: Generate & Build SEO Pages Step-by-Step
+﻿name: Generate SEO Pages via Gemini
 
 on:
   workflow_dispatch:
     inputs:
       batch_size:
-        description: 'Количество страниц'
+        description: 'Количество страниц для генерации'
         required: true
         default: '4'
 
   schedule:
     - cron: '0 0 * * *'
 
+permissions:
+  contents: write
+
 jobs:
-  generate-and-build:
+  generate:
     runs-on: ubuntu-latest
 
     steps:
       - name: Чеккаут репозитория
         uses: actions/checkout@v4
 
-      - name: Настройка Python и Node.js
+      - name: Настройка Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - uses: actions/setup-node@v4
+      - name: Настройка Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Установка зависимостей
+      - name: Установка зависимостей Python
         run: |
           python -m pip install --upgrade pip
           pip install requests google-generativeai python-dotenv
 
-      # ШАГ 1: Генерация JSON через Gemini
-      - name: 1. Генерация JSON страниц
+      - name: 1. Генерация JSON страниц (Python)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           VERCEL_API_URL: ${{ secrets.VERCEL_API_URL }}
@@ -42,18 +45,18 @@ jobs:
         run: |
           python seo/generator/generate_pages.py
 
-      # ШАГ 2: Сборка HTML и Sitemap по точному пути
-      - name: 2. Сборка HTML и Sitemap
+      - name: 2. Сборка HTML и Sitemap (Node.js)
         run: |
           node seo/generator/build.js
 
-      # ШАГ 3: Отправка на деплой
-      - name: 3. Коммит и деплой
+      - name: 3. Коммит и деплой изменений
         run: |
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "action@github.com"
           git add .
           if git status --porcelain | grep -q .; then
-            git commit -m "feat(seo): автоматическая сборка страниц"
+            git commit -m "feat(seo): автоматическая генерация страниц и HTML сборка"
             git push
+          else
+            echo "Нет новых изменений для коммита."
           fi
