@@ -2039,30 +2039,28 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- 1. ЗАГОЛОВОК И ТАБЫ-ПЕРЕКЛЮЧАТЕЛИ -->
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mb-12 lg:mb-16">
-      <div>
-        <span class="text-xs font-mono uppercase tracking-widest text-neutral-400 block mb-3">// ЭКСПЕРТИЗА & ПРАКТИКА</span>
-        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-light leading-tight tracking-tight">
-          <span class="text-neutral-400">Знания, решения</span>
-          <span class="text-neutral-900 font-normal"> и измеримые результаты.</span>
-        </h2>
-      </div>
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mb-12 lg:mb-16">
+  <div>
+    <span class="text-xs font-mono uppercase tracking-widest text-neutral-400 block mb-3">// ЭКСПЕРТИЗА & ПРАКТИКА</span>
+    <h2 class="text-3xl sm:text-5xl lg:text-6xl font-light leading-tight tracking-tight">
+      <span class="text-neutral-400">Знания, решения</span>
+      <span class="text-neutral-900 font-normal"> и измеримые результаты.</span>
+    </h2>
+  </div>
 
-      <!-- ТАБЫ ПЕРЕКЛЮЧЕНИЯ (С МОБИЛЬНОЙ ПРОКРУТКОЙ) -->
-      <div class="w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-        <div class="flex items-center gap-1.5 sm:gap-2 p-1.5 bg-neutral-100 rounded-2xl min-w-max border border-neutral-200/80">
-          <button onclick="switchTab('cases')" id="tab-btn-cases" class="tab-btn px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold transition-all bg-neutral-900 text-white shadow-sm whitespace-nowrap">
-            Кейсы [<span id="count-cases">7</span>]
-          </button>
-          <button onclick="switchTab('blog')" id="tab-btn-blog" class="tab-btn px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold transition-all text-neutral-500 hover:text-neutral-900 whitespace-nowrap">
-            Блог [<span id="count-blog">7</span>]
-          </button>
-          <button onclick="switchTab('knowledge')" id="tab-btn-knowledge" class="tab-btn px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold transition-all text-neutral-500 hover:text-neutral-900 whitespace-nowrap">
-            База знаний [<span id="count-knowledge">7</span>]
-          </button>
-        </div>
-      </div>
-    </div>
+  <!-- ТАБЫ ПЕРЕКЛЮЧЕНИЯ (БЕЗ СКРОЛЛА, С РАВНОМЕРНОЙ ВЕРСТКОЙ) -->
+  <div class="flex items-center gap-1.5 sm:gap-2 p-1.5 bg-neutral-100 rounded-2xl border border-neutral-200/80">
+    <button onclick="switchTab('cases')" id="tab-btn-cases" type="button" class="tab-btn px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold transition-colors bg-neutral-900 text-white shadow-sm outline-none focus:outline-none">
+      Кейсы [<span id="count-cases">7</span>]
+    </button>
+    <button onclick="switchTab('blog')" id="tab-btn-blog" type="button" class="tab-btn px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold transition-colors text-neutral-500 hover:text-neutral-900 outline-none focus:outline-none">
+      Блог [<span id="count-blog">7</span>]
+    </button>
+    <button onclick="switchTab('knowledge')" id="tab-btn-knowledge" type="button" class="tab-btn px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold transition-colors text-neutral-500 hover:text-neutral-900 outline-none focus:outline-none">
+      База знаний [<span id="count-knowledge">7</span>]
+    </button>
+  </div>
+</div>
 
     <!-- ТОНКАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ -->
     <div class="w-full h-[1px] bg-neutral-200 mb-8 sm:mb-12"></div>
