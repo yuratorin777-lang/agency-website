@@ -78,7 +78,7 @@
     </div>
   </header>
 
-  <!-- FULLSCREEN NAVIGATION OVERLAY -->
+  <!-- FULLSCREEN NAVIGATION OVERLAY (СВЕТЛАЯ ТЕМА) -->
   <div id="full-menu" class="fixed inset-0 z-[100] bg-white/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-6 sm:p-14 overflow-y-auto">
     <div class="max-w-7xl mx-auto w-full flex items-center justify-between gap-4 z-10">
       <div class="text-[10px] sm:text-[11px] font-mono font-light uppercase tracking-[0.15em] sm:tracking-[0.25em] text-neutral-400 truncate">
@@ -105,17 +105,24 @@
             <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-neutral-900 group-hover:w-full transition-all duration-300"></span>
           </span>
         </a>
-        <a href="../blog.html" class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1">
+        <a href="../index.html#media-section" class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1">
           <span class="font-mono text-xs text-neutral-400 font-light tracking-widest group-hover:text-neutral-900 transition-colors">03</span>
           <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-neutral-800 group-hover:text-neutral-900 group-hover:translate-x-3 transition-all duration-300 relative">
-            БЛОГ
+            МЕДИА & КЕЙСЫ
+            <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-neutral-900 group-hover:w-full transition-all duration-300"></span>
+          </span>
+        </a>
+        <a href="../index.html#team-section" class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1">
+          <span class="font-mono text-xs text-neutral-400 font-light tracking-widest group-hover:text-neutral-900 transition-colors">04</span>
+          <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-neutral-800 group-hover:text-neutral-900 group-hover:translate-x-3 transition-all duration-300 relative">
+            КОМАНДА
             <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-neutral-900 group-hover:w-full transition-all duration-300"></span>
           </span>
         </a>
         <a href="javascript:void(0)" 
            onclick="closeMenu(); openContactModal();" 
            class="menu-nav-link group flex items-center gap-4 sm:gap-6 w-fit py-1 cursor-pointer">
-          <span class="font-mono text-xs text-neutral-400 font-light tracking-widest group-hover:text-neutral-900 transition-colors">04</span>
+          <span class="font-mono text-xs text-neutral-400 font-light tracking-widest group-hover:text-neutral-900 transition-colors">05</span>
           <span class="font-syne text-2xl sm:text-4xl md:text-5xl font-light tracking-wide uppercase text-neutral-900 group-hover:translate-x-3 transition-all duration-300 relative">
             ОБСУДИТЬ ПРОЕКТ
             <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-neutral-900 group-hover:w-full transition-all duration-300"></span>
@@ -133,6 +140,17 @@
             hello@bos.agence
           </a>
         </div>
+
+        <div>
+          <div class="font-mono text-[10px] font-light uppercase tracking-[0.25em] text-neutral-400 mb-4">// SOCIALS</div>
+          <div class="flex flex-wrap gap-4 font-mono text-xs text-neutral-600 tracking-wider">
+            <a href="#" class="hover:text-neutral-900 transition-colors">GITHUB</a>
+            <span class="text-neutral-300">/</span>
+            <a href="#" class="hover:text-neutral-900 transition-colors">BEHANCE</a>
+            <span class="text-neutral-300">/</span>
+            <a href="https://t.me/bos_agence" target="_blank" class="hover:text-neutral-900 transition-colors">TG CHANNEL</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -142,41 +160,85 @@
     </div>
   </div>
 
-  <!-- POPUP FORM OVERLAY -->
-  <div id="contact-modal" class="fixed inset-0 z-[110] bg-white/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-6 sm:p-12 overflow-y-auto">
+  <!-- POPUP FORM OVERLAY (СВЕТЛАЯ ТЕМА) -->
+  <div id="contact-modal" class="fixed inset-0 z-[110] bg-neutral-900/60 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-6 sm:p-12 overflow-y-auto">
     <div class="max-w-7xl mx-auto w-full flex justify-end z-10">
-      <button id="close-contact-btn" class="font-mono text-[11px] font-light tracking-[0.2em] text-neutral-600 hover:text-neutral-900 transition-colors uppercase cursor-pointer">
+      <button id="close-contact-btn" class="font-mono text-[11px] font-light tracking-[0.2em] text-white/80 hover:text-white transition-colors uppercase cursor-pointer">
         [ ЗАКРЫТЬ ✕ ]
       </button>
     </div>
 
     <div class="max-w-4xl mx-auto w-full my-auto py-6 z-10">
-      <div class="bg-neutral-50 border border-neutral-200 p-8 sm:p-12 rounded-2xl relative">
+      <div class="bg-white border border-neutral-200 p-8 sm:p-12 rounded-2xl relative shadow-2xl">
         <h2 class="font-syne text-3xl sm:text-5xl font-bold uppercase tracking-tight leading-none mb-4 text-neutral-900">
-          ОБСУДИТЬ <span class="text-neutral-400">ПРОЕКТ</span>
+          ДАВАЙТЕ <span class="text-neutral-500">СОЗДАДИМ</span> ЧТО-ТО КРУТОЕ
         </h2>
         <p class="font-mono text-xs text-neutral-500 tracking-wider mb-8 uppercase">
           Расскажите о вашей задаче, и мы подготовим оптимальное решение и оценку сроков.
         </p>
 
         <form id="contact-form" onsubmit="event.preventDefault(); alert('Спасибо за заявку!'); closeContactModal();" class="space-y-6">
-          <div class="space-y-4">
-            <div>
-              <label for="user-name" class="block font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-2">// ВАШЕ ИМЯ *</label>
-              <input type="text" id="user-name" required placeholder="Иван" class="w-full bg-white border border-neutral-200 focus:border-neutral-900 rounded-lg px-4 py-3.5 text-neutral-900 placeholder-neutral-300 font-mono text-xs focus:outline-none transition-colors">
-            </div>
-            <div>
-              <label for="user-contact" class="block font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-2">// ТЕЛЕГРАМ ИЛИ EMAIL *</label>
-              <input type="text" id="user-contact" required placeholder="@username или email" class="w-full bg-white border border-neutral-200 focus:border-neutral-900 rounded-lg px-4 py-3.5 text-neutral-900 placeholder-neutral-300 font-mono text-xs focus:outline-none transition-colors">
-            </div>
-            <div>
-              <label for="user-message" class="block font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-2">// ОПИСАНИЕ ЗАДАЧИ</label>
-              <textarea id="user-message" rows="3" placeholder="Расскажите кратко..." class="w-full bg-white border border-neutral-200 focus:border-neutral-900 rounded-lg p-4 text-neutral-900 placeholder-neutral-300 font-mono text-xs focus:outline-none transition-colors resize-none"></textarea>
+          <div>
+            <label class="block font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-3">
+              // 01. ВЫБЕРИТЕ НАПРАВЛЕНИЕ
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="landing" class="peer hidden" checked>
+                <div class="p-3.5 bg-neutral-50 border border-neutral-200 rounded-lg font-mono text-xs text-neutral-700 peer-checked:border-neutral-900 peer-checked:text-neutral-900 peer-checked:bg-neutral-100 transition-all text-center uppercase tracking-wider">
+                  Лендинг / Промо-сайт
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="corporate" class="peer hidden">
+                <div class="p-3.5 bg-neutral-50 border border-neutral-200 rounded-lg font-mono text-xs text-neutral-700 peer-checked:border-neutral-900 peer-checked:text-neutral-900 peer-checked:bg-neutral-100 transition-all text-center uppercase tracking-wider">
+                  Многостраничный сайт
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="design" class="peer hidden">
+                <div class="p-3.5 bg-neutral-50 border border-neutral-200 rounded-lg font-mono text-xs text-neutral-700 peer-checked:border-neutral-900 peer-checked:text-neutral-900 peer-checked:bg-neutral-100 transition-all text-center uppercase tracking-wider">
+                  UI/UX Дизайн & Айдентика
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="custom" class="peer hidden">
+                <div class="p-3.5 bg-neutral-50 border border-neutral-200 rounded-lg font-mono text-xs text-neutral-700 peer-checked:border-neutral-900 peer-checked:text-neutral-900 peer-checked:bg-neutral-100 transition-all text-center uppercase tracking-wider">
+                  Веб-сервис / Доработка
+                </div>
+              </label>
             </div>
           </div>
-          <button type="submit" class="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-syne font-bold uppercase text-xs sm:text-base tracking-wider py-4 rounded-lg shadow-lg transition-all flex items-center justify-center gap-3">
+
+          <div class="space-y-4">
+            <div>
+              <label for="user-name" class="block font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
+                // 02. ВАШЕ ИМЯ ИЛИ КОМПАНИЯ *
+              </label>
+              <input type="text" id="user-name" required placeholder="Иван / Название компании" 
+                class="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 rounded-lg px-4 py-3.5 text-neutral-900 placeholder-neutral-400 font-mono text-xs focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label for="user-contact" class="block font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
+                // 03. ТЕЛЕГРАМ ИЛИ EMAIL ДЛЯ СВЯЗИ *
+              </label>
+              <input type="text" id="user-contact" required placeholder="@username или name@domain.com" 
+                class="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 rounded-lg px-4 py-3.5 text-neutral-900 placeholder-neutral-400 font-mono text-xs focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label for="user-message" class="block font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
+                // 04. ОПИСАНИЕ ЗАДАЧИ ИЛИ ССЫЛКА НА ТЗ
+              </label>
+              <textarea id="user-message" rows="3" placeholder="Расскажите кратко о вашем проекте..." 
+                class="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 rounded-lg p-4 text-neutral-900 placeholder-neutral-400 font-mono text-xs focus:outline-none transition-colors resize-none"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-syne font-bold uppercase text-xs sm:text-base tracking-wider sm:tracking-[0.2em] py-4 rounded-lg shadow-lg hover:shadow-neutral-900/20 transition-all flex items-center justify-center gap-3 group cursor-pointer">
             <span>ОТПРАВИТЬ ЗАЯВКУ</span>
-            <span>&rarr;</span>
+            <span class="transform group-hover:translate-x-1.5 transition-transform">&rarr;</span>
           </button>
         </form>
       </div>
@@ -244,7 +306,7 @@
 
       <!-- Футер документа в PDF -->
       <div class="hidden print:block mt-12 pt-6 border-t border-neutral-200 text-center font-mono text-xs text-neutral-400">
-        Сгенерировано автоматически на bos-agence.com • Все права защищены
+        Сгенерировано автоматически на bos-agence.com &bull; Все права защищены
       </div>
     </section>
   </main>
