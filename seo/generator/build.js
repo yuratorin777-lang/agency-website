@@ -73,8 +73,11 @@ pageFiles.forEach((file) => {
   const templateType = pageData.template_type || pageData.type || 'service';
   let currentTemplateHtml = getTemplateHtml(templateType);
 
+  // Очистка slug от повторных префиксов разделов и корректное создание имени файла
   let rawSlug = pageData.slug || file.replace('.json', '');
-  const pageSlug = rawSlug.endsWith('.html') ? rawSlug : `${rawSlug}.html`;
+  rawSlug = rawSlug.replace(/^(blog|services|cases|tools)\//, '');
+  const cleanName = rawSlug.replace(/\.html$/, '');
+  const pageSlug = `${cleanName}.html`;
   
   const targetDir = DIRS[templateType] || DIRS.service;
   const folderName = templateType === 'service' ? 'services' : templateType === 'case' ? 'cases' : templateType === 'blog' ? 'blog' : 'tools';
@@ -95,9 +98,9 @@ pageFiles.forEach((file) => {
       .slice(0, 3)
       .map(relFile => {
         const relData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, relFile), 'utf-8'));
-        const relSlug = (relData.slug || relFile.replace('.json', '')).replace(/\.html$/, '') + '.html';
+        const cleanRelSlug = (relData.slug || relFile.replace('.json', '')).replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
         return `
-          <a href="../blog/${relSlug}" class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl hover:border-neutral-400 transition-all block group">
+          <a href="../blog/${cleanRelSlug}.html" class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl hover:border-neutral-400 transition-all block group">
             <div class="font-mono text-xs text-neutral-400 uppercase mb-2">// ${relData.category || 'СТАТЬЯ'}</div>
             <div class="text-sm font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">${relData.seo?.title || relData.slug} &rarr;</div>
           </a>`;
@@ -191,8 +194,8 @@ pageFiles.forEach((file) => {
 
     const relatedLinks = pageFiles.filter(f => f !== file).slice(0, 4).map(relFile => {
       const relData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, relFile), 'utf-8'));
-      const relSlug = (relData.slug || relFile.replace('.json', '')).replace(/\.html$/, '') + '.html';
-      return `<a href="/services/${relSlug}" class="p-4 border border-white/10 rounded-xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all block group">
+      const cleanRelSlug = (relData.slug || relFile.replace('.json', '')).replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
+      return `<a href="/services/${cleanRelSlug}.html" class="p-4 border border-white/10 rounded-xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all block group">
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase mb-1">// НАПРАВЛЕНИЕ</div>
         <div class="font-syne text-xs font-bold text-white group-hover:text-[#8b5cf6] transition-colors uppercase">${relData.seo?.h1 || relData.hero?.title || relData.slug} &rarr;</div>
       </a>`;
@@ -200,7 +203,6 @@ pageFiles.forEach((file) => {
 
     const renderRelated = () => `<section class="my-12"><h2 class="font-syne text-lg font-bold uppercase mb-4 text-white/80">// ДРУГИЕ УСЛУГИ</h2><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">${relatedLinks}</div></section>`;
 
-    // Генерация секции длинного SEO-текста из text_content (если он есть в JSON)
     let textContentHtml = '';
     if (pageData.text_content) {
       if (pageData.text_content.intro) {
@@ -254,7 +256,6 @@ pageFiles.forEach((file) => {
 
     currentTemplateHtml = currentTemplateHtml.replace('{{LAYOUT_CONTENT}}', layoutContent);
 
-    // Schema JSON-LD для услуг
     const serviceSchema = {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -307,13 +308,13 @@ if (fs.existsSync(INDEX_PATH)) {
   const topServices = serviceFiles.slice(0, 6);
   const serviceCardsHtml = topServices.map(file => {
     const pageData = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
-    const rawSlug = (pageData.slug || file.replace('.json', '')).replace(/\.html$/, '');
+    const rawSlug = (pageData.slug || file.replace('.json', '')).replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
     let title = pageData.seo?.h1 || pageData.hero?.title || rawSlug;
     title = title.charAt(0).toUpperCase() + title.slice(1);
     const desc = pageData.seo?.description || 'Индивидуальная разработка и автоматизация бизнес-процессов.';
 
     return `
-      <a href="/services/${rawSlug}" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block">
+      <a href="/services/${rawSlug}.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block">
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
         <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug">${title} &rarr;</h3>
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed">${desc}</p>
