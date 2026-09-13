@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       batch_size:
-        description: 'Количество страниц для генерации (для теста)'
+        description: 'Количество страниц для генерации'
         required: true
         default: '4'
 
@@ -34,7 +34,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests google-generativeai python-dotenv
 
-      - name: Запуск скрипта генерации JSON страниц
+      - name: Запуск генератора Python
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           VERCEL_API_URL: ${{ secrets.VERCEL_API_URL }}
@@ -42,19 +42,19 @@ jobs:
         run: |
           python seo/generator/generate_pages.py
 
-      - name: Сборка HTML страниц и обновления Sitemap (build.js)
+      - name: Сборка HTML и Sitemap
+        working-directory: ./seo/generator
         run: |
-          node seo/generator/build.js
+          node build.js
 
-      - name: Коммит и Пуш всех обновлений в Git
+      - name: Коммит изменений
         run: |
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "action@github.com"
           git add .
-          
           if git status --porcelain | grep -q .; then
-            git commit -m "feat(seo): автоматическая генерация страниц, HTML сборка и sitemap"
+            git commit -m "feat(seo): генерация страниц и HTML сборка"
             git push
           else
-            echo "Нет новых изменений для коммита."
+            echo "Нет изменений для коммита."
           fi

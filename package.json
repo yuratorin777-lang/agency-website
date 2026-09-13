@@ -1,14 +1,15 @@
-{
-  "name": "bos-agency-seo-engine",
-  "version": "1.0.0",
-  "description": "BOS.AGENCE SEO Programmatic Engine",
-  "main": "seo/generator/build.js",
-  "scripts": {
-    "import": "node seo/sources/wordstat/import.js",
-    "generate": "python seo/generator/generate_pages.py",
-    "build": "echo 'Skip build step for Vercel'"
-  },
-  "dependencies": {
-    "@google/generative-ai": "^0.21.0"
-  }
+﻿{
+    "name":  "bos-agency-seo-engine",
+    "version":  "1.0.0",
+    "description":  "BOS.AGENCE SEO Programmatic Engine",
+    "main":  "seo/generator/build.js",
+    "scripts":  {
+                    "import":  "node seo/sources/wordstat/import.js",
+                    "generate":  "python seo/generator/generate_pages.py",
+                    "build":  "echo \u0027Skip build step for Vercel\u0027",
+                    "build:seo":  "node seo/generator/build.js"
+                },
+    "dependencies":  {
+                         "@google/generative-ai":  "^0.21.0"
+                     }
 }
