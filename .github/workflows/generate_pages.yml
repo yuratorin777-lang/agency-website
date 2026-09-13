@@ -44,7 +44,7 @@ jobs:
 
       - name: Сборка HTML страниц и обновления Sitemap (build.js)
         run: |
-          node build.js
+          node seo/generator/build.js
 
       - name: Коммит и Пуш всех обновлений в Git
         run: |
