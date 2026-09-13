@@ -70,7 +70,7 @@ PROMPTS = {
     },
     "case": {
         "prefix": "cases",
-        "system": """Ты — Commercial Director в BOS.AGENCE. Напиши лаконичный оцифрованный кейс в формате JSON.
+        "system": """Ты — Commercial Director в BOS.AGENCE. Напиши детальный оцифрованный кейс в формате JSON.
 Язык: Русский.
 Выдавай ТОЛЬКО валидный JSON по следующей схеме:
 {
@@ -80,8 +80,10 @@ PROMPTS = {
   "seo": { "title": "...", "description": "..." },
   "hero": { "title": "..." },
   "metrics": [ { "value": "-65%", "label": "..." } ],
-  "problem": "...",
-  "solution": "...",
+  "problem_short": "Краткая суть проблемы в 1-2 предложениях для верхней карточки summary",
+  "problem_full": "<p class='mb-4 leading-relaxed'>Развернутый детальный разбор проблемы, контекста и болей клиента (2-4 абзаца с тегами p).</p>",
+  "solution_short": "Краткая суть решения в 1-2 предложениях для верхней карточки summary",
+  "solution_full": "<p class='mb-4 leading-relaxed'>Подробный разбор реализованных технологических решений и этапов (2-4 абзаца с тегами p).</p>",
   "stack": ["Python", "Gemini API", "PostgreSQL", "Next.js"]
 }"""
     },

@@ -165,18 +165,23 @@ pagesRegistry.forEach((pageItem) => {
       </div>
     `).join('');
 
+    const problemShort = pageData.problem_short || pageData.problem || '';
+    const solutionShort = pageData.solution_short || pageData.solution || '';
+    const problemFull = pageData.problem_full || pageData.problem || '';
+    const solutionFull = pageData.solution_full || pageData.solution || '';
+
     const fallbackBody = `
       <div class="space-y-8 my-8">
-        ${pageData.problem ? `
+        ${problemFull ? `
           <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl break-words">
-            <h3 class="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-3">// 01. Проблема и вызов</h3>
-            <p class="text-neutral-700 leading-relaxed text-sm sm:text-base">${pageData.problem}</p>
+            <h3 class="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-3">// 01. Детальный разбор проблемы</h3>
+            <div class="text-neutral-700 leading-relaxed text-sm sm:text-base space-y-4">${problemFull}</div>
           </div>` : ''}
         
-        ${pageData.solution ? `
+        ${solutionFull ? `
           <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl break-words">
-            <h3 class="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-3">// 02. Наше решение</h3>
-            <p class="text-neutral-700 leading-relaxed text-sm sm:text-base">${pageData.solution}</p>
+            <h3 class="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-3">// 02. Реализованное решение</h3>
+            <div class="text-neutral-700 leading-relaxed text-sm sm:text-base space-y-4">${solutionFull}</div>
           </div>` : ''}
       </div>
     `;
@@ -187,8 +192,8 @@ pagesRegistry.forEach((pageItem) => {
       .replace(/{{CLIENT_NAME}}/g, pageData.client_name || 'CLIENT')
       .replace(/{{CASE_TITLE}}/g, pageH1)
       .replace(/{{CASE_METRICS}}/g, metricsBlocks)
-      .replace(/{{CASE_PROBLEM}}/g, pageData.problem || '')
-      .replace(/{{CASE_SOLUTION}}/g, pageData.solution || '')
+      .replace(/{{CASE_PROBLEM}}/g, problemShort)
+      .replace(/{{CASE_SOLUTION}}/g, solutionShort)
       .replace(/{{CASE_STACK}}/g, stackTags)
       .replace(/{{CASE_BODY}}/g, caseBodyContent);
 
