@@ -2477,22 +2477,26 @@
 </section>
 
 <!-- СКРИПТ ПЕРЕКЛЮЧЕНИЯ ТАБОВ -->
+<!-- СКТРИПТ ПЕРЕКЛЮЧЕНИЯ ТАБОВ -->
 <script>
   function switchTab(tabName) {
     // 1. Скрываем все таб-панели
     document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
     
-    // 2. Сбрасываем стили активных кнопок
+    // 2. Сбрасываем стили абсолютно всех кнопок табов
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.classList.remove('bg-neutral-900', 'text-white', 'shadow-sm');
       btn.classList.add('text-neutral-500');
+      
+      // Снимаем фокус с кнопки, чтобы браузер не подсвечивал её после клика
+      btn.blur();
     });
 
     // 3. Показываем нужный таб
     const activePane = document.getElementById('tab-content-' + tabName);
     if (activePane) activePane.classList.remove('hidden');
 
-    // 4. Подсвечиваем активную кнопку
+    // 4. Подсвечиваем активную кнопку (темный фон + белый текст)
     const activeBtn = document.getElementById('tab-btn-' + tabName);
     if (activeBtn) {
       activeBtn.classList.add('bg-neutral-900', 'text-white', 'shadow-sm');
