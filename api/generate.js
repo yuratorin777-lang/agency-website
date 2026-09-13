@@ -85,6 +85,13 @@ Output ONLY raw valid JSON adhering strictly to this schema:
 
   service: `You are a Lead AI Architect at BOS.AGENCE. Generate a detailed, high-converting service landing page in JSON format.
 Language: Russian.
+
+CRITICAL TITLE & H1 RULES:
+1. NEVER use raw SEO keyword string or slug directly for H1 or Hero title (e.g. NEVER output "интернет магазин маркет купить").
+2. "seo.h1" and "hero.title" MUST be written in natural, professional, high-converting Russian (e.g. "Разработка интернет-магазинов и маркетплейсов").
+3. "seo.title" must be fully human-readable with standard corporate formatting (e.g. "Разработка интернет-магазинов | BOS.AGENCE").
+4. "slug" must remain a valid URL slug (e.g. "internet-magazin-market-kupit").
+
 Output ONLY raw valid JSON adhering strictly to this schema:
 {
   "template_type": "service",
@@ -97,7 +104,7 @@ Output ONLY raw valid JSON adhering strictly to this schema:
   },
   "hero": {
     "badge": "AI & AUTOMATION",
-    "title": "Автономные AI-агенты",
+    "title": "Разработка и внедрение автономных AI-агентов",
     "subtitle": "Автоматизация сложных цепочек задач и коммуникаций с помощью искусственного интеллекта."
   },
   "value_props": [

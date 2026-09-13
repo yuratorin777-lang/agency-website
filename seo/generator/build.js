@@ -165,31 +165,15 @@ pagesRegistry.forEach((pageItem) => {
       </div>
     `).join('');
 
-    const problemShort = pageData.problem_short || pageData.problem || '';
-    const solutionShort = pageData.solution_short || pageData.solution || '';
-    const problemFull = pageData.problem_full || pageData.problem || '';
-    const solutionFull = pageData.solution_full || pageData.solution || '';
+    // Вытягиваем сжатые выжимки для верхнего карточного блока
+    const problemShort = pageData.problem_short || (typeof pageData.problem === 'string' ? pageData.problem : '');
+    const solutionShort = pageData.solution_short || (typeof pageData.solution === 'string' ? pageData.solution : '');
 
-    const fallbackBody = `
-      <div class="space-y-8 my-8">
-        ${problemFull ? `
-          <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl break-words">
-            <h3 class="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-3">// 01. Детальный разбор проблемы</h3>
-            <div class="text-neutral-700 leading-relaxed text-sm sm:text-base space-y-4">${problemFull}</div>
-          </div>` : ''}
-        
-        ${solutionFull ? `
-          <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl break-words">
-            <h3 class="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-3">// 02. Реализованное решение</h3>
-            <div class="text-neutral-700 leading-relaxed text-sm sm:text-base space-y-4">${solutionFull}</div>
-          </div>` : ''}
-      </div>
-    `;
-
-    const caseBodyContent = pageData.body || pageData.content || fallbackBody;
+    // Используем готовое сверстанное тело из pageData.body (без дублирования через fallback)
+    const caseBodyContent = pageData.body || pageData.content || '';
 
     currentTemplateHtml = currentTemplateHtml
-      .replace(/{{CLIENT_NAME}}/g, pageData.client_name || 'CLIENT')
+      .replace(/{{CLIENT_NAME}}/g, pageData.client_name || pageData.client || 'BOS.AGENCE')
       .replace(/{{CASE_TITLE}}/g, pageH1)
       .replace(/{{CASE_METRICS}}/g, metricsBlocks)
       .replace(/{{CASE_PROBLEM}}/g, problemShort)

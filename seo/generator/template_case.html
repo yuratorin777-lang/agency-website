@@ -213,6 +213,7 @@
     </div>
 
     <div class="max-w-4xl mx-auto space-y-16">
+      <!-- Карточки с краткой выжимкой -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="p-8 bg-neutral-50 rounded-2xl border border-neutral-200">
           <span class="text-xs font-mono uppercase tracking-widest text-neutral-400 block mb-3">// ПРОБЛЕМА</span>
@@ -224,6 +225,7 @@
         </div>
       </div>
 
+      <!-- Полноценный текст статьи/кейса (без дублирования) -->
       <article data-field="case-body" class="article-content space-y-6 text-neutral-800 font-light leading-relaxed text-base sm:text-lg">
         {{CASE_BODY}}
       </article>
@@ -278,27 +280,31 @@
     function renderContent(data) {
       if (!data) return;
 
-      if (data.client) {
+      if (data.client_name || data.client) {
         const client = document.querySelector('[data-field="client-name"]');
-        if (client) client.textContent = data.client;
+        if (client) client.textContent = data.client_name || data.client;
       }
 
-      if (data.title) {
-        document.title = data.title;
+      if (data.hero?.title || data.seo?.title || data.title) {
+        const titleText = data.hero?.title || data.seo?.title || data.title;
+        document.title = titleText;
         const titleEl = document.querySelector('[data-field="case-title"]');
-        if (titleEl) titleEl.textContent = data.title;
+        if (titleEl) titleEl.textContent = titleText;
       }
 
-      if (data.problem) {
+      // Подстановка краткой проблемы
+      if (data.problem_short || data.problem) {
         const problemEl = document.querySelector('[data-field="case-problem"]');
-        if (problemEl) problemEl.textContent = data.problem;
+        if (problemEl) problemEl.textContent = data.problem_short || data.problem;
       }
 
-      if (data.solution) {
+      // Подстановка краткого решения
+      if (data.solution_short || data.solution) {
         const solutionEl = document.querySelector('[data-field="case-solution"]');
-        if (solutionEl) solutionEl.textContent = data.solution;
+        if (solutionEl) solutionEl.textContent = data.solution_short || data.solution;
       }
 
+      // Подстановка основного текста кейса
       if (data.body) {
         const bodyEl = document.querySelector('[data-field="case-body"]');
         if (bodyEl) bodyEl.innerHTML = data.body;

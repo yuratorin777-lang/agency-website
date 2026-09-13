@@ -81,9 +81,8 @@ PROMPTS = {
   "hero": { "title": "..." },
   "metrics": [ { "value": "-65%", "label": "..." } ],
   "problem_short": "Краткая суть проблемы в 1-2 предложениях для верхней карточки summary",
-  "problem_full": "<p class='mb-4 leading-relaxed'>Развернутый детальный разбор проблемы, контекста и болей клиента (2-4 абзаца с тегами p).</p>",
   "solution_short": "Краткая суть решения в 1-2 предложениях для верхней карточки summary",
-  "solution_full": "<p class='mb-4 leading-relaxed'>Подробный разбор реализованных технологических решений и этапов (2-4 абзаца с тегами p).</p>",
+  "body": "<h2 class='text-2xl font-semibold mb-4 text-neutral-900 mt-8'>1. Контекст и проблематика</h2><p class='mb-6 leading-relaxed text-neutral-700'>Развернутый детальный разбор фона проекта...</p><h2 class='text-2xl font-semibold mb-4 text-neutral-900 mt-8'>2. Архитектура решения и процесс</h2><p class='mb-6 leading-relaxed text-neutral-700'>Подробный разбор реализованных шагов...</p>",
   "stack": ["Python", "Gemini API", "PostgreSQL", "Next.js"]
 }"""
     },
@@ -144,14 +143,23 @@ def clean_json_response(raw_text):
 def make_human_title(raw_text):
     if not raw_text:
         return ""
-    # Если строка латинская/slug вида "vnedrenie-ai-agentov"
-    if not re.search(r'[а-яА-ЯёЁ]', raw_text):
-        text = raw_text.replace('-', ' ').replace('_', ' ').strip()
-        return text.capitalize()
-    # Если это просто сырой ключевик на русском
-    return raw_text.strip().capitalize()
+    
+    text = raw_text.strip()
+    
+    # Если это slug/латиница
+    if not re.search(r'[а-яА-ЯёЁ]', text):
+        text = text.replace('-', ' ').replace('_', ' ').strip()
+    
+    # Удаляем коммерческий SEO-мусор из ключевиков, который портит H1
+    trash_words = [r'\bкупить\b', r'\bцена\b', r'\bстоимость\b', r'\bзаказать\b', r'\bнедорого\b', r'\bмосква\b']
+    for pattern in trash_words:
+        text = re.sub(pattern, '', text, flags=re.IGNORECASE)
+    
+    # Убираем лишние пробелы и капитализируем
+    text = ' '.join(text.split()).capitalize()
+    return text
 
-def generate_page_data_via_vercel(slug, query, meta_title, meta_description, hero_title, page_type="service", retries=3):
+def generate_page_data_via_vercel(slug, query, raw_query, meta_title, meta_description, hero_title, page_type="service", retries=3):
     type_config = PROMPTS.get(page_type, PROMPTS["service"])
     system_instruction = type_config["system"]
 
@@ -160,23 +168,18 @@ def generate_page_data_via_vercel(slug, query, meta_title, meta_description, her
     user_prompt = f"""
     Сгенерируй SEO-оптимизированную страницу типа '{page_type.upper()}' для IT-агентства BOS.AGENCE.
     
-    ВАЖНОЕ ПРАВИЛО ДЛЯ ЗАГОЛОВКОВ: 
-    - Поисковый ключ/тема: "{query}"
-    - НЕ ИСПОЛЬЗУЙ этот ключ "тупо как есть" или в виде транслита/slug!
-    - Преобразуй его в КРАСИВЫЙ, читаемый, профессиональный русский заголовок H1 и Title.
-    - Например, если ключ "vnedrenie-ai", заголовок должен быть "Внедрение AI-агентов и нейросетей для бизнеса".
+    СТРОГОЕ ПРАВИЛО ДЛЯ H1 И TITLE:
+    - Поисковый запрос/Тема: "{query}"
+    - Преобразуй этот поисковый ключ в нормальный, красивый, продающий бизнес-заголовок на русском языке.
+    - Категорически ЗАПРЕЩЕНО писать сухие поисковые фразы вроде "{raw_query}".
 
     Параметры генерации:
     - Тип: {page_type}
     - Slug (для URL): {slug}
-    - Тема: {human_query}
-    - Базовый Title: {meta_title}
-    - Базовый Description: {meta_description}
-
-    Сгенерируй строго JSON согласно системной инструкции. 
-    В полях seo.h1, seo.title и hero.title ДОЛЖЕН БЫТЬ полноценный русский заголовок, а не сырой ключ или slug.
+    - Контекст темы: {human_query}
+    
+    Верни строго JSON. В полях seo.h1, seo.title и hero.title ДОЛЖЕН БЫТЬ нормальный красивый заголовок!
     """
-    # ... оставшаяся часть функции без изменений
 
     if MOCK_MODE:
         return {
@@ -282,7 +285,12 @@ def main():
 
         meta_title = item.get("title") or item.get("meta_title") or f"{query} — BOS.AGENCE"
         meta_description = item.get("description") or item.get("meta_description") or f"Услуги и решения по направлению {query} от IT-агентства BOS.AGENCE."
-        hero_title = item.get("h1") or item.get("hero_title") or query
+        
+        # Раньше тут могло браться сырое некрасивое поле h1 из json:
+        # hero_title = item.get("h1") or item.get("hero_title") or query
+        
+        # Меняем на очищенный query:
+        hero_title = query
 
         print(f"🚀 Генерация [{current_type.upper()}] [{generated_count + 1}/{BATCH_SIZE}]: {clean_slug}...")
 
@@ -290,6 +298,7 @@ def main():
             page_json = generate_page_data_via_vercel(
                 slug=clean_slug,
                 query=query,
+                raw_query=raw_query, # <--- ДОБАВЛЕНО ЕЩЕ ОДНО ПОЛЕ
                 meta_title=meta_title,
                 meta_description=meta_description,
                 hero_title=hero_title,
