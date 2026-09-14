@@ -381,20 +381,17 @@ if (fs.existsSync(INDEX_PATH)) {
 }
 
 // 6. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ КОНТЕНТ-ХАБА (КЕЙСЫ, БЛОГ, БАЗА ЗНАНИЙ) НА ГЛАВНОЙ (INDEX.HTML)
-// 6. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ КОНТЕНТ-ХАБА (КЕЙСЫ, БЛОГ, БАЗА ЗНАНИЙ) НА ГЛАВНОЙ (INDEX.HTML)
 function renderContentHub() {
   if (!fs.existsSync(INDEX_PATH)) return;
 
-  //console.log('--- ТРАССИРОВКА РЕЕСТРА ---');
-  //console.log('Всего страниц сканировано:', pagesRegistry.length);
   console.log('Найденные типы:', pagesRegistry.map(p => ({ title: p.title, type: p.type })));
 
   const cases = pagesRegistry.filter(p => p.type === 'case');
   const blog = pagesRegistry.filter(p => p.type === 'blog');
-  const knowledge = pagesRegistry.filter(p => p.type === 'tool' || p.type === 'knowledge'); // добавили 'knowledge' на случай разницы в названии
+  const knowledge = pagesRegistry.filter(p => p.type === 'tool' || p.type === 'knowledge');
 
-  // 1. Генерация HTML для кейсов (адаптирована под мобильные и ПК)
-  const casesHtml = cases.map(item => `
+  // 1. Генерация HTML для кейсов (Ограничиваем 6 последними свежими)
+  const casesHtml = cases.slice(-6).reverse().map(item => `
     <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${(item.data.stack || []).slice(0, 2).join(' / ') || 'BOS.AGENCE'}</span>
@@ -415,8 +412,8 @@ function renderContentHub() {
     </a>
   `).join('');
 
-  // 2. Генерация HTML для блога
-  const blogHtml = blog.map(item => `
+  // 2. Генерация HTML для блога (Ограничиваем 6 последними свежими)
+  const blogHtml = blog.slice(-6).reverse().map(item => `
     <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${item.data.publish_date || '2026'} • ${item.data.read_time || '5'} мин</span>
@@ -436,8 +433,8 @@ function renderContentHub() {
     </a>
   `).join('');
 
-  // 3. Генерация HTML для базы знаний / инструментов
-  const knowledgeHtml = knowledge.map(item => `
+  // 3. Генерация HTML для базы знаний / инструментов (Ограничиваем 6 последними свежими)
+  const knowledgeHtml = knowledge.slice(-6).reverse().map(item => `
     <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${item.data.type || 'ИНСТРУМЕНТ'}</span>
@@ -459,12 +456,12 @@ function renderContentHub() {
 
   let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
 
-  // Обновляем цифры счетчиков в табах
+  // Обновляем цифры счетчиков в табах (показывают ПОЛНОЕ количество)
   indexHtml = indexHtml.replace(/<span id="count-cases">.*?<\/span>/g, `<span id="count-cases">${cases.length}</span>`);
   indexHtml = indexHtml.replace(/<span id="count-blog">.*?<\/span>/g, `<span id="count-blog">${blog.length}</span>`);
   indexHtml = indexHtml.replace(/<span id="count-knowledge">.*?<\/span>/g, `<span id="count-knowledge">${knowledge.length}</span>`);
 
-  // Замена по безопасности маркерных комментариев (не зависит от внутренних <div>)
+  // Замена контента между маркерными комментариями
   if (indexHtml.includes('<!-- CASES_CONTENT_START -->')) {
     indexHtml = indexHtml.replace(
       /<!-- CASES_CONTENT_START -->[\s\S]*?<!-- CASES_CONTENT_END -->/,
@@ -481,7 +478,7 @@ function renderContentHub() {
   }
 
   fs.writeFileSync(INDEX_PATH, indexHtml, 'utf-8');
-  console.log(`  Обновлен контент-хаб на главной: Кейсы [${cases.length}], Блог [${blog.length}], Инструменты [${knowledge.length}]`);
+  console.log(`  Обновлен контент-хаб на главной: Отображено по 6 свежих элементов (Всего в базе: Кейсы [${cases.length}], Блог [${blog.length}], Инструменты [${knowledge.length}])`);
 }
 
 renderContentHub();
