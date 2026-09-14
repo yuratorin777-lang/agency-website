@@ -1,3 +1,4 @@
+export const maxDuration = 60;
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // SYSTEM INSTRUCTIONS FOR EACH PAGE TYPE

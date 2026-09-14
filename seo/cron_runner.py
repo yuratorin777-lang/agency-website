@@ -4,18 +4,27 @@ import sys
 import time
 from datetime import datetime
 
-# РћРїСЂРµРґРµР»СЏРµРј РєРѕСЂРµРЅСЊ РїСЂРѕРµРєС‚Р°
+# Определяем корень проекта
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def run_command(cmd, cwd=BASE_DIR):
-    print(f"рџ‘‰ Р’С‹РїРѕР»РЅСЏРµРј: {cmd}")
-    # РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ Р·Р°РґР°РµРј UTF-8 РґР»СЏ РїРѕРґРїСЂРѕС†РµСЃСЃРѕРІ Python
+    print(f"👉 Выполняем: {cmd}")
     env = os.environ.copy()
     env["PYTHONIOENCODING"] = "utf-8"
     
-    result = subprocess.run(cmd, shell=True, cwd=cwd, text=True, capture_output=True, env=env, encoding='utf-8', errors='replace')
+    result = subprocess.run(
+        cmd, 
+        shell=True, 
+        cwd=cwd, 
+        text=True, 
+        capture_output=True, 
+        env=env, 
+        encoding='utf-8', 
+        errors='replace'
+    )
+    
     if result.returncode != 0:
-        print(f"вќЊ РћС€РёР±РєР° РїСЂРё РІС‹РїРѕР»РЅРµРЅРёРё РєРѕРјР°РЅРґС‹ {cmd}:\n{result.stderr}")
+        print(f"❌ Ошибка при выполнении команды {cmd}:\n{result.stderr}")
         return False
     if result.stdout:
         print(result.stdout)
@@ -23,36 +32,63 @@ def run_command(cmd, cwd=BASE_DIR):
 
 def run_autobatch():
     print(f"\n==========================================")
-    print(f"рџљЂ Р—Р°РїСѓСЃРє SEO-Р°РІС‚РѕРїРёР»РѕС‚Р° [{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}]")
+    print(f"🚀 Запуск SEO-автопилота [{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}]")
     print(f"==========================================\n")
 
-    # 1. Р—Р°РїСѓСЃРє РіРµРЅРµСЂР°С‚РѕСЂР° СЃС‚СЂР°РЅРёС† Python
-    print("вљ™пёЏ РЁР°Рі 1: Р“РµРЅРµСЂР°С†РёСЏ РЅРѕРІС‹С… JSON-СЃС‚СЂР°РЅРёС† С‡РµСЂРµР· Python...")
+    # 0. Подтягиваем свежие изменения из Git (чтобы локал и удаленный репозиторий были синхронизированы)
+    print("⚙️ Шаг 0: Синхронизация с Git (git pull)...")
+    run_command("git pull origin main")
+
+    # 1. Запуск генератора страниц Python
+    print("⚙️ Шаг 1: Генерация новых JSON-страниц через Python...")
     gen_success = run_command("python seo/generator/generate_pages.py")
     if not gen_success:
-        print("вќЊ Р“РµРЅРµСЂР°С†РёСЏ РѕСЃС‚Р°РЅРѕРІР»РµРЅР° РёР·-Р·Р° РѕС€РёР±РєРё.")
+        print("❌ Генерация остановлена из-за ошибки (например, сбой сети или 10054).")
         return
 
-    # 2. РЎР±РѕСЂРєР° СЃС‚Р°С‚РёРєРё Рё РѕР±РЅРѕРІР»РµРЅРёСЏ index.html / sitemap.xml
-    print("вљ™пёЏ РЁР°Рі 2: РЎР±РѕСЂРєР° СЃС‚Р°С‚РёРєРё (build.js)...")
-    build_success = run_command("node build.js", cwd="seo/generator")
+    # 2. Сборка статики и обновления index.html / sitemap.xml
+    print("⚙️ Шаг 2: Сборка статики (build.js)...")
+    build_success = run_command("node build.js", cwd=os.path.join(BASE_DIR, "seo", "generator"))
     if not build_success:
-        print("вќЊ РЎР±РѕСЂРєР° РѕСЃС‚Р°РЅРѕРІР»РµРЅР° РёР·-Р·Р° РѕС€РёР±РєРё.")
+        print("❌ Сборка остановлена из-за ошибки.")
         return
 
-    # 3. Р”РµРїР»РѕР№ РёР·РјРµРЅРµРЅРёР№ РІ Git РґР»СЏ Vercel
-    print("вљ™пёЏ РЁР°Рі 3: РђРІС‚Рѕ-РґРµРїР»РѕР№ РІ Git...")
+    # 3. Деплой изменений в Git для Vercel
+    print("⚙️ Шаг 3: Авто-деплой в Git...")
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M')
     commit_msg = f"feat(seo): auto-generated batch [{timestamp}]"
     
     run_command("git add .")
+    
+    # Проверяем, есть ли что коммитить
+    status_res = subprocess.run("git status --porcelain", shell=True, cwd=BASE_DIR, capture_output=True, text=True)
+    if not status_res.stdout.strip():
+        print("ℹ️ Нет новых изменений для коммита.")
+        return
+
     run_command(f'git commit -m "{commit_msg}"')
     push_success = run_command("git push origin main")
 
     if push_success:
-        print(f"\nвњ… РЈРЎРџР•РҐ: Р‘Р°С‚С‡ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅ, СЃРѕР±СЂР°РЅ Рё РѕС‚РїСЂР°РІР»РµРЅ РЅР° Vercel!")
+        print(f"\n✅ УСПЕХ: Батч сгенерирован, собран и отправлен на Vercel!")
     else:
-        print("\nвљ пёЏ Р’РЅРёРјР°РЅРёРµ: РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ git push. РџСЂРѕРІРµСЂСЊС‚Рµ СЃС‚Р°С‚СѓСЃ СЂРµРїРѕР·РёС‚РѕСЂРёСЏ.")
+        print("\n⚠️ Внимание: Не удалось выполнить git push. Проверьте статус репозитория.")
+
+def start_cron_loop(interval_hours=1):
+    """Запускает бесконечный цикл раз в N часов"""
+    print(f"🔄 Крон запущен! Периодичность: раз в {interval_hours} час(а).")
+    while True:
+        try:
+            run_autobatch()
+        except Exception as e:
+            print(f"💥 Непредвиденная ошибка в цикле крона: {e}")
+        
+        sleep_seconds = interval_hours * 3600
+        print(f"\n⏳ Ожидание следующего запуска... ({datetime.now().strftime('%H:%M:%S')} -> следующий запуск через {interval_hours} ч.)\n")
+        time.sleep(sleep_seconds)
 
 if __name__ == "__main__":
-    run_autobatch()
+    # Если запущен напрямую: можно запустить один раз или в цикле
+    # Для одиночного запуска вызови run_autobatch()
+    # Для постоянного фонового запуска каждые 60 минут:
+    start_cron_loop(interval_hours=1)
