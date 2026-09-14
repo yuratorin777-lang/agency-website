@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (submitBtnText) submitBtnText.textContent = 'ОТПРАВКА...';
 
       const checkedServices = Array.from(form.querySelectorAll('input[name="service"]:checked'))
-        .map(cb => cb.value);
+  .map(cb => {
+    const labelText = cb.closest('label')?.textContent?.trim();
+    return labelText ? labelText.replace(/\s+/g, ' ') : cb.value;
+  });
 
       const payload = {
   name: form.querySelector('#user-name')?.value || form.querySelector('[name="name"]')?.value || '',
