@@ -16,11 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .map(cb => cb.value);
 
       const payload = {
-        name: form.querySelector('[name="name"]')?.value || '',
-        contact: form.querySelector('[name="contact"]')?.value || '',
-        services: checkedServices,
-        message: form.querySelector('[name="message"]')?.value || ''
-      };
+  name: form.querySelector('#user-name')?.value || form.querySelector('[name="name"]')?.value || '',
+  contact: form.querySelector('#user-contact')?.value || form.querySelector('[name="contact"]')?.value || '',
+  services: checkedServices,
+  message: form.querySelector('#user-message')?.value || form.querySelector('[name="message"]')?.value || '',
+  page: window.location.pathname
+};
 
       try {
         await fetch(GOOGLE_SCRIPT_URL, {
