@@ -1,4 +1,7 @@
 готовый
+├── .github
+│   └── workflows
+│       └── generate_pages.yml
 ├── api
 │   └── generate.js
 ├── assets
@@ -82,6 +85,29 @@
 │       ├── showreel.mp4
 │       ├── terraforma-aqua.mp4
 │       └── ulutay-preview.mp4
+├── blog
+│   ├── blog-seo-ru.html
+│   ├── kak-nazyvaetsya-seo.html
+│   ├── kak-prodvinut-seo.html
+│   ├── kak-rasshifrovyvaetsya-seo.html
+│   ├── pochemu-seo.html
+│   ├── pochemu-veb-razrabotka.html
+│   ├── razrabotka-sayta-kak-nazyvaetsya.html
+│   ├── seo-instruktsiya.html
+│   ├── seo-kak-chitaetsya.html
+│   ├── seo-kak-zarabatyvat.html
+│   └── zachem-seo.html
+├── cases
+│   ├── opyt-raboty-v-marketinge.html
+│   ├── primery-razrabotok-saytov.html
+│   ├── rezultat-razrabotki-sayta.html
+│   ├── rezultaty-seo-prodvizheniya.html
+│   ├── seo-keysy.html
+│   ├── seo-oplata-za-rezultat.html
+│   ├── seo-primer.html
+│   ├── seo-prodvizhenie-oplata-za-rezultat.html
+│   ├── seo-rezultat.html
+│   └── veb-razrabotka-primery.html
 ├── seo
 │   ├── analysis
 │   ├── data
@@ -90,16 +116,66 @@
 │   │   │   └── seo_matrix.csv
 │   │   ├── pages
 │   │   │   ├── avtomatizatsiya.json
+│   │   │   ├── blog_blog-seo-ru.json
+│   │   │   ├── blog_kak-nazyvaetsya-seo.json
+│   │   │   ├── blog_kak-prodvinut-seo.json
+│   │   │   ├── blog_kak-rasshifrovyvaetsya-seo.json
+│   │   │   ├── blog_pochemu-seo.json
+│   │   │   ├── blog_pochemu-veb-razrabotka.json
+│   │   │   ├── blog_razrabotka-sayta-kak-nazyvaetsya.json
+│   │   │   ├── blog_seo-instruktsiya.json
+│   │   │   ├── blog_seo-kak-chitaetsya.json
+│   │   │   ├── blog_seo-kak-zarabatyvat.json
+│   │   │   ├── blog_zachem-seo.json
+│   │   │   ├── cases_opyt-raboty-v-marketinge.json
+│   │   │   ├── cases_primery-razrabotok-saytov.json
+│   │   │   ├── cases_rezultat-razrabotki-sayta.json
+│   │   │   ├── cases_rezultaty-seo-prodvizheniya.json
+│   │   │   ├── cases_seo-keysy.json
+│   │   │   ├── cases_seo-oplata-za-rezultat.json
+│   │   │   ├── cases_seo-primer.json
+│   │   │   ├── cases_seo-prodvizhenie-oplata-za-rezultat.json
+│   │   │   ├── cases_seo-rezultat.json
+│   │   │   ├── cases_veb-razrabotka-primery.json
+│   │   │   ├── dizayn-sayta.json
+│   │   │   ├── internet-magazin-market-kupit.json
+│   │   │   ├── internet-magazin-na-russkom-s-tsenami.json
+│   │   │   ├── internet-magazin-zhenskie-kupit-internet.json
+│   │   │   ├── internet-magazina-tsena-moskva.json
+│   │   │   ├── kupit-ai.json
+│   │   │   ├── kupit-internet-magazin-tsena.json
 │   │   │   ├── kupit-internet-magazin.json
 │   │   │   ├── kupit-sayt.json
+│   │   │   ├── kupit-v-internet-magazine-nedorogo.json
+│   │   │   ├── moskva-ofitsialnyy-sayt-kupit.json
 │   │   │   ├── ofitsialnyy-sayt-kupit-onlayn.json
+│   │   │   ├── ofitsialnyy-sayt-prays.json
+│   │   │   ├── prilozhenie-ai.json
+│   │   │   ├── razrabotka-sayta.json
+│   │   │   ├── sayt-prays.json
+│   │   │   ├── seo-prodvizhenie.json
+│   │   │   ├── seo-sayt.json
 │   │   │   ├── seo.json
 │   │   │   ├── sozdanie-sayta.json
 │   │   │   ├── sozdat-sayt.json
+│   │   │   ├── tools_instrumenty-razrabotki-veb-prilozheniy.json
+│   │   │   ├── tools_instrumenty-seo-prodvizheniya.json
+│   │   │   ├── tools_instrumenty-veb-razrabotki.json
+│   │   │   ├── tools_sayt-instrument-razrabotki.json
+│   │   │   ├── tools_seo-analiz-instrumenty.json
+│   │   │   ├── tools_seo-instrument-sayta.json
+│   │   │   ├── tools_seo-instrumenty.json
+│   │   │   ├── tools_seo-optimizatsiya-instrumenty.json
+│   │   │   ├── tools_seo-shablon.json
+│   │   │   ├── tools_shablon-razrabotki-saytov.json
 │   │   │   ├── tsena-internet-sayta.json
+│   │   │   ├── tsena-sayta-god.json
 │   │   │   ├── tsena-sayta-internet-magazina.json
 │   │   │   ├── tsena-sayta.json
 │   │   │   ├── tsenam-internet-magazin-katalog.json
+│   │   │   ├── valdberies-internet-magazin-kupit.json
+│   │   │   ├── veb-razrabotka.json
+│   │   │   ├── zakazat-internet-magazin.json
 │   │   │   └── zakazat-sayt.json
 │   │   └── raw
 │   │       └── raw_keywords.csv
@@ -107,6 +183,7 @@
 │   │   ├── modules
 │   │   │   └── head.html
 │   │   ├── templates
+│   │   │   ├── fix_headers.py
 │   │   │   ├── template_1.js
 │   │   │   ├── template_2.js
 │   │   │   ├── template_3.js
@@ -140,17 +217,47 @@
 │   └── cron_runner.py
 ├── services
 │   ├── avtomatizatsiya.html
+│   ├── dizayn-sayta.html
+│   ├── internet-magazin-market-kupit.html
+│   ├── internet-magazin-na-russkom-s-tsenami.html
+│   ├── internet-magazin-zhenskie-kupit-internet.html
+│   ├── internet-magazina-tsena-moskva.html
+│   ├── kupit-ai.html
+│   ├── kupit-internet-magazin-tsena.html
 │   ├── kupit-internet-magazin.html
 │   ├── kupit-sayt.html
+│   ├── kupit-v-internet-magazine-nedorogo.html
+│   ├── moskva-ofitsialnyy-sayt-kupit.html
 │   ├── ofitsialnyy-sayt-kupit-onlayn.html
+│   ├── ofitsialnyy-sayt-prays.html
+│   ├── prilozhenie-ai.html
+│   ├── razrabotka-sayta.html
+│   ├── sayt-prays.html
+│   ├── seo-prodvizhenie.html
+│   ├── seo-sayt.html
 │   ├── seo.html
 │   ├── sozdanie-sayta.html
 │   ├── sozdat-sayt.html
 │   ├── tsena-internet-sayta.html
+│   ├── tsena-sayta-god.html
 │   ├── tsena-sayta-internet-magazina.html
 │   ├── tsena-sayta.html
 │   ├── tsenam-internet-magazin-katalog.html
+│   ├── valdberies-internet-magazin-kupit.html
+│   ├── veb-razrabotka.html
+│   ├── zakazat-internet-magazin.html
 │   └── zakazat-sayt.html
+├── tools
+│   ├── instrumenty-razrabotki-veb-prilozheniy.html
+│   ├── instrumenty-seo-prodvizheniya.html
+│   ├── instrumenty-veb-razrabotki.html
+│   ├── sayt-instrument-razrabotki.html
+│   ├── seo-analiz-instrumenty.html
+│   ├── seo-instrument-sayta.html
+│   ├── seo-instrumenty.html
+│   ├── seo-optimizatsiya-instrumenty.html
+│   ├── seo-shablon.html
+│   └── shablon-razrabotki-saytov.html
 ├── .env
 ├── .gitignore
 ├── index.html

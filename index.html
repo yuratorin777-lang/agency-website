@@ -341,8 +341,7 @@
 </head>
 
   <!-- =============================================================== -->
-  <!-- =============================================================== -->
-<!-- POPUP FORM OVERLAY                                              -->
+<!-- POPUP FORM OVERLAY                                             -->
 <!-- =============================================================== -->
 <div id="contact-modal" class="fixed inset-0 z-[110] bg-[#050714]/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-6 sm:p-12 overflow-y-auto">
   
@@ -363,32 +362,32 @@
         Расскажите о вашей задаче, и мы подготовим оптимальное решение и оценку сроков.
       </p>
 
-      <form id="contact-form" onsubmit="event.preventDefault(); alert('Спасибо за заявку!');" class="space-y-6">
+      <form id="contact-form" class="space-y-6">
         <div>
           <label class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-3">
             // 01. ВЫБЕРИТЕ НАПРАВЛЕНИЕ
           </label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <label class="cursor-pointer">
-              <input type="checkbox" name="service" value="landing" class="peer hidden" checked>
+              <input type="checkbox" name="service" value="Лендинг / Промо-сайт" class="peer hidden" checked>
               <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
                 Лендинг / Промо-сайт
               </div>
             </label>
             <label class="cursor-pointer">
-              <input type="checkbox" name="service" value="corporate" class="peer hidden">
+              <input type="checkbox" name="service" value="Многостраничный сайт" class="peer hidden">
               <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
                 Многостраничный сайт
               </div>
             </label>
             <label class="cursor-pointer">
-              <input type="checkbox" name="service" value="design" class="peer hidden">
+              <input type="checkbox" name="service" value="UI/UX Дизайн & Айдентика" class="peer hidden">
               <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
                 UI/UX Дизайн & Айдентика
               </div>
             </label>
             <label class="cursor-pointer">
-              <input type="checkbox" name="service" value="custom" class="peer hidden">
+              <input type="checkbox" name="service" value="Веб-сервис / Доработка" class="peer hidden">
               <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
                 Веб-сервис / Доработка
               </div>
@@ -401,7 +400,7 @@
             <label for="user-name" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
               // 02. ВАШЕ ИМЯ ИЛИ КОМПАНИЯ *
             </label>
-            <input type="text" id="user-name" required placeholder="Иван / Название компании" 
+            <input type="text" id="user-name" name="name" required placeholder="Иван / Название компании" 
               class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg px-4 py-3.5 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors">
           </div>
 
@@ -409,7 +408,7 @@
             <label for="user-contact" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
               // 03. ТЕЛЕГРАМ ИЛИ EMAIL ДЛЯ СВЯЗИ *
             </label>
-            <input type="text" id="user-contact" required placeholder="@username или name@domain.com" 
+            <input type="text" id="user-contact" name="contact" required placeholder="@username или name@domain.com" 
               class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg px-4 py-3.5 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors">
           </div>
 
@@ -417,13 +416,13 @@
             <label for="user-message" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
               // 04. ОПИСАНИЕ ЗАДАЧИ ИЛИ ССЫЛКА НА ТЗ
             </label>
-            <textarea id="user-message" rows="3" placeholder="Расскажите кратко о вашем проекте..." 
+            <textarea id="user-message" name="message" rows="3" placeholder="Расскажите кратко о вашем проекте..." 
               class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg p-4 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors resize-none"></textarea>
           </div>
         </div>
 
-        <button type="submit" class="w-full bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-syne font-bold uppercase text-xs sm:text-base tracking-wider sm:tracking-[0.2em] py-4 rounded-lg shadow-lg hover:shadow-[#8b5cf6]/40 transition-all flex items-center justify-center gap-3 group cursor-pointer">
-          <span>ОТПРАВИТЬ ЗАЯВКУ</span>
+        <button type="submit" id="submit-btn" class="w-full bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-syne font-bold uppercase text-xs sm:text-base tracking-wider sm:tracking-[0.2em] py-4 rounded-lg shadow-lg hover:shadow-[#8b5cf6]/40 transition-all flex items-center justify-center gap-3 group cursor-pointer">
+          <span id="submit-btn-text">ОТПРАВИТЬ ЗАЯВКУ</span>
           <span class="transform group-hover:translate-x-1.5 transition-transform">&rarr;</span>
         </button>
       </form>
@@ -531,7 +530,7 @@
     "description": "Разработка сайтов под ключ, 3D-дизайн, интеграция ИИ и автоматизация процессов для бизнеса в Москве."
   }
   </script>
-
+<script src="/assets/js/main.js"></script>
 </body>
 </html>
 
