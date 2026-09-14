@@ -36,12 +36,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://agency-website-virid-rho.vercel.app/blog/pochemu-veb-razrabotka.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://agency-website-virid-rho.vercel.app/blog/razrabotka-sayta-kak-nazyvaetsya.html</loc>
     <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://agency-website-virid-rho.vercel.app/blog/seo-instruktsiya.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/blog/seo-kak-chitaetsya.html</loc>
     <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
@@ -87,6 +97,11 @@
   </url>
   <url>
     <loc>https://agency-website-virid-rho.vercel.app/cases/seo-primer.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/cases/seo-prodvizhenie-oplata-za-rezultat.html</loc>
     <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
@@ -202,6 +217,16 @@
   </url>
   <url>
     <loc>https://agency-website-virid-rho.vercel.app/services/sozdat-sayt.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/tools/instrumenty-razrabotki-veb-prilozheniy.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agency-website-virid-rho.vercel.app/tools/instrumenty-seo-prodvizheniya.html</loc>
     <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
