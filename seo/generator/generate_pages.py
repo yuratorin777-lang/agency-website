@@ -111,7 +111,7 @@ def detect_page_type(item):
     slug = str(item.get("slug", "")).lower()
     kw = str(item.get("keyword") or item.get("query") or "").lower()
 
-    if any(p in slug for p in ["blog/", "blog-", "blog_"]) or any(w in kw for w in ["статья", "как ", "зачем", "почему", "гайд", "инструкция", "обзор"]):
+    if any(p in slug for p in ["blog/", "blog-", "blog_"]) or any(w in kw for w in ["статья", "гайд", "обзор"]):
         return "blog"
     if any(p in slug for p in ["case/", "cases/", "case-", "case_"]) or any(w in kw for w in ["кейс", "пример", "опыт", "внедрение", "результат"]):
         return "case"
@@ -260,6 +260,12 @@ def main():
     type_order = ["blog", "service", "case", "tool"]
     order_idx = 0
 
+    max_attempts = len(valid_items) * 2
+    attempts = 0
+
+    while generated_count < BATCH_SIZE and attempts < max_attempts:
+        attempts += 1
+
     while generated_count < BATCH_SIZE:
         if not any(buckets.values()):
             print("⚠️ Все корзины с ключами исчерпаны.")
@@ -278,6 +284,7 @@ def main():
         output_file = os.path.join(output_dir, file_name)
 
         if os.path.exists(output_file) and os.path.getsize(output_file) > 100:
+            print(f"⏭️ Пропуск [{current_type.upper()}]: {clean_slug} (уже существует)")
             continue
 
         raw_query = item.get("keyword") or item.get("query") or clean_slug
