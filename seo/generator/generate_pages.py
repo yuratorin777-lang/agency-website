@@ -199,7 +199,7 @@ def generate_page_data_via_vercel(slug, query, raw_query, meta_title, meta_descr
 
     for attempt in range(1, retries + 1):
         try:
-            response = requests.post(VERCEL_API_URL, json=payload, headers=headers, timeout=90)
+            response = requests.post(VERCEL_API_URL, json=payload, headers=headers, timeout=90,)
             if response.status_code == 200:
                 res_data = response.json()
                 if isinstance(res_data, str):

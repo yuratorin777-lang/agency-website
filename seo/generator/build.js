@@ -84,7 +84,8 @@ const pageFiles = fs.readdirSync(PAGES_DIR).filter(file => file.endsWith('.json'
 // Предварительное сканирование для перелинковки
 const pagesRegistry = pageFiles.map(file => {
   const data = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
-  const templateType = data.template_type || data.type || 'service';
+  const templateType = data?.template_type || data?.type || 'service';
+if (!templateType) return;
   let rawSlug = data.slug || file.replace('.json', '');
   rawSlug = rawSlug.replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
   
