@@ -11,7 +11,7 @@ load_dotenv()
 MOCK_MODE = False
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-VERCEL_API_URL = os.getenv("VERCEL_API_URL", "bosagence.ru/api/generate")
+VERCEL_API_URL = os.getenv("VERCEL_API_URL", "https://bosagence.ru/api/generate")
 
 BATCH_SIZE = int(os.getenv("BATCH_SIZE", 5))
 
