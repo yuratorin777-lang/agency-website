@@ -81,11 +81,21 @@ if (!fs.existsSync(PAGES_DIR)) {
 
 const pageFiles = fs.readdirSync(PAGES_DIR).filter(file => file.endsWith('.json'));
 
-// Предварительное сканирование для перелинковки
 const pagesRegistry = pageFiles.map(file => {
-  const data = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
-  const templateType = data?.template_type || data?.type || 'service';
-if (!templateType) return;
+  let data = null;
+  try {
+    data = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), 'utf-8'));
+  } catch (e) {
+    console.warn(`⚠️ Пропущен битый JSON файл: ${file}`);
+    return null;
+  }
+
+  if (!data || typeof data !== 'object') {
+    console.warn(`⚠️ Пустые данные в файле: ${file}`);
+    return null;
+  }
+
+  const templateType = data.template_type || data.type || 'service';
   let rawSlug = data.slug || file.replace('.json', '');
   rawSlug = rawSlug.replace(/^(blog|services|cases|tools)\//, '').replace(/\.html$/, '');
   
