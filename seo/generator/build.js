@@ -6,7 +6,7 @@ const PAGES_DIR = path.join(__dirname, '../data/pages');
 const MODULES_DIR = path.join(__dirname, 'modules');
 const INDEX_PATH = path.join(ROOT_DIR, 'index.html');
 const SITEMAP_PATH = path.join(ROOT_DIR, 'sitemap.xml');
-const BASE_URL = 'https://agency-website-virid-rho.vercel.app';
+const BASE_URL = 'https://bosagence.ru';
 
 // ХЕЛПЕР: Форматирование заголовков (превращение slugs/сырых ключей в читаемый текст)
 function formatTitle(rawString, fallback = '') {
