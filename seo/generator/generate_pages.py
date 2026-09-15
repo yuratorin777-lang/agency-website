@@ -11,7 +11,7 @@ load_dotenv()
 MOCK_MODE = False
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-VERCEL_API_URL = os.getenv("VERCEL_API_URL", "bosagence.ru//api/generate")
+VERCEL_API_URL = os.getenv("VERCEL_API_URL", "https://agency-website-virid-rho.vercel.app/api/generate/")
 
 BATCH_SIZE = int(os.getenv("BATCH_SIZE", 5))
 
@@ -198,26 +198,38 @@ def generate_page_data_via_vercel(slug, query, raw_query, meta_title, meta_descr
     headers = {"Content-Type": "application/json"}
 
     for attempt in range(1, retries + 1):
-        try:
-            response = requests.post(VERCEL_API_URL, json=payload, headers=headers, timeout=90,)
-            if response.status_code == 200:
-                res_data = response.json()
-                if isinstance(res_data, str):
-                    res_data = json.loads(clean_json_response(res_data))
-                elif isinstance(res_data, dict) and "result" in res_data and isinstance(res_data["result"], str):
-                    res_data = json.loads(clean_json_response(res_data["result"]))
+            try:
+                response = requests.post(VERCEL_API_URL, json=payload, headers=headers, timeout=90)
                 
-                res_data["template_type"] = page_type
-                res_data["slug"] = slug
-                return res_data
-            else:
-                print(f"⚠️ Попытка {attempt}: Vercel вернул статус {response.status_code}")
-        except Exception as err:
-            print(f"⚠️ Попытка {attempt}/{retries} ошибка: {err}")
-            if attempt < retries:
-                time.sleep(3 * attempt)
-            else:
-                raise err
+                if response.status_code == 200:
+                    res_data = response.json()
+                    
+                    # Парсим JSON, если Vercel/Gemini вернул его строкой
+                    if isinstance(res_data, str):
+                        res_data = json.loads(clean_json_response(res_data))
+                    elif isinstance(res_data, dict) and "result" in res_data and isinstance(res_data["result"], str):
+                        res_data = json.loads(clean_json_response(res_data["result"]))
+                    
+                    # Гарантируем простановку мета-полей
+                    if isinstance(res_data, dict):
+                        res_data["template_type"] = page_type
+                        res_data["slug"] = slug
+                        return res_data
+                    else:
+                        raise ValueError("API вернул данные в неверном формате")
+                else:
+                    print(f"⚠️ Попытка {attempt}: Vercel вернул статус {response.status_code}")
+                    if attempt < retries:
+                        time.sleep(3 * attempt)
+                    else:
+                        raise requests.HTTPError(f"Vercel API вернул {response.status_code}")
+                        
+            except Exception as err:
+                print(f"⚠️ Попытка {attempt}/{retries} ошибка: {err}")
+                if attempt < retries:
+                    time.sleep(3 * attempt)
+                else:
+                    raise err
 
 def main():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
