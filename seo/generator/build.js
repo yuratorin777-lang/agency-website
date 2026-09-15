@@ -111,7 +111,7 @@ const pagesRegistry = pageFiles.map(file => {
     title,
     desc: data.seo?.description || data.description || 'Индивидуальная разработка и автоматизация бизнес-процессов.'
   };
-});
+}).filter(Boolean);
 
 let sitemapUrls = [`  <url>\n    <loc>${BASE_URL}/</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <priority>1.0</priority>\n  </url>`];
 
@@ -141,7 +141,7 @@ pagesRegistry.forEach((pageItem) => {
     ).join('');
 
     const relatedPosts = pagesRegistry
-      .filter(p => p.type === 'blog' && p.file !== file)
+      .filter(p => p && (p.template_type === 'blog' || p.type === 'blog') && p.file !== file)
       .slice(0, 3)
       .map(rel => `
         <a href="${rel.url}" class="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl hover:border-neutral-400 transition-all block group min-h-[140px] flex flex-col justify-between break-words">
