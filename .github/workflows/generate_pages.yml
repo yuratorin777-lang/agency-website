@@ -6,7 +6,7 @@ on:
       batch_size:
         description: 'Количество страниц для генерации'
         required: false
-        default: '2'
+        default: '4'
 
   schedule:
     # Запуск каждый час в 00 минут
@@ -42,7 +42,6 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           VERCEL_API_URL: ${{ secrets.VERCEL_API_URL }}
-          # Если запуск ручной — берет значение из ввода, если по cron — берет 4
           BATCH_SIZE: ${{ github.event.inputs.batch_size || '4' }}
         run: |
           python seo/generator/generate_pages.py
