@@ -5,11 +5,12 @@ on:
     inputs:
       batch_size:
         description: 'Количество страниц для генерации'
-        required: true
-        default: '4'
+        required: false
+        default: '2'
 
   schedule:
-    - cron: '0 0 * * *'
+    # Запуск каждый час в 00 минут
+    - cron: '0 * * * *'
 
 permissions:
   contents: write
@@ -41,7 +42,8 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           VERCEL_API_URL: ${{ secrets.VERCEL_API_URL }}
-          BATCH_SIZE: ${{ github.event.inputs.batch_size }}
+          # Если запуск ручной — берет значение из ввода, если по cron — берет 4
+          BATCH_SIZE: ${{ github.event.inputs.batch_size || '4' }}
         run: |
           python seo/generator/generate_pages.py
 
@@ -51,11 +53,13 @@ jobs:
 
       - name: 3. Коммит и деплой изменений
         run: |
-          git config --global user.name "GitHub Action Bot"
-          git config --global user.email "action@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
           git add .
+          
           if git status --porcelain | grep -q .; then
-            git commit -m "feat(seo): автоматическая генерация страниц и HTML сборка"
+            git commit -m "feat(seo): авто-генерация батча [skip ci]"
             git push
           else
             echo "Нет новых изменений для коммита."
