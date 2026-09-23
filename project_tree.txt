@@ -219,6 +219,7 @@
 │   │   │   ├── kupit-sayt.json
 │   │   │   ├── kupit-tovar-internet-magazin.json
 │   │   │   ├── kupit-v-internet-magazine-nedorogo.json
+│   │   │   ├── ofitsialnyy-sayt-kupit-onlayn.json
 │   │   │   ├── ofitsialnyy-sayt-prays.json
 │   │   │   ├── prilozhenie-ai.json
 │   │   │   ├── razrabotka-sayta.json
@@ -226,6 +227,8 @@
 │   │   │   ├── seo-ahn.json
 │   │   │   ├── seo-prodvizhenie.json
 │   │   │   ├── seo-sayt.json
+│   │   │   ├── sozdanie-sayta.json
+│   │   │   ├── sozdat-sayt.json
 │   │   │   ├── tools_brif-na-razrabotku-sayta-shablon.json
 │   │   │   ├── tools_instrumenty-dlya-razrabotki-veb-sayta.json
 │   │   │   ├── tools_instrumenty-razrabotki-veb-prilozheniy.json
@@ -247,7 +250,8 @@
 │   │   │   ├── tsenam-internet-magazin-katalog.json
 │   │   │   ├── veb-razrabotka.json
 │   │   │   ├── zakaz-v-internet-magazine.json
-│   │   │   └── zakazat-internet-magazin.json
+│   │   │   ├── zakazat-internet-magazin.json
+│   │   │   └── zakazat-sayt.json
 │   │   └── raw
 │   │       └── raw_keywords.csv
 │   ├── generator
