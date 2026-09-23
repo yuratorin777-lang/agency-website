@@ -78,6 +78,8 @@
 │   │   ├── ulutay-mid-right.jpg
 │   │   ├── ulutay-top-left.jpg
 │   │   └── ulutay-top-right.jpg
+│   ├── js
+│   │   └── main.js
 │   └── videos
 │       ├── agence-video-ai.mp4
 │       ├── bos-automatisation.mp4
@@ -88,26 +90,57 @@
 ├── blog
 │   ├── blog-seo-ru.html
 │   ├── kak-nazyvaetsya-seo.html
+│   ├── kak-podobrat-prompty-dlya-ai-seo.html
 │   ├── kak-prodvinut-seo.html
 │   ├── kak-rasshifrovyvaetsya-seo.html
 │   ├── pochemu-seo.html
 │   ├── pochemu-veb-razrabotka.html
 │   ├── razrabotka-sayta-kak-nazyvaetsya.html
+│   ├── razrabotka-saytov-instruktsiya.html
 │   ├── seo-instruktsiya.html
 │   ├── seo-kak-chitaetsya.html
 │   ├── seo-kak-zarabatyvat.html
+│   ├── seo-obzory.html
+│   ├── seo-statya-napisat.html
+│   ├── veb-razrabotka-statya.html
 │   └── zachem-seo.html
 ├── cases
+│   ├── keys-seo-prodvizheniya.html
+│   ├── keysy-dlya-ai-seo.html
+│   ├── kursy-seo-s-garantiey-rezultata.html
 │   ├── opyt-raboty-v-marketinge.html
+│   ├── opyt-raboty-v-seo.html
+│   ├── opyt-razrabotki-sayta.html
+│   ├── primer-dogovora-na-razrabotku-sayta.html
+│   ├── primer-seo-teksta.html
+│   ├── primer-zadaniya-na-razrabotku-sayta.html
 │   ├── primery-razrabotok-saytov.html
+│   ├── primery-sozdaniya-lendingov.html
+│   ├── prodvizhenie-sayta-oplata-za-rezultat-seo-fortuna.html
+│   ├── razrabotka-sayta-keysy.html
+│   ├── razrabotka-veb-prilozheniy-primer.html
+│   ├── razrabotka-veb-sayta-primer.html
 │   ├── rezultat-razrabotki-sayta.html
+│   ├── rezultat-seo-optimizatsii.html
 │   ├── rezultaty-seo-prodvizheniya.html
 │   ├── seo-keysy.html
 │   ├── seo-oplata-za-rezultat.html
+│   ├── seo-opyta.html
 │   ├── seo-primer.html
+│   ├── seo-prodvizhenie-mfo-keys.html
 │   ├── seo-prodvizhenie-oplata-za-rezultat.html
+│   ├── seo-prodvizhenie-primery.html
+│   ├── seo-prodvizhenie-sayta-oplata-za-rezultat.html
+│   ├── seo-prodvizhenie-sayta-za-rezultat.html
+│   ├── seo-prodvizhenie-saytov-aktsent-na-rezultat.html
 │   ├── seo-rezultat.html
-│   └── veb-razrabotka-primery.html
+│   ├── seo-s-garantiey-rezultata.html
+│   ├── veb-razrabotka-primery.html
+│   ├── vnedrenie-ai-agentov-v-biznes-protsessy.html
+│   ├── vnedrenie-ai-v-biznes-protsessy.html
+│   ├── vnedrenie-ai-v-biznes.html
+│   ├── vnedrenie-sayta-razrabotka.html
+│   └── vnedrenie-seo.html
 ├── seo
 │   ├── analysis
 │   ├── data
@@ -115,68 +148,106 @@
 │   │   │   ├── seo_core.json
 │   │   │   └── seo_matrix.csv
 │   │   ├── pages
-│   │   │   ├── avtomatizatsiya.json
 │   │   │   ├── blog_blog-seo-ru.json
 │   │   │   ├── blog_kak-nazyvaetsya-seo.json
+│   │   │   ├── blog_kak-podobrat-prompty-dlya-ai-seo.json
 │   │   │   ├── blog_kak-prodvinut-seo.json
 │   │   │   ├── blog_kak-rasshifrovyvaetsya-seo.json
 │   │   │   ├── blog_pochemu-seo.json
 │   │   │   ├── blog_pochemu-veb-razrabotka.json
 │   │   │   ├── blog_razrabotka-sayta-kak-nazyvaetsya.json
+│   │   │   ├── blog_razrabotka-saytov-instruktsiya.json
 │   │   │   ├── blog_seo-instruktsiya.json
 │   │   │   ├── blog_seo-kak-chitaetsya.json
 │   │   │   ├── blog_seo-kak-zarabatyvat.json
+│   │   │   ├── blog_seo-obzory.json
+│   │   │   ├── blog_seo-statya-napisat.json
+│   │   │   ├── blog_veb-razrabotka-statya.json
 │   │   │   ├── blog_zachem-seo.json
+│   │   │   ├── cases_keys-seo-prodvizheniya.json
+│   │   │   ├── cases_keysy-dlya-ai-seo.json
+│   │   │   ├── cases_kursy-seo-s-garantiey-rezultata.json
 │   │   │   ├── cases_opyt-raboty-v-marketinge.json
+│   │   │   ├── cases_opyt-raboty-v-seo.json
+│   │   │   ├── cases_opyt-razrabotki-sayta.json
+│   │   │   ├── cases_primer-dogovora-na-razrabotku-sayta.json
+│   │   │   ├── cases_primer-seo-teksta.json
+│   │   │   ├── cases_primer-zadaniya-na-razrabotku-sayta.json
 │   │   │   ├── cases_primery-razrabotok-saytov.json
+│   │   │   ├── cases_primery-sozdaniya-lendingov.json
+│   │   │   ├── cases_prodvizhenie-sayta-oplata-za-rezultat-seo-fortuna.json
+│   │   │   ├── cases_razrabotka-sayta-keysy.json
+│   │   │   ├── cases_razrabotka-veb-prilozheniy-primer.json
+│   │   │   ├── cases_razrabotka-veb-sayta-primer.json
 │   │   │   ├── cases_rezultat-razrabotki-sayta.json
+│   │   │   ├── cases_rezultat-seo-optimizatsii.json
 │   │   │   ├── cases_rezultaty-seo-prodvizheniya.json
 │   │   │   ├── cases_seo-keysy.json
 │   │   │   ├── cases_seo-oplata-za-rezultat.json
+│   │   │   ├── cases_seo-opyta.json
 │   │   │   ├── cases_seo-primer.json
+│   │   │   ├── cases_seo-prodvizhenie-mfo-keys.json
 │   │   │   ├── cases_seo-prodvizhenie-oplata-za-rezultat.json
+│   │   │   ├── cases_seo-prodvizhenie-primery.json
+│   │   │   ├── cases_seo-prodvizhenie-sayta-oplata-za-rezultat.json
+│   │   │   ├── cases_seo-prodvizhenie-sayta-za-rezultat.json
+│   │   │   ├── cases_seo-prodvizhenie-saytov-aktsent-na-rezultat.json
 │   │   │   ├── cases_seo-rezultat.json
+│   │   │   ├── cases_seo-s-garantiey-rezultata.json
 │   │   │   ├── cases_veb-razrabotka-primery.json
+│   │   │   ├── cases_vnedrenie-ai-agentov-v-biznes-protsessy.json
+│   │   │   ├── cases_vnedrenie-ai-v-biznes-protsessy.json
+│   │   │   ├── cases_vnedrenie-ai-v-biznes.json
+│   │   │   ├── cases_vnedrenie-sayta-razrabotka.json
+│   │   │   ├── cases_vnedrenie-seo.json
 │   │   │   ├── dizayn-sayta.json
+│   │   │   ├── dns-internet-magazin-tsena.json
+│   │   │   ├── grupprays-internet-magazin-zhenskoy.json
+│   │   │   ├── grupprays-internet-magazin.json
+│   │   │   ├── internet-magazin-kupit-katalog-tovarov.json
 │   │   │   ├── internet-magazin-market-kupit.json
 │   │   │   ├── internet-magazin-na-russkom-s-tsenami.json
 │   │   │   ├── internet-magazin-zhenskie-kupit-internet.json
 │   │   │   ├── internet-magazina-tsena-moskva.json
 │   │   │   ├── kupit-ai.json
+│   │   │   ├── kupit-internet-magazin-ofitsialnyy-sayt.json
 │   │   │   ├── kupit-internet-magazin-tsena.json
+│   │   │   ├── kupit-internet-magazin-v-moskve.json
 │   │   │   ├── kupit-internet-magazin.json
+│   │   │   ├── kupit-knigu-v-internet-magazine.json
+│   │   │   ├── kupit-obuv-v-internet-magazine.json
 │   │   │   ├── kupit-sayt.json
+│   │   │   ├── kupit-tovar-internet-magazin.json
 │   │   │   ├── kupit-v-internet-magazine-nedorogo.json
-│   │   │   ├── moskva-ofitsialnyy-sayt-kupit.json
-│   │   │   ├── ofitsialnyy-sayt-kupit-onlayn.json
 │   │   │   ├── ofitsialnyy-sayt-prays.json
 │   │   │   ├── prilozhenie-ai.json
 │   │   │   ├── razrabotka-sayta.json
-│   │   │   ├── sayt-prays.json
+│   │   │   ├── razrabotka-veb-prilozheniy.json
+│   │   │   ├── seo-ahn.json
 │   │   │   ├── seo-prodvizhenie.json
 │   │   │   ├── seo-sayt.json
-│   │   │   ├── seo.json
-│   │   │   ├── sozdanie-sayta.json
-│   │   │   ├── sozdat-sayt.json
+│   │   │   ├── tools_brif-na-razrabotku-sayta-shablon.json
+│   │   │   ├── tools_instrumenty-dlya-razrabotki-veb-sayta.json
 │   │   │   ├── tools_instrumenty-razrabotki-veb-prilozheniy.json
+│   │   │   ├── tools_instrumenty-seo-prodvizheniya-sayta.json
 │   │   │   ├── tools_instrumenty-seo-prodvizheniya.json
 │   │   │   ├── tools_instrumenty-veb-razrabotki.json
+│   │   │   ├── tools_prosto-o-reklame-resheniya-seo-smm-instrumenty.json
+│   │   │   ├── tools_razrabotka-kalkulyatora-dlya-sayta.json
 │   │   │   ├── tools_sayt-instrument-razrabotki.json
 │   │   │   ├── tools_seo-analiz-instrumenty.json
 │   │   │   ├── tools_seo-instrument-sayta.json
 │   │   │   ├── tools_seo-instrumenty.json
 │   │   │   ├── tools_seo-optimizatsiya-instrumenty.json
 │   │   │   ├── tools_seo-shablon.json
+│   │   │   ├── tools_shablon-dogovora-na-razrabotku-sayta.json
 │   │   │   ├── tools_shablon-razrabotki-saytov.json
-│   │   │   ├── tsena-internet-sayta.json
-│   │   │   ├── tsena-sayta-god.json
-│   │   │   ├── tsena-sayta-internet-magazina.json
+│   │   │   ├── tools_tz-na-razrabotku-sayta-shablon.json
 │   │   │   ├── tsena-sayta.json
 │   │   │   ├── tsenam-internet-magazin-katalog.json
-│   │   │   ├── valdberies-internet-magazin-kupit.json
 │   │   │   ├── veb-razrabotka.json
-│   │   │   ├── zakazat-internet-magazin.json
-│   │   │   └── zakazat-sayt.json
+│   │   │   ├── zakaz-v-internet-magazine.json
+│   │   │   └── zakazat-internet-magazin.json
 │   │   └── raw
 │   │       └── raw_keywords.csv
 │   ├── generator
@@ -218,21 +289,32 @@
 ├── services
 │   ├── avtomatizatsiya.html
 │   ├── dizayn-sayta.html
+│   ├── dns-internet-magazin-tsena.html
+│   ├── grupprays-internet-magazin-zhenskoy.html
+│   ├── grupprays-internet-magazin.html
+│   ├── internet-magazin-kupit-katalog-tovarov.html
 │   ├── internet-magazin-market-kupit.html
 │   ├── internet-magazin-na-russkom-s-tsenami.html
 │   ├── internet-magazin-zhenskie-kupit-internet.html
 │   ├── internet-magazina-tsena-moskva.html
 │   ├── kupit-ai.html
+│   ├── kupit-internet-magazin-ofitsialnyy-sayt.html
 │   ├── kupit-internet-magazin-tsena.html
+│   ├── kupit-internet-magazin-v-moskve.html
 │   ├── kupit-internet-magazin.html
+│   ├── kupit-knigu-v-internet-magazine.html
+│   ├── kupit-obuv-v-internet-magazine.html
 │   ├── kupit-sayt.html
+│   ├── kupit-tovar-internet-magazin.html
 │   ├── kupit-v-internet-magazine-nedorogo.html
 │   ├── moskva-ofitsialnyy-sayt-kupit.html
 │   ├── ofitsialnyy-sayt-kupit-onlayn.html
 │   ├── ofitsialnyy-sayt-prays.html
 │   ├── prilozhenie-ai.html
 │   ├── razrabotka-sayta.html
+│   ├── razrabotka-veb-prilozheniy.html
 │   ├── sayt-prays.html
+│   ├── seo-ahn.html
 │   ├── seo-prodvizhenie.html
 │   ├── seo-sayt.html
 │   ├── seo.html
@@ -245,21 +327,30 @@
 │   ├── tsenam-internet-magazin-katalog.html
 │   ├── valdberies-internet-magazin-kupit.html
 │   ├── veb-razrabotka.html
+│   ├── zakaz-v-internet-magazine.html
 │   ├── zakazat-internet-magazin.html
 │   └── zakazat-sayt.html
 ├── tools
+│   ├── brif-na-razrabotku-sayta-shablon.html
+│   ├── instrumenty-dlya-razrabotki-veb-sayta.html
 │   ├── instrumenty-razrabotki-veb-prilozheniy.html
+│   ├── instrumenty-seo-prodvizheniya-sayta.html
 │   ├── instrumenty-seo-prodvizheniya.html
 │   ├── instrumenty-veb-razrabotki.html
+│   ├── prosto-o-reklame-resheniya-seo-smm-instrumenty.html
+│   ├── razrabotka-kalkulyatora-dlya-sayta.html
 │   ├── sayt-instrument-razrabotki.html
 │   ├── seo-analiz-instrumenty.html
 │   ├── seo-instrument-sayta.html
 │   ├── seo-instrumenty.html
 │   ├── seo-optimizatsiya-instrumenty.html
 │   ├── seo-shablon.html
-│   └── shablon-razrabotki-saytov.html
+│   ├── shablon-dogovora-na-razrabotku-sayta.html
+│   ├── shablon-razrabotki-saytov.html
+│   └── tz-na-razrabotku-sayta-shablon.html
 ├── .env
 ├── .gitignore
+├── google4a240710599b60b7.html
 ├── index.html
 ├── package.json
 ├── robots.txt

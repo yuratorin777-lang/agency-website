@@ -59,7 +59,9 @@ jobs:
           
           if git status --porcelain | grep -q .; then
             git commit -m "feat(seo): авто-генерация батча [skip ci]"
-            git push
+            # Подтягиваем свежие изменения с репозитория перед отправкой
+            git pull --rebase origin main
+            git push origin main
           else
             echo "Нет новых изменений для коммита."
           fi
