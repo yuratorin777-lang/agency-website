@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{META_TITLE}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}">
+<link rel="canonical" href="{{CANONICAL_URL}}">
+
+<!-- Tailwind CSS & Icons -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/images/favicon.png" />
+
+<!-- Open Graph / Social Media Metas -->
+<meta property="og:type" content="{{OG_TYPE}}" />
+<meta property="og:url" content="{{CANONICAL_URL}}" />
+<meta property="og:title" content="{{META_TITLE}}" />
+<meta property="og:description" content="{{META_DESCRIPTION}}" />
+<meta property="og:image" content="{{OG_IMAGE}}" />
+<meta property="og:site_name" content="BOS.AGENCE" />
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{META_TITLE}}" />
+<meta name="twitter:description" content="{{META_DESCRIPTION}}" />
+<meta name="twitter:image" content="{{OG_IMAGE}}" />
+
+<style>
+  body { font-family: 'Geist', sans-serif; background-color: #050714; color: #f1f1f1; }
+  .font-syne { font-family: 'Syne', sans-serif; }
+  .font-mono-code { font-family: 'Space Mono', monospace; }
+  
+  .glow-purple { box-shadow: 0 0 50px -10px rgba(139, 92, 246, 0.3); }
+  .animated-gradient-text {
+    background: linear-gradient(120deg, #ffffff 0%, #8b5cf6 30%, #3b82f6 60%, #ffffff 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position: 200% center; } }
+  @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+  .animate-marquee { display: flex; width: 200%; animation: marquee 25s linear infinite; }
+</style>
+
+{{SCHEMA_JSON}}
+  <title>Блог и Статьи — BOS.AGENCE</title>
+  <meta name="description" content="Полный каталог материалов категории Блог и Статьи от BOS.AGENCE">
+  <link rel="canonical" href="https://cdn.bosagence.ru/blog/">
+</head>
+<body class="bg-[#03040b] text-white font-sans antialiased">
+  <header class="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-[#050714] via-[#050714]/80 to-transparent backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 sm:h-24 flex items-center justify-between">
+      <button id="menu-btn" class="font-mono-code text-[10px] sm:text-[11px] font-light tracking-[0.15em] sm:tracking-[0.2em] text-[#888] hover:text-white transition-colors uppercase cursor-pointer">
+        [ MENU ]
+      </button>
+
+      <!-- Обновленный логотип B. -->
+      <a href="../index.html" class="font-syne text-2xl sm:text-3xl font-extrabold tracking-tighter text-white hover:opacity-80 transition-opacity">
+        B<span class="text-[#8b5cf6]">.</span>
+      </a>
+
+      <a href="javascript:void(0)" 
+         onclick="openContactModal()" 
+         class="font-mono-code text-[10px] sm:text-[11px] font-light tracking-[0.15em] sm:tracking-[0.2em] text-white hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer">
+        LET'S TALK &rarr;
+      </a>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-6 py-20 min-h-screen">
+    <div class="mb-12">
+      <span class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase mb-2 block">// КАТАЛОГ</span>
+      <h1 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase text-white">Блог и Статьи</h1>
+      <p class="font-mono-code text-white/60 text-sm mt-3">Всего материалов: 16</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <a href="/blog/blog-seo-ru.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">SEO-оптимизация корпоративного блога: как превратить статьи в источник стабильного трафика &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: продвижение контентных проектов и блогов. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/kak-nazyvaetsya-seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Как называется seo &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: как называется seo. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/kak-podobrat-prompty-dlya-ai-seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Искусство создания промптов для AI SEO: как заставить нейросети работать на ваш трафик &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Практическое руководство по созданию эффективных промптов для оптимизации сайтов с помощью искусственного интеллекта. Повышаем позиции в поисковых системах вместе с BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/kak-prodvinut-seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Стратегии и практики: как продвинуть SEO сайта в топ поисковых систем &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: как продвинуть SEO. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/kak-rasshifrovyvaetsya-seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Что такое SEO и как оптимизация сайта трансформирует бизнес &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Разбираем, как расшифровывается SEO, что стоит за этой аббревиатурой и как правильная поисковая оптимизация помогает бизнесу расти в цифровой среде.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/pochemu-seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Почему seo &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: почему seo. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/pochemu-veb-razrabotka.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Почему качественная веб-разработка критически важна для роста бизнеса в 2026 году &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Экспертный взгляд BOS.AGENCE на то, почему современные веб-решения становятся фундаментом цифровой трансформации, лидогенерации и масштабирования бизнеса.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/razrabotka-sayta-kak-nazyvaetsya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Как называется разработка сайта и из каких этапов состоит создание веб-проектов &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Разбираем терминологию digital-сферы: как называется разработка сайта, какие бывают этапы проектирования, веб-дизайна и программирования сложных систем для бизнеса.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/razrabotka-saytov-instruktsiya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Полная инструкция по разработке сайтов: от идеи до запуска &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Пошаговое руководство по созданию успешных веб-ресурсов. Архитектура, дизайн, разработка, тестирование и запуск проекта без лишних рисков.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/seo-instruktsiya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Полная SEO-инструкция по продвижению сайтов в 2026 году &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Пошаговая SEO-инструкция от экспертов BOS.AGENCE: как выстроить стратегию продвижения, оптимизировать техническую часть и обойти конкурентов в выдаче.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/seo-kak-chitaetsya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Как правильно читается SEO и что нужно знать о поисковой оптимизации &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Разбираем правила чтения аббревиатуры SEO, правильное произношение и фундаментальные основы поисковой оптимизации для вашего бизнеса в 2026 году.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/seo-kak-zarabatyvat.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Seo как зарабатывать &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: seo как зарабатывать. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/seo-obzory.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Эффективные SEO-обзоры и аналитика для роста IT-бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Полный гайд по созданию глубоких SEO-обзоров и аудитов сайтов. Как использовать автоматизацию, анализировать конкурентов и масштабировать трафик с помощью экспертного контента от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/seo-statya-napisat.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Как написать SEO-статью, которая выведет сайт в топ &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Пошаговое руководство по созданию эффективных SEO-текстов: от сбора семантики и анализа конкурентов до оптимизации структуры и внедрения ИИ-инструментов.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/veb-razrabotka-statya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Современная веб-разработка: тренды, архитектура и лучшие практики &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Экспертный гайд по современной веб-разработке от BOS.AGENCE. Узнайте об архитектурных подходах, стеке технологий и шагах создания масштабных веб-приложений.</p>
+        </div>
+      </a>
+    
+
+      <a href="/blog/zachem-seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// БЛОГ И СТАТЬИ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Зачем SEO современному бизнесу: инвестиции в устойчивый рост &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Разбираем, зачем современному бизнесу SEO-продвижение, как органический трафик снижает стоимость привлечения клиентов и почему поисковая оптимизация актуальна как никогда.</p>
+        </div>
+      </a>
+    
+    </div>
+  </main>
+  <footer id="main-footer" class="relative z-20 w-full bg-[#050714] text-white overflow-hidden pt-16 pb-8 border-t border-[#8b5cf6]/20">
+    
+    <!-- Фоновое неоновое свечение -->
+    <div class="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#8b5cf6]/15 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <!-- 1. БЕГУЩАЯ СТРОКА-ПРИЗЫВ -->
+    <div class="w-full overflow-hidden mb-12 opacity-30 select-none">
+      <div class="animate-marquee whitespace-nowrap flex gap-8 font-syne text-6xl sm:text-8xl font-extrabold uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white/40 to-white/10">
+        <span>LET'S BUILD SOMETHING ICONIC • BOS.AGENCE • NEXT-GEN PRODUCTION •</span>
+        <span>LET'S BUILD SOMETHING ICONIC • BOS.AGENCE • NEXT-GEN PRODUCTION •</span>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+      
+      <!-- 2. ЦЕНТРАЛЬНАЯ КАРТОЧКА "НАЧАТЬ ПРОЕКТ" -->
+      <div class="bg-gradient-to-br from-[#0e0c1f] via-[#130f2e] to-[#0d111a] border border-[#8b5cf6]/30 hover:border-[#8b5cf6]/60 transition-all duration-500 rounded-3xl p-8 sm:p-12 lg:p-16 text-white relative overflow-hidden group shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_80px_rgba(139,92,246,0.25)]">
+        
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-[#8b5cf6]/25 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+          <div>
+            <div class="flex items-center gap-2 mb-6">
+              <span class="w-2 h-2 rounded-full bg-[#8b5cf6] animate-pulse"></span>
+              <span class="text-xs font-mono-code uppercase tracking-[0.25em] text-[#8b5cf6]">• START A PROJECT</span>
+            </div>
+            
+            <h2 class="font-syne text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] uppercase mb-6">
+              ГОТОВЫ СОЗДАТЬ <br />
+              <span class="animated-gradient-text">ЧТО-ТО МОЩНОЕ?</span>
+            </h2>
+            
+            <p class="text-white/60 text-base sm:text-lg max-w-lg font-light tracking-wide leading-relaxed">
+              Расскажите о вашей задаче. Мы спроектируем цифровую экосистему, которая выведет ваш бренд в лидеры рынка.
+            </p>
+          </div>
+
+          <a href="javascript:void(0)" onclick="openContactModal()" class="flex items-center justify-between sm:justify-start gap-6 bg-white/5 hover:bg-[#8b5cf6] border border-white/10 hover:border-[#8b5cf6] px-8 py-5 rounded-2xl transition-all duration-300 group/btn w-full sm:w-fit cursor-pointer">
+            <span class="font-mono-code text-sm tracking-[0.15em] uppercase font-medium">Обсудить проект</span>
+            <svg class="w-5 h-5 transform group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. НИЖНЯЯ ТЕХНИЧЕСКАЯ ЧАСТЬ -->
+      <div class="pt-12 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-white/40 font-mono-code">
+        
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6">
+          <span>© 2026 BOS.AGENCE</span>
+          <span class="hidden sm:inline">•</span>
+          <a href="../index.html" class="hover:text-white transition-colors">PRIVACY POLICY</a>
+          <span class="hidden sm:inline">•</span>
+          <span class="text-[#8b5cf6]">MOSCOW / GLOBAL</span>
+        </div>
+
+        <div class="flex items-center gap-3 bg-white/[0.03] border border-white/10 px-4 py-2 rounded-xl">
+          <span class="w-2 h-2 rounded-full bg-[#8b5cf6]"></span>
+          <span class="text-white/80 font-medium tracking-wide text-[11px]">Next.js & Three.js</span>
+          <span class="bg-[#8b5cf6]/20 text-[#8b5cf6] border border-[#8b5cf6]/30 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Enterprise</span>
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+  <div id="contact-modal" class="fixed inset-0 z-[110] bg-[#050714]/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-6 sm:p-12 overflow-y-auto">
+    
+    <!-- Кнопка закрытия -->
+    <div class="max-w-7xl mx-auto w-full flex justify-end z-10">
+      <button id="close-contact-btn" class="font-mono-code text-[11px] font-light tracking-[0.2em] text-white/70 hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer">
+        [ ЗАКРЫТЬ ✕ ]
+      </button>
+    </div>
+
+    <!-- Контент формы -->
+    <div class="max-w-4xl mx-auto w-full my-auto py-6 z-10">
+      <div class="bg-[#07091e] border border-white/10 p-8 sm:p-12 rounded-2xl relative">
+        <h2 class="font-syne text-3xl sm:text-5xl font-bold uppercase tracking-tight leading-none mb-4 text-white">
+          ДАВАЙТЕ <span class="text-[#8b5cf6]">СОЗДАДИМ</span> ЧТО-ТО КРУТОЕ
+        </h2>
+        <p class="font-mono-code text-xs text-white/60 tracking-wider mb-8 uppercase">
+          Расскажите о вашей задаче, и мы подготовим оптимальное решение и оценку сроков.
+        </p>
+
+        <form id="contact-form" class="space-y-6">
+          <div>
+            <label class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-3">
+              // 01. ВЫБЕРИТЕ НАПРАВЛЕНИЕ
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="landing" class="peer hidden" checked>
+                <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                  Лендинг / Промо-сайт
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="corporate" class="peer hidden">
+                <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                  Многостраничный сайт
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="design" class="peer hidden">
+                <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                  UI/UX Дизайн & Айдентика
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="custom" class="peer hidden">
+                <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                  Веб-сервис / Доработка
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label for="user-name" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+                // 02. ВАШЕ ИМЯ ИЛИ КОМПАНИЯ *
+              </label>
+              <input type="text" id="user-name" required placeholder="Иван / Название компании" 
+                class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg px-4 py-3.5 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label for="user-contact" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+                // 03. ТЕЛЕГРАМ ИЛИ EMAIL ДЛЯ СВЯЗИ *
+              </label>
+              <input type="text" id="user-contact" required placeholder="@username или name@domain.com" 
+                class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg px-4 py-3.5 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label for="user-message" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+                // 04. ОПИСАНИЕ ЗАДАЧИ ИЛИ ССЫЛКА НА ТЗ
+              </label>
+              <textarea id="user-message" rows="3" placeholder="Расскажите кратко о вашем проекте..." 
+                class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg p-4 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors resize-none"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-syne font-bold uppercase text-xs sm:text-base tracking-wider sm:tracking-[0.2em] py-4 rounded-lg shadow-lg hover:shadow-[#8b5cf6]/40 transition-all flex items-center justify-center gap-3 group cursor-pointer">
+            <span>ОТПРАВИТЬ ЗАЯВКУ</span>
+            <span class="transform group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
