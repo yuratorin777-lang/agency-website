@@ -355,11 +355,11 @@ pagesRegistry.forEach((pageItem) => {
 });
 
 // ============================================================================
-// ОБЩИЙ ХЕЛПЕР ПАГИНАЦИИ
-// ВАЖНО: НЕ МЕНЯЕТ ВЕРСТКУ КАРТОЧЕК
+// ОБЩИЙ HELPER ПАГИНАЦИИ
+// layoutClass управляет ТОЛЬКО внешней сеткой карточек
 // ============================================================================
 
-function renderPaginatedSection(items, renderCardFn) {
+function renderPaginatedSection(items, renderCardFn, layoutClass = '') {
 
   if (!items.length) {
     return '<p class="text-neutral-400 font-mono text-xs">Раздел наполняется...</p>';
@@ -367,23 +367,24 @@ function renderPaginatedSection(items, renderCardFn) {
 
   const cardsHtml = items.map((item, index) => {
 
-    const isHidden = index >= 6 ? 'style="display: none;"' : '';
+    const isHidden = index >= 6 ? 'style="display:none;"' : '';
 
-    return `<div class="js-card-item" data-card-index="${index}" ${isHidden}>
-      ${renderCardFn(item)}
-    </div>`;
+    return `
+      <div class="js-card-item" data-card-index="${index}" ${isHidden}>
+        ${renderCardFn(item)}
+      </div>
+    `;
 
   }).join('\n');
 
   const totalPages = Math.ceil(items.length / 6);
 
-  const paginationControls = items.length > 6 ? `
+  const paginationControls = totalPages > 1 ? `
     <div class="flex items-center gap-4 mt-8 justify-end js-pagination-controls">
 
       <button
         type="button"
-        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
-        disabled>
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
         &larr; Назад
       </button>
 
@@ -401,12 +402,17 @@ function renderPaginatedSection(items, renderCardFn) {
   ` : '';
 
   return `
-    <div class="js-paginated-container" data-total-items="${items.length}">
-      <div class="js-cards-wrapper">
+    <div
+      class="js-paginated-container"
+      data-total-items="${items.length}"
+      data-per-page="6">
+
+      <div class="js-cards-wrapper ${layoutClass}">
         ${cardsHtml}
       </div>
 
       ${paginationControls}
+
     </div>
   `;
 }
@@ -429,7 +435,7 @@ if (fs.existsSync(INDEX_PATH)) {
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">${srv.desc}</p>
       </div>
     </a>
-  `);
+`, 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6');
 
   const servicesContainerHtml = `<!-- DYNAMIC_SERVICES_START -->
 <section id="seo-services" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/10">
@@ -441,9 +447,7 @@ if (fs.existsSync(INDEX_PATH)) {
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    ${servicesHtml}
-  </div>
+  ${servicesHtml}
 
 </section>
 <!-- DYNAMIC_SERVICES_END -->`;
@@ -679,12 +683,14 @@ if (fs.existsSync(INDEX_PATH)) {
 
   const paginationScript = `
 <script id="js-pagination-engine">
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
 
-  document.querySelectorAll('.js-paginated-container').forEach(function(container) {
+  const containers = document.querySelectorAll('.js-paginated-container');
+
+  containers.forEach(function (container) {
 
     const cards = Array.from(
-      container.querySelectorAll('.js-card-item')
+      container.querySelectorAll(':scope > .js-cards-wrapper > .js-card-item')
     );
 
     const prevBtn = container.querySelector('.js-prev-page');
@@ -695,7 +701,7 @@ if (fs.existsSync(INDEX_PATH)) {
       return;
     }
 
-    const perPage = 6;
+    const perPage = Number(container.dataset.perPage) || 6;
     const totalPages = Math.ceil(cards.length / perPage);
 
     let currentPage = 1;
@@ -710,12 +716,13 @@ if (fs.existsSync(INDEX_PATH)) {
       const start = (currentPage - 1) * perPage;
       const end = start + perPage;
 
-      cards.forEach(function(card, index) {
+      cards.forEach(function (card, index) {
 
-        card.style.display =
-          index >= start && index < end
-            ? ''
-            : 'none';
+        if (index >= start && index < end) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
 
       });
 
@@ -723,34 +730,46 @@ if (fs.existsSync(INDEX_PATH)) {
         currentPage + ' / ' + totalPages;
 
       prevBtn.disabled =
-        currentPage === 1;
+        currentPage <= 1;
 
       nextBtn.disabled =
-        currentPage === totalPages;
+        currentPage >= totalPages;
     }
 
-    prevBtn.addEventListener('click', function () {
-      renderPage(currentPage - 1);
+    prevBtn.addEventListener('click', function (event) {
+
+      event.preventDefault();
+
+      if (currentPage > 1) {
+        renderPage(currentPage - 1);
+      }
+
     });
 
-    nextBtn.addEventListener('click', function () {
-      renderPage(currentPage + 1);
+    nextBtn.addEventListener('click', function (event) {
+
+      event.preventDefault();
+
+      if (currentPage < totalPages) {
+        renderPage(currentPage + 1);
+      }
+
     });
 
     renderPage(1);
 
   });
 
-})();
+});
 </script>`;
 
-  // Удаляем старую версию движка, если она вдруг уже есть
+  // Удаляем предыдущий движок пагинации
   indexHtml = indexHtml.replace(
     /<script id="js-pagination-engine">[\s\S]*?<\/script>/g,
     ''
   );
 
-  // Всегда ставим актуальный JS перед </body>
+  // Добавляем актуальный движок перед </body>
   indexHtml = indexHtml.replace(
     '</body>',
     `${paginationScript}
@@ -759,7 +778,8 @@ if (fs.existsSync(INDEX_PATH)) {
 
   fs.writeFileSync(INDEX_PATH, indexHtml, 'utf-8');
 
-  console.log('  [+] JS пагинации добавлен на главную');
+  console.log('  [+] JS пагинации главной страницы добавлен');
+
 }
 
 // 7. ГЕНЕРАЦИЯ SITEMAP.XML
