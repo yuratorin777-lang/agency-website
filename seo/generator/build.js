@@ -354,145 +354,413 @@ pagesRegistry.forEach((pageItem) => {
   sitemapUrls.push(`  <url>\n    <loc>${pageUrl}</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <priority>0.8</priority>\n  </url>`);
 });
 
-// 5. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ БЛОКА УСЛУГ НА ГЛАВНОЙ (INDEX.HTML)
-if (fs.existsSync(INDEX_PATH)) {
-  let indexContent = fs.readFileSync(INDEX_PATH, 'utf-8');
-  const servicePages = pagesRegistry.filter(p => p.type === 'service').slice(0, 6);
+// ============================================================================
+// ОБЩИЙ ХЕЛПЕР ПАГИНАЦИИ
+// ВАЖНО: НЕ МЕНЯЕТ ВЕРСТКУ КАРТОЧЕК
+// ============================================================================
 
-  const serviceCardsHtml = servicePages.map(srv => `
-      <a href="${srv.url}" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
-        <div>
-          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
-          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">${srv.title} &rarr;</h3>
-          <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">${srv.desc}</p>
-        </div>
-      </a>`).join('\n');
+function renderPaginatedSection(items, renderCardFn) {
+
+  if (!items.length) {
+    return '<p class="text-neutral-400 font-mono text-xs">Раздел наполняется...</p>';
+  }
+
+  const cardsHtml = items.map((item, index) => {
+
+    const isHidden = index >= 6 ? 'style="display: none;"' : '';
+
+    return `<div class="js-card-item" data-card-index="${index}" ${isHidden}>
+      ${renderCardFn(item)}
+    </div>`;
+
+  }).join('\n');
+
+  const totalPages = Math.ceil(items.length / 6);
+
+  const paginationControls = items.length > 6 ? `
+    <div class="flex items-center gap-4 mt-8 justify-end js-pagination-controls">
+
+      <button
+        type="button"
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
+        disabled>
+        &larr; Назад
+      </button>
+
+      <span class="js-page-indicator font-mono text-xs text-neutral-500">
+        1 / ${totalPages}
+      </span>
+
+      <button
+        type="button"
+        class="js-next-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
+        Вперед &rarr;
+      </button>
+
+    </div>
+  ` : '';
+
+  return `
+    <div class="js-paginated-container" data-total-items="${items.length}">
+      <div class="js-cards-wrapper">
+        ${cardsHtml}
+      </div>
+
+      ${paginationControls}
+    </div>
+  `;
+}
+
+// 5. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ БЛОКА УСЛУГ НА ГЛАВНОЙ (INDEX.HTML)
+
+if (fs.existsSync(INDEX_PATH)) {
+
+  let indexContent = fs.readFileSync(INDEX_PATH, 'utf-8');
+
+  const servicePages = pagesRegistry
+    .filter(p => p.type === 'service')
+    .reverse();
+
+  const servicesHtml = renderPaginatedSection(servicePages, (srv) => `
+    <a href="${srv.url}" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">${srv.title} &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">${srv.desc}</p>
+      </div>
+    </a>
+  `);
 
   const servicesContainerHtml = `<!-- DYNAMIC_SERVICES_START -->
 <section id="seo-services" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/10">
+
   <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
     <div>
       <span class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase mb-2 block">// КАТАЛОГ УСЛУГ</span>
       <h2 class="font-syne text-3xl sm:text-5xl font-extrabold uppercase text-white">Решения и Экспертиза</h2>
     </div>
   </div>
+
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    ${serviceCardsHtml}
+    ${servicesHtml}
   </div>
+
 </section>
 <!-- DYNAMIC_SERVICES_END -->`;
 
   if (indexContent.includes('<!-- DYNAMIC_SERVICES_START -->')) {
-    indexContent = indexContent.replace(/<!-- DYNAMIC_SERVICES_START -->[\s\S]*?<!-- DYNAMIC_SERVICES_END -->/, servicesContainerHtml);
+    indexContent = indexContent.replace(
+      /<!-- DYNAMIC_SERVICES_START -->[\s\S]*?<!-- DYNAMIC_SERVICES_END -->/,
+      servicesContainerHtml
+    );
   } else {
-    indexContent = indexContent.replace('</main>', `${servicesContainerHtml}\n</main>`);
+    indexContent = indexContent.replace(
+      '</main>',
+      `${servicesContainerHtml}\n</main>`
+    );
   }
+
   fs.writeFileSync(INDEX_PATH, indexContent, 'utf-8');
-  console.log('  Обновлен блок услуг на главной странице (index.html)');
+
+  console.log(`  [+] Блок услуг обновлен: ${servicePages.length} услуг`);
 }
 
-// 6. ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ КОНТЕНТ-ХАБА (КЕЙСЫ, БЛОГ, БАЗА ЗНАНИЙ) НА ГЛАВНОЙ (INDEX.HTML)
+// ============================================================================
+// 6. ОБНОВЛЕНИЕ КОНТЕНТ-ХАБА С ПОДДЕРЖКОЙ ЛИСТАНИЯ
+// ============================================================================
+
 function renderContentHub() {
+
   if (!fs.existsSync(INDEX_PATH)) return;
 
-  console.log('Найденные типы:', pagesRegistry.map(p => ({ title: p.title, type: p.type })));
+  // Свежие элементы — первыми
+  const cases = pagesRegistry
+    .filter(p => p.type === 'case')
+    .reverse();
 
-  const cases = pagesRegistry.filter(p => p.type === 'case');
-  const blog = pagesRegistry.filter(p => p.type === 'blog');
-  const knowledge = pagesRegistry.filter(p => p.type === 'tool' || p.type === 'knowledge');
+  const blog = pagesRegistry
+    .filter(p => p.type === 'blog')
+    .reverse();
 
-  // 1. Генерация HTML для кейсов (Ограничиваем 6 последними свежими)
-  const casesHtml = cases.slice(-6).reverse().map(item => `
-    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+  const knowledge = pagesRegistry
+    .filter(p => p.type === 'tool' || p.type === 'knowledge')
+    .reverse();
+
+  // 1. Рендер КЕЙСОВ
+  const casesHtml = renderPaginatedSection(cases, (item) => `
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${(item.data.stack || []).slice(0, 2).join(' / ') || 'BOS.AGENCE'}</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          ${item.title}
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          ${item.desc}
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">${item.title}</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">${item.desc}</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
         <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">${item.data.metrics?.[0]?.value || '100%'} ${item.data.metrics?.[0]?.label || ''}</span>
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
       </div>
-    </a>
-  `).join('');
 
-  // 2. Генерация HTML для блога (Ограничиваем 6 последними свежими)
-  const blogHtml = blog.slice(-6).reverse().map(item => `
-    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </a>
+  `);
+
+  // 2. Рендер БЛОГА
+  const blogHtml = renderPaginatedSection(blog, (item) => `
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${item.data.publish_date || '2026'} • ${item.data.read_time || '5'} мин</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">${item.data.category || 'БЛОГ'}</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          ${item.title}
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          ${item.desc}
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">${item.title}</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">${item.desc}</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
       </div>
-    </a>
-  `).join('');
 
-  // 3. Генерация HTML для базы знаний / инструментов (Ограничиваем 6 последними свежими)
-  const knowledgeHtml = knowledge.slice(-6).reverse().map(item => `
-    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </a>
+  `);
+
+  // 3. Рендер БАЗЫ ЗНАНИЙ
+  const knowledgeHtml = renderPaginatedSection(knowledge, (item) => `
+    <a href="${item.url}" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">${item.data.type || 'ИНСТРУМЕНТ'}</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          ${item.title}
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          ${item.desc}
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">${item.title}</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">${item.desc}</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
       </div>
+
     </a>
-  `).join('');
+  `);
 
   let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
 
-  // Обновляем цифры счетчиков в табах (показывают ПОЛНОЕ количество)
-  indexHtml = indexHtml.replace(/<span id="count-cases">.*?<\/span>/g, `<span id="count-cases">${cases.length}</span>`);
-  indexHtml = indexHtml.replace(/<span id="count-blog">.*?<\/span>/g, `<span id="count-blog">${blog.length}</span>`);
-  indexHtml = indexHtml.replace(/<span id="count-knowledge">.*?<\/span>/g, `<span id="count-knowledge">${knowledge.length}</span>`);
+  // Обновляем счетчики
+  indexHtml = indexHtml.replace(
+    /<span id="count-cases">.*?<\/span>/g,
+    `<span id="count-cases">${cases.length}</span>`
+  );
 
-  // Замена контента между маркерными комментариями
+  indexHtml = indexHtml.replace(
+    /<span id="count-blog">.*?<\/span>/g,
+    `<span id="count-blog">${blog.length}</span>`
+  );
+
+  indexHtml = indexHtml.replace(
+    /<span id="count-knowledge">.*?<\/span>/g,
+    `<span id="count-knowledge">${knowledge.length}</span>`
+  );
+
+  // Подставляем динамический контент
   if (indexHtml.includes('<!-- CASES_CONTENT_START -->')) {
+
     indexHtml = indexHtml.replace(
       /<!-- CASES_CONTENT_START -->[\s\S]*?<!-- CASES_CONTENT_END -->/,
-      `<!-- CASES_CONTENT_START -->\n${casesHtml}\n<!-- CASES_CONTENT_END -->`
+      `<!-- CASES_CONTENT_START -->
+${casesHtml}
+<!-- CASES_CONTENT_END -->`
     );
+
     indexHtml = indexHtml.replace(
       /<!-- BLOG_CONTENT_START -->[\s\S]*?<!-- BLOG_CONTENT_END -->/,
-      `<!-- BLOG_CONTENT_START -->\n${blogHtml}\n<!-- BLOG_CONTENT_END -->`
+      `<!-- BLOG_CONTENT_START -->
+${blogHtml}
+<!-- BLOG_CONTENT_END -->`
     );
+
     indexHtml = indexHtml.replace(
       /<!-- KNOWLEDGE_CONTENT_START -->[\s\S]*?<!-- KNOWLEDGE_CONTENT_END -->/,
-      `<!-- KNOWLEDGE_CONTENT_START -->\n${knowledgeHtml}\n<!-- KNOWLEDGE_CONTENT_END -->`
+      `<!-- KNOWLEDGE_CONTENT_START -->
+${knowledgeHtml}
+<!-- KNOWLEDGE_CONTENT_END -->`
     );
   }
 
   fs.writeFileSync(INDEX_PATH, indexHtml, 'utf-8');
-  console.log(`  Обновлен контент-хаб на главной: Отображено по 6 свежих элементов (Всего в базе: Кейсы [${cases.length}], Блог [${blog.length}], Инструменты [${knowledge.length}])`);
+
+  console.log(
+    `  [+] Контент-хаб обновлен: кейсы ${cases.length}, блог ${blog.length}, база знаний ${knowledge.length}`
+  );
 }
 
 renderContentHub();
+
+// =========================================================================
+// 6.1. ГЕНЕРАЦИЯ СТРАНИЦ-КАТАЛОГОВ (ВСЕ ЭЛЕМЕНТЫ ДЛЯ РАЗДЕЛОВ)
+// =========================================================================
+function generateCategoryHubs() {
+  console.log('📦 Генерация полных страниц-каталогов для разделов...');
+
+  const categories = [
+    { type: 'service', dir: DIRS.service, title: 'Услуги и Решения', folder: 'services' },
+    { type: 'blog', dir: DIRS.blog, title: 'Блог и Статьи', folder: 'blog' },
+    { type: 'case', dir: DIRS.case, title: 'Кейсы и Портфолио', folder: 'cases' },
+    { type: 'tool', dir: DIRS.tool, title: 'Инструменты и Гайды', folder: 'tools' }
+  ];
+
+  categories.forEach(cat => {
+    // Выбираем ВСЕ элементы данного типа без ограничения slice(0, 6)
+    const items = pagesRegistry.filter(p => p.type === cat.type || (cat.type === 'tool' && p.type === 'knowledge'));
+
+    const cardsHtml = items.map(item => `
+      <a href="${item.url}" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// ${cat.title.toUpperCase()}</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">${item.title} &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">${item.desc}</p>
+        </div>
+      </a>
+    `).join('\n');
+
+    const hubHtml = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+  ${headModule}
+  <title>${cat.title} — BOS.AGENCE</title>
+  <meta name="description" content="Полный каталог материалов категории ${cat.title} от BOS.AGENCE">
+  <link rel="canonical" href="${BASE_URL}/${cat.folder}/">
+</head>
+<body class="bg-[#03040b] text-white font-sans antialiased">
+  ${headerModule}
+  <main class="max-w-7xl mx-auto px-6 py-20 min-h-screen">
+    <div class="mb-12">
+      <span class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase mb-2 block">// КАТАЛОГ</span>
+      <h1 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase text-white">${cat.title}</h1>
+      <p class="font-mono-code text-white/60 text-sm mt-3">Всего материалов: ${items.length}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      ${cardsHtml || '<p class="text-white/40 font-mono-code">Раздел пополняется...</p>'}
+    </div>
+  </main>
+  ${footerModule}
+  ${modalModule}
+</body>
+</html>`;
+
+    const indexPath = path.join(cat.dir, 'index.html');
+    fs.writeFileSync(indexPath, hubHtml, 'utf-8');
+
+    // Добавляем урл раздела в sitemap
+    const catUrl = `${BASE_URL}/${cat.folder}/`;
+    if (!sitemapUrls.some(u => u.includes(`<loc>${catUrl}</loc>`))) {
+      sitemapUrls.push(`  <url>\n    <loc>${catUrl}</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <priority>0.9</priority>\n  </url>`);
+    }
+
+    console.log(`  [+] Каталог сгенерирован: /${cat.folder}/index.html (${items.length} элементов)`);
+  });
+}
+
+generateCategoryHubs();
+
+// ============================================================================
+// 6.2. JS ПАГИНАЦИИ ДЛЯ ГЛАВНОЙ
+// ============================================================================
+
+if (fs.existsSync(INDEX_PATH)) {
+
+  let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
+
+  const paginationScript = `
+<script id="js-pagination-engine">
+(function () {
+
+  document.querySelectorAll('.js-paginated-container').forEach(function(container) {
+
+    const cards = Array.from(
+      container.querySelectorAll('.js-card-item')
+    );
+
+    const prevBtn = container.querySelector('.js-prev-page');
+    const nextBtn = container.querySelector('.js-next-page');
+    const indicator = container.querySelector('.js-page-indicator');
+
+    if (!cards.length || !prevBtn || !nextBtn || !indicator) {
+      return;
+    }
+
+    const perPage = 6;
+    const totalPages = Math.ceil(cards.length / perPage);
+
+    let currentPage = 1;
+
+    function renderPage(page) {
+
+      currentPage = Math.max(
+        1,
+        Math.min(page, totalPages)
+      );
+
+      const start = (currentPage - 1) * perPage;
+      const end = start + perPage;
+
+      cards.forEach(function(card, index) {
+
+        card.style.display =
+          index >= start && index < end
+            ? ''
+            : 'none';
+
+      });
+
+      indicator.textContent =
+        currentPage + ' / ' + totalPages;
+
+      prevBtn.disabled =
+        currentPage === 1;
+
+      nextBtn.disabled =
+        currentPage === totalPages;
+    }
+
+    prevBtn.addEventListener('click', function () {
+      renderPage(currentPage - 1);
+    });
+
+    nextBtn.addEventListener('click', function () {
+      renderPage(currentPage + 1);
+    });
+
+    renderPage(1);
+
+  });
+
+})();
+</script>`;
+
+  // Удаляем старую версию движка, если она вдруг уже есть
+  indexHtml = indexHtml.replace(
+    /<script id="js-pagination-engine">[\s\S]*?<\/script>/g,
+    ''
+  );
+
+  // Всегда ставим актуальный JS перед </body>
+  indexHtml = indexHtml.replace(
+    '</body>',
+    `${paginationScript}
+</body>`
+  );
+
+  fs.writeFileSync(INDEX_PATH, indexHtml, 'utf-8');
+
+  console.log('  [+] JS пагинации добавлен на главную');
+}
 
 // 7. ГЕНЕРАЦИЯ SITEMAP.XML
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.join('\n')}\n</urlset>`;
