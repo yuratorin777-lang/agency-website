@@ -361,6 +361,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/il-bote-internet-magazin.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/il-de-bote-internet-magazin.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/internet-magazin-katalog-dlya-zakaza.html</loc>
     <lastmod>2026-09-24</lastmod>
     <priority>0.8</priority>
@@ -382,6 +392,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/internet-magazin-na-russkom-s-tsenami.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/internet-magazin-zakaz-katalog-tovarov.html</loc>
     <lastmod>2026-09-24</lastmod>
     <priority>0.8</priority>
   </url>
@@ -427,6 +442,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/kupit-ai.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/kupit-dukhi-v-internet-magazine.html</loc>
     <lastmod>2026-09-24</lastmod>
     <priority>0.8</priority>
   </url>
