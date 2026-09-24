@@ -341,7 +341,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/internet-magazine-mozhno-kupit.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/internet-magaziny-belarusi-s-tsenami.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/katalog-dns-s-tsenami-internet-magazin-ofitsialnyy.html</loc>
     <lastmod>2026-09-24</lastmod>
     <priority>0.8</priority>
   </url>
@@ -406,6 +416,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/muzhskie-kupit-internet-magazin.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/ofitsialnyy-sayt-kupit-onlayn.html</loc>
     <lastmod>2026-09-24</lastmod>
     <priority>0.8</priority>
@@ -417,6 +432,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/prilozhenie-ai.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/prilozhenie-na-telefon-internet-magazin.html</loc>
     <lastmod>2026-09-24</lastmod>
     <priority>0.8</priority>
   </url>
