@@ -498,3 +498,26 @@ renderContentHub();
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.join('\n')}\n</urlset>`;
 fs.writeFileSync(SITEMAP_PATH, sitemapContent, 'utf-8');
 console.log(`[+] Сгенерирован sitemap.xml (${sitemapUrls.length} ссылок)`);
+
+// 8. ОТПРАВКА ССЫЛОК В INDEXNOW (ЯНДЕКС)
+const apiKey = 'e8f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5'; // ваш ключ
+const host = 'cdn.bosagence.ru';
+
+// Собираем массив очищенных чистых ссылок из sitemap
+const urlsList = sitemapUrls.map(item => {
+  const match = item.match(/<loc>(.*?)<\/loc>/);
+  return match ? match[1] : null;
+}).filter(Boolean);
+
+fetch('https://yandex.com/indexnow', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=utf-8' },
+  body: JSON.stringify({
+    host: host,
+    key: apiKey,
+    keyLocation: `https://${host}/${apiKey}.txt`,
+    urlList: urlsList
+  })
+})
+.then(res => console.log(`[+] IndexNow: страницы успешно отправлены в Яндекс (Статус: ${res.status})`))
+.catch(err => console.error('❌ Ошибка отправки в IndexNow:', err));
