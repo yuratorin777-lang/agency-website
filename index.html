@@ -533,6 +533,72 @@
   }
   </script>
 <script src="/assets/js/main.js"></script>
+
+<script id="js-pagination-engine">
+(function () {
+
+  document.querySelectorAll('.js-paginated-container').forEach(function(container) {
+
+    const cards = Array.from(
+      container.querySelectorAll('.js-card-item')
+    );
+
+    const prevBtn = container.querySelector('.js-prev-page');
+    const nextBtn = container.querySelector('.js-next-page');
+    const indicator = container.querySelector('.js-page-indicator');
+
+    if (!cards.length || !prevBtn || !nextBtn || !indicator) {
+      return;
+    }
+
+    const perPage = 6;
+    const totalPages = Math.ceil(cards.length / perPage);
+
+    let currentPage = 1;
+
+    function renderPage(page) {
+
+      currentPage = Math.max(
+        1,
+        Math.min(page, totalPages)
+      );
+
+      const start = (currentPage - 1) * perPage;
+      const end = start + perPage;
+
+      cards.forEach(function(card, index) {
+
+        card.style.display =
+          index >= start && index < end
+            ? ''
+            : 'none';
+
+      });
+
+      indicator.textContent =
+        currentPage + ' / ' + totalPages;
+
+      prevBtn.disabled =
+        currentPage === 1;
+
+      nextBtn.disabled =
+        currentPage === totalPages;
+    }
+
+    prevBtn.addEventListener('click', function () {
+      renderPage(currentPage - 1);
+    });
+
+    nextBtn.addEventListener('click', function () {
+      renderPage(currentPage + 1);
+    });
+
+    renderPage(1);
+
+  });
+
+})();
+</script>
 </body>
 </html>
 
@@ -1976,6 +2042,7 @@
 
 <!-- DYNAMIC_SERVICES_START -->
 <section id="seo-services" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/10">
+
   <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
     <div>
       <span class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase mb-2 block">// КАТАЛОГ УСЛУГ</span>
@@ -1983,58 +2050,773 @@
     </div>
   </div>
 
-  <!-- 1. ДОБАВИЛИ id="services-grid" В СЕТКУ -->
-  <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     
-      <a href="/services/1-tsena-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
-        <div>
-          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
-          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина под ключ &rarr;</h3>
-          <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов с высокой конверсией. Интеграция с платежными системами, CRM и AI-аналитикой от BOS.AGENCE.</p>
-        </div>
-      </a>
+    <div class="js-paginated-container" data-total-items="67">
+      <div class="js-cards-wrapper">
+        <div class="js-card-item" data-card-index="0" >
+      
+    <a href="/services/zakazat-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных веб-сайтов для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание эффективных веб-сайтов и цифровых экосистем для вашего бизнеса. Индивидуальный дизайн, высокая конверсия и современные технологии.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="1" >
+      
+    <a href="/services/zakazat-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Заказать функциональный интернет-магазин с гарантией продаж &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: заказать интернет магазин. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="2" >
+      
+    <a href="/services/zakaz-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Проектирование идеальной системы оформления заказа для вашего интернет-магазина &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем и оптимизируем процесс оформления заказа в интернет-магазине. Повышаем конверсию корзины, интегрируем платежные системы и CRM с помощью ИИ и современных IT-решений.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="3" >
+      
+    <a href="/services/veb-razrabotka.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Веб-разработка высоконагруженных сайтов и корпоративных порталов &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: веб разработка. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="4" >
+      
+    <a href="/services/tsenam-internet-magazin-katalog.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина: прозрачное формирование цен, каталог и продажи &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов с удобным товарным каталогом, интеграцией цен и автоматизацией продаж от экспертов BOS.AGence.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="5" >
+      
+    <a href="/services/tsena-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит создание эффективного сайта для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте актуальную стоимость создания современного веб-сайта для вашего бизнеса. Прозрачное ценообразование, экспертная оценка и разработка под ключ от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="6" style="display: none;">
+      
+    <a href="/services/tsena-sayta-internet-magazina.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит и как создается эффективный сайт интернет-магазина &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость и этапы создания современного интернет-магазина от экспертов BOS.AGENCE. Разрабатываем продающие площадки с высокой конверсией и интеграцией с CRM.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="7" style="display: none;">
+      
+    <a href="/services/tsena-sayta-god.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка и поддержка сайта на год: инвестиции в ваш цифровой успех &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте актуальную стоимость создания и поддержки современного сайта на год вперед. Прозрачное ценообразование, экспертная разработка и интеграция ИИ-решений от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="8" style="display: none;">
+      
+    <a href="/services/tsena-ru-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для российского рынка с гарантией результата &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание интернет-магазинов для рынка РФ с интеграцией ИИ, платежных систем и CRM. Прозрачные цены и высокая конверсия.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="9" style="display: none;">
+      
+    <a href="/services/tsena-internet-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит разработка современного интернет-сайта: цены и форматы &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-сайтов под ключ от BOS.AGENCE. Узнайте стоимость создания корпоративных сайтов, интернет-магазинов и веб-приложений.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="10" style="display: none;">
+      
+    <a href="/services/tsena-dostavki-s-internet-magazina.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Оптимизация логистики и расчет стоимости доставки для интернет-магазинов &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Оптимизация логистики и расчет стоимости доставки для интернет-магазинов. Внедрение ИИ-решений и автоматизация процессов от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="11" style="display: none;">
+      
+    <a href="/services/sozdat-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных сайтов и веб-приложений для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка и создание сайтов под ключ: от корпоративных порталов до сложных интернет-магазинов с глубокой интеграцией AI и автоматизацией.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="12" style="display: none;">
+      
+    <a href="/services/sozdat-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для роста ваших продаж &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-магазинов под ключ от BOS.AGENCE. Создадим современный сайт для вашего бизнеса с высокой конверсией, интеграцией платежей и CRM.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="13" style="display: none;">
+      
+    <a href="/services/sozdanie-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание мощных веб-решений для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание сайтов любой сложности: от стильных корпоративных порталов до высоконагруженных веб-сервисов с интеграцией ИИ-решений.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="14" style="display: none;">
+      
+    <a href="/services/sozdanie-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание AI-решений и интеграция искусственного интеллекта для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка и внедрение искусственного интеллекта (AI) для автоматизации бизнес-процессов. Создание умных систем, чат-ботов и предиктивной аналитики от экспертов BOS.AGence.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="15" style="display: none;">
+      
+    <a href="/services/seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональное SEO-продвижение для роста вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Комплексное SEO-продвижение от BOS.AGENCE. Выводим сайты в топ Яндекс и Google, увеличиваем органический трафик и продажи с помощью передовых технологий и AI.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="16" style="display: none;">
+      
+    <a href="/services/seo-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание сайтов с готовностью к SEO-продвижению и высокой индексацией &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: seo сайт. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="17" style="display: none;">
+      
+    <a href="/services/seo-prodvizhenie.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Комплексное SEO-продвижение для вывода сайта в топ поисковиков &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: seo продвижение. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="18" style="display: none;">
+      
+    <a href="/services/seo-prodvizhenie-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Комплексное SEO-продвижение сайтов для роста вашего бизнеса в ТОП поисковых систем &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное поисковое продвижение сайтов от BOS.AGENCE. Выводим в ТОП Яндекса и Google, привлекаем целевую аудиторию и увеличиваем продажи с помощью современных SEO-технологий и AI-аналитики.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="19" style="display: none;">
+      
+    <a href="/services/seo-optimizatsiya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Комплексное SEO-продвижение и поисковая оптимизация сайтов &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная SEO-оптимизация сайтов для бизнеса. Выводим в топ Яндекса и Google, увеличиваем органический трафик и продажи. Закажите аудит и рост позиций.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="20" style="display: none;">
+      
+    <a href="/services/seo-ahn.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональная SEO-оптимизация и стратегия продвижения &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Комплексное SEO-продвижение и техническая оптимизация проектов (SEO Ahn) для роста органического трафика и продаж. Экспертный подход от IT-агентства BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="21" style="display: none;">
+      
+    <a href="/services/sayt-prays.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание эффективных сайтов с интерактивным прайс-листом и каталогом &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных веб-сайтов с удобными прайс-листами, калькуляторами стоимости и каталогами для вашего бизнеса. Интеграция с CRM и автоматизация продаж от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="22" style="display: none;">
+      
+    <a href="/services/reklama-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Инновационная реклама на базе искусственного интеллекта для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Масштабируйте ваш бизнес с помощью рекламы на базе AI. Автоматизация кампаний, генерация креативов и глубокая аналитика от экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="23" style="display: none;">
+      
+    <a href="/services/razrabotka-veb-prilozheniy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных веб-приложений, которые масштабируют ваш бизнес &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка веб-приложений от экспертов BOS.AGENCE. Создаем масштабируемые SaaS-платформы, корпоративные системы и сложные сервисы с интеграцией AI.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="24" style="display: none;">
+      
+    <a href="/services/razrabotka-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Комплексная разработка сайтов для решения коммерческих задач &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: разработка сайта. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="25" style="display: none;">
+      
+    <a href="/services/pryazha-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современного интернет-магазина пряжи для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Запустите продающий интернет-магазин пряжи и товаров для рукоделия. Современный дизайн, интеграция с 1С и маркетплейсами, высокая конверсия. Заказать разработку в BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="26" style="display: none;">
+      
+    <a href="/services/prilozhenie-na-telefon-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание мобильных приложений для интернет-магазинов нового поколения &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем современные и быстрые мобильные приложения для интернет-магазинов на iOS и Android. Интеграция с CRM, платежными системами и увеличение продаж.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="27" style="display: none;">
+      
+    <a href="/services/prilozhenie-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка мобильных и веб-приложений с искусственным интеллектом (AI) &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: приложение ai. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="28" style="display: none;">
+      
+    <a href="/services/ofitsialnyy-sayt-prays.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит официальный сайт: прозрачный прайс и тарифы на разработку &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость услуг по направлению «официальный сайт прайс» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="29" style="display: none;">
+      
+    <a href="/services/ofitsialnyy-sayt-kupit-onlayn.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание официального сайта онлайн для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание официальных сайтов под ключ. Быстрый запуск, современный дизайн и интеграция с AI-решениями от экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="30" style="display: none;">
+      
+    <a href="/services/muzhskie-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина мужских товаров под ключ &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание интернет-магазинов для мужского бизнеса с высокой конверсией. Современный дизайн, интеграция с ERP и быстрая разработка от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="31" style="display: none;">
+      
+    <a href="/services/moskva-ofitsialnyy-sayt-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка официального сайта для вашего бизнеса в Москве &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных официальных сайтов и веб-приложений для бизнеса в Москве. Экспертная разработка, интеграция AI-решений и высокая конверсия от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="32" style="display: none;">
+      
+    <a href="/services/kupit-v-internet-magazine-nedorogo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка эффективных интернет-магазинов недорого с базовым функционалом &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: купить в интернет магазине недорого. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="33" style="display: none;">
+      
+    <a href="/services/kupit-v-dns-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина техники и электроники уровня лидеров рынка &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов электроники и бытовой техники уровня DNS. Интеграция с каталогами, ERP, CRM и платежными системами от экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="34" style="display: none;">
+      
+    <a href="/services/kupit-tovar-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов для успешных продаж &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных, быстрых и конверсионных интернет-магазинов с индивидуальным дизайном и интеграцией ИИ-решений для вашего бизнеса.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="35" style="display: none;">
+      
+    <a href="/services/kupit-semena-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка интернет-магазинов семян: современные цифровые решения для агробизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-магазинов для продажи семян и агротоваров. Интеграция каталогов, удобная фильтрация, автоматизация заказов и рост продаж с BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="36" style="display: none;">
+      
+    <a href="/services/kupit-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание премиальных веб-сайтов для масштабирования вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание эффективных веб-сайтов и цифровых продуктов для вашего бизнеса. Проектирование, уникальный дизайн, интеграция ИИ и высокая конверсия.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="37" style="display: none;">
+      
+    <a href="/services/kupit-obuv-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Современная и стильная обувь в интернет-магазине BOS.AGENCE &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Широкий ассортимент стильной обуви в нашем интернет-магазине. Удобный выбор, быстрая доставка и гарантия качества для каждого покупателя.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="38" style="display: none;">
+      
+    <a href="/services/kupit-knigu-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для книжного бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Разработка уникальных и конверсионных интернет-магазинов для книжного бизнеса. Интеграция с платежными системами, удобный каталог, автоматизация продаж от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="39" style="display: none;">
+      
+    <a href="/services/kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для роста ваших продаж &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-магазинов под ключ с высокой конверсией. Создаем масштабируемые e-commerce платформы с быстрой загрузкой и интеграцией с CRM и ERP.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="40" style="display: none;">
+      
+    <a href="/services/kupit-internet-magazin-v-moskve.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов для лидирующих брендов в Москве &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных, быстрых и конверсионных интернет-магазинов в Москве с интеграцией AI, CRM и платежных систем. Профессиональная разработка от экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="41" style="display: none;">
+      
+    <a href="/services/kupit-internet-magazin-tsena.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Продажа и разработка интернет-магазинов: честная цена без переплат &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость услуг по направлению «купить интернет магазин цена» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="42" style="display: none;">
+      
+    <a href="/services/kupit-internet-magazin-rossiya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для бизнеса в России &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-магазинов в России с интеграцией ИИ, CRM и платежных систем. Создаем современные сайты для роста продаж и масштабирования бизнеса от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="43" style="display: none;">
+      
+    <a href="/services/kupit-internet-magazin-ofitsialnyy-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание и запуск вашего официального интернет-магазина для роста продаж &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов с высокой конверсией. Создадим ваш официальный сайт с нуля, настроим интеграции и запустим продажи.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="44" style="display: none;">
+      
+    <a href="/services/kupit-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка и внедрение искусственного интеллекта (AI) под ключ &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: купить ai. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="45" style="display: none;">
+      
+    <a href="/services/katalog-dns-s-tsenami-internet-magazin-ofitsialnyy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов и каталогов с актуальными ценами &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов и торговых площадок с интеграцией каталогов, систем ценообразования и актуальных прайс-листов. Закажите создание сайта у экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="46" style="display: none;">
+      
+    <a href="/services/katalog-21-vek-s-tsenami-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка интернет-магазинов с интерактивным каталогом и актуальными ценами &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов с удобным каталогом, актуальными ценами и интеграцией под ключ от экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="47" style="display: none;">
+      
+    <a href="/services/internet-magaziny-belarusi-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов в Беларуси: прозрачные цены и гарантированные продажи &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов в Беларуси. Прозрачные цены, интеграция с 1С, CRM и платежными системами. Закажите продающий сайт от экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="48" style="display: none;">
+      
+    <a href="/services/internet-magazine-mozhno-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание и запуск современного интернет-магазина под ключ &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Запустите продажи онлайн: разработка и автоматизация интернет-магазинов с высокой конверсией, интеграцией ИИ и полным циклом поддержки от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="49" style="display: none;">
+      
+    <a href="/services/internet-magazina-tsena-moskva.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит интернет-магазин в Москве: расчёт цены и сметы под ключ &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость услуг по направлению «интернет магазина цена москва» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="50" style="display: none;">
+      
+    <a href="/services/internet-magazin-zhenskie-kupit-internet.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка интернет-магазина женской одежды и товаров с высокой конверсией &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: интернет магазин женские купить интернет. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="51" style="display: none;">
+      
+    <a href="/services/internet-magazin-zakaz-tovarov.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональная разработка интернет-магазинов с безупречным процессом заказа товаров &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов с удобной системой заказа товаров, интеграцией CRM и платежных систем от IT-агентства BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="52" style="display: none;">
+      
+    <a href="/services/internet-magazin-na-russkom-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Современный интернет-магазин на русском с прозрачными ценами &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость услуг по направлению «интернет магазин на русском с ценами» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="53" style="display: none;">
+      
+    <a href="/services/internet-magazin-mebeli-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина мебели с актуальными ценами под ключ &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов мебели с интеграцией актуальных цен, систем учета и удобным каталогом. Продающий дизайн и высокая конверсия от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="54" style="display: none;">
+      
+    <a href="/services/internet-magazin-market-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка и запуск интернет-магазина для вывода товаров на маркетплейсы &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: интернет магазин маркет купить. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="55" style="display: none;">
+      
+    <a href="/services/internet-magazin-kupit-katalog-tovarov.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов с продающим каталогом товаров &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем современные интернет-магазины с умным каталогом товаров, фильтрами и высокой конверсией. Профессиональная разработка и интеграция под ключ от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="56" style="display: none;">
+      
+    <a href="/services/grupprays-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов с системой группрайс (Group Price) &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов с системой групповых цен и динамическим ценообразованием для оптовых и розничных продаж от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="57" style="display: none;">
+      
+    <a href="/services/grupprays-internet-magazin-zhenskoy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина женской одежды с системой групповых цен (Группрайс) &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов женской одежды с поддержкой оптовых продаж, групповых закупок и гибкого ценообразования. Автоматизация бизнес-процессов от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="58" style="display: none;">
+      
+    <a href="/services/gde-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Где создать прибыльный интернет-магазин для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Ищете, где создать надежный интернет-магазин? Разрабатываем современные продающие площадки с интеграцией ИИ, CRM и платежных систем под ключ.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="59" style="display: none;">
+      
+    <a href="/services/dns-internet-magazin-tsena.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современного интернет-магазина цифровой техники и электроники &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современного интернет-магазина цифровой и бытовой техники с высокой конверсией, интеграцией складского учета и быстрой платежной системой от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="60" style="display: none;">
+      
+    <a href="/services/dizayn-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональный дизайн сайта и UX-проектирование для бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: дизайн сайта. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="61" style="display: none;">
+      
+    <a href="/services/bot-c-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Интеллектуальные боты с AI для автоматизации вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание интеллектуальных ботов с ИИ для автоматизации продаж, поддержки и бизнес-процессов. Внедрение передовых языковых моделей под ключ.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="62" style="display: none;">
+      
+    <a href="/services/bot-ai-russkiy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Интеллектуальные ИИ-боты на русском языке для вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем современных ИИ-ботов с поддержкой русского языка под ключ. Автоматизация продаж, техподдержки и бизнес-процессов с помощью передовых нейросетей от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="63" style="display: none;">
+      
+    <a href="/services/besplatnyy-internet-magazin-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Запуск интернет-магазина с каталогом и актуальными ценами &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Запустите современный интернет-магазин с актуальными ценами и каталогом товаров быстро и профессионально. Индивидуальный подход от экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="64" style="display: none;">
+      
+    <a href="/services/ai-robot.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Интеллектуальные AI-роботы для автоматизации вашего бизнеса &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем интеллектуальных ИИ-роботов и голосовых ассистентов под ключ. Автоматизируйте продажи, поддержку и рутинные задачи с передовыми AI-технологиями от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="65" style="display: none;">
+      
+    <a href="/services/21-vek-internet-magazin-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина нового поколения с динамическими ценами и каталогом &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Разработка мощных интернет-магазинов нового поколения в BOS.AGENCE. Интеграция систем учета, актуальные цены, автоматизация продаж и высокая конверсия.</p>
+      </div>
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="66" style="display: none;">
+      
+    <a href="/services/1-tsena-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина под ключ &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов с высокой конверсией. Интеграция с платежными системами, CRM и AI-аналитикой от BOS.AGENCE.</p>
+      </div>
+    </a>
+  
+    </div>
+      </div>
 
-      <a href="/services/21-vek-internet-magazin-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
-        <div>
-          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
-          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина нового поколения с динамическими ценами и каталогом &rarr;</h3>
-          <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Разработка мощных интернет-магазинов нового поколения в BOS.AGENCE. Интеграция систем учета, актуальные цены, автоматизация продаж и высокая конверсия.</p>
-        </div>
-      </a>
+      
+    <div class="flex items-center gap-4 mt-8 justify-end js-pagination-controls">
 
-      <a href="/services/ai-robot.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
-        <div>
-          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
-          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Интеллектуальные AI-роботы для автоматизации вашего бизнеса &rarr;</h3>
-          <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем интеллектуальных ИИ-роботов и голосовых ассистентов под ключ. Автоматизируйте продажи, поддержку и рутинные задачи с передовыми AI-технологиями от BOS.AGENCE.</p>
-        </div>
-      </a>
+      <button
+        type="button"
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
+        disabled>
+        &larr; Назад
+      </button>
 
-      <a href="/services/besplatnyy-internet-magazin-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
-        <div>
-          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
-          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Запуск интернет-магазина с каталогом и актуальными ценами &rarr;</h3>
-          <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Запустите современный интернет-магазин с актуальными ценами и каталогом товаров быстро и профессионально. Индивидуальный подход от экспертов BOS.AGENCE.</p>
-        </div>
-      </a>
+      <span class="js-page-indicator font-mono text-xs text-neutral-500">
+        1 / 12
+      </span>
 
-      <a href="/services/bot-c-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
-        <div>
-          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
-          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Интеллектуальные боты с AI для автоматизации вашего бизнеса &rarr;</h3>
-          <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание интеллектуальных ботов с ИИ для автоматизации продаж, поддержки и бизнес-процессов. Внедрение передовых языковых моделей под ключ.</p>
-        </div>
-      </a>
+      <button
+        type="button"
+        class="js-next-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
+        Вперед &rarr;
+      </button>
 
-      <a href="/services/dizayn-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
-        <div>
-          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
-          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональный дизайн сайта и UX-проектирование для бизнеса &rarr;</h3>
-          <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: дизайн сайта. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
-        </div>
-      </a>
-  </div>
-
+    </div>
+  
+    </div>
+  
   </div>
 
 </section>
@@ -2075,119 +2857,913 @@
     <div id="tab-content-cases" class="tab-pane space-y-0 divide-y divide-neutral-200">
       <!-- CASES_CONTENT_START -->
 
-    <a href="/cases/vnedrenie-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    <div class="js-paginated-container" data-total-items="40">
+      <div class="js-cards-wrapper">
+        <div class="js-card-item" data-card-index="0" >
+      
+    <a href="/cases/vnedrenie-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / PostgreSQL</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Масштабирование органического трафика: комплексное внедрение SEO для лидера рынка
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Как комплексное внедрение SEO-стратегии и техническая оптимизация позволили нашему клиенту снизить стоимость привлечения клиента и кратно увеличить продажи из поиска.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Масштабирование органического трафика: комплексное внедрение SEO для лидера рынка</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как комплексное внедрение SEO-стратегии и техническая оптимизация позволили нашему клиенту снизить стоимость привлечения клиента и кратно увеличить продажи из поиска.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
         <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+240% Рост органического трафика</span>
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/cases/vnedrenie-sayta-razrabotka.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="1" >
+      
+    <a href="/cases/vnedrenie-sayta-razrabotka.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Next.js / Python</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Комплексная разработка и внедрение современного корпоративного сайта
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Узнайте, как эксперты BOS.AGENCE реализовали проект по разработке и внедрению высокопроизводительного сайта с нуля. Рост конверсии и автоматизация бизнес-процессов.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Комплексная разработка и внедрение современного корпоративного сайта</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Узнайте, как эксперты BOS.AGENCE реализовали проект по разработке и внедрению высокопроизводительного сайта с нуля. Рост конверсии и автоматизация бизнес-процессов.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
         <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+180% Рост конверсии в заявку</span>
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/cases/vnedrenie-ai-v-biznes.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="2" >
+      
+    <a href="/cases/vnedrenie-ai-v-biznes.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / OpenAI API</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Как внедрение ИИ в бизнес сократило операционные расходы на 45% и ускорило клиентский сервис
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Как мы внедрили ИИ-решения в бизнес-процессы крупной компании, сократили издержки на 45% и ускорили обработку клиентских запросов в 3 раза.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как внедрение ИИ в бизнес сократило операционные расходы на 45% и ускорило клиентский сервис</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы внедрили ИИ-решения в бизнес-процессы крупной компании, сократили издержки на 45% и ускорили обработку клиентских запросов в 3 раза.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
         <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">-45% Операционные расходы</span>
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/cases/vnedrenie-ai-v-biznes-protsessy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="3" >
+      
+    <a href="/cases/vnedrenie-ai-v-biznes-protsessy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / OpenAI API</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Внедрение искусственного интеллекта в бизнес-процессы логистического гиганта
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Как мы внедрили искусственный интеллект в операционные процессы крупной логистической компании, сократив издержки на 45% и ускорив обработку заявок в 3 раза.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Внедрение искусственного интеллекта в бизнес-процессы логистического гиганта</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы внедрили искусственный интеллект в операционные процессы крупной логистической компании, сократив издержки на 45% и ускорив обработку заявок в 3 раза.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
         <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">-45% Снижение операционных издержек</span>
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/cases/vnedrenie-ai-agentov-v-biznes-protsessy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="4" >
+      
+    <a href="/cases/vnedrenie-ai-agentov-v-biznes-protsessy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / OpenAI API</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Как внедрение ИИ-агентов сократило издержки логистического оператора на 45%
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Как мы автоматизировали обработку заявок и клиентский сервис с помощью ИИ-агентов, сократив время ответа клиенту в 4 раза и снизив издержки на 45%.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как внедрение ИИ-агентов сократило издержки логистического оператора на 45%</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы автоматизировали обработку заявок и клиентский сервис с помощью ИИ-агентов, сократив время ответа клиенту в 4 раза и снизив издержки на 45%.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
         <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">-45% Снижение операционных издержек</span>
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/cases/veb-razrabotka-primery.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="5" >
+      
+    <a href="/cases/veb-razrabotka-primery.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Next.js</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Как мы разработали масштабируемую веб-платформу для финансового сектора
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Подробный кейс от BOS.AGENCE о разработке сложного веб-приложения с нуля. Архитектура, стек, метрики роста и результаты.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как мы разработали масштабируемую веб-платформу для финансового сектора</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Подробный кейс от BOS.AGENCE о разработке сложного веб-приложения с нуля. Архитектура, стек, метрики роста и результаты.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
         <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">3.5x Рост скорости загрузки</span>
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
       </div>
+
     </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="6" style="display: none;">
+      
+    <a href="/cases/seo-s-garantiey-rezultata.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Ahrefs</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">SEO-продвижение с финансовой гарантией результата для e-commerce проекта</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Комплексное SEO-продвижение с юридической гарантией результата. Рост органического трафика на 210% и увеличение продаж для интернет-магазина.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+210% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="7" style="display: none;">
+      
+    <a href="/cases/seo-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Gemini API</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Seo результат</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: seo результат. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+150% Органический трафик</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="8" style="display: none;">
+      
+    <a href="/cases/seo-prodvizhenie-saytov-aktsent-na-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Yandex.Metrika</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">SEO-продвижение с акцентом на результат: рост органического трафика в 3 раза</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Кейс BOS.AGENCE: как комплексное SEO-продвижение с фокусом на коммерческие метрики увеличило органический трафик интернет-магазина в 3 раза и снизило стоимость привлечения клиентов.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+310% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="9" style="display: none;">
+      
+    <a href="/cases/seo-prodvizhenie-sayta-za-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / PostgreSQL</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Масштабирование органического трафика х3 с оплатой за результат: стратегия комплексного SEO для лидера рынка</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы вывели интернет-магазин в топ поисковых систем по ключевым запросам с оплатой за результат. Детальный разбор стратегии, технической оптимизации и роста продаж от Commercial Director BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+310% Рост поискового трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="10" style="display: none;">
+      
+    <a href="/cases/seo-prodvizhenie-sayta-primer.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Ahrefs</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как мы увеличили органический трафик интернет-магазина в 3 раза с помощью комплексного SEO-продвижения</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем реальный пример SEO продвижения сайта с нуля: стратегия технической оптимизации, кластеризация семантики и кратный рост продаж из поиска.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+240% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="11" style="display: none;">
+      
+    <a href="/cases/seo-prodvizhenie-sayta-oplata-za-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / PostgreSQL</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Масштабирование органического трафика по модели SEO с оплатой за результат</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы увеличили органический трафик в 3 раза по модели оплаты за результат. Реальный кейс эффективного SEO-продвижения от BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">x3.2 Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="12" style="display: none;">
+      
+    <a href="/cases/seo-prodvizhenie-primery.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Ahrefs</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Реальные примеры SEO продвижения: как мы кратно увеличиваем органический трафик и продажи</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем реальные примеры SEO продвижения в IT и e-commerce. Как мы увеличили органический трафик в 3 раза и снизили стоимость привлечения клиентов.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">x3.5 Рост поискового трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="13" style="display: none;">
+      
+    <a href="/cases/seo-prodvizhenie-oplata-za-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Ahrefs</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">SEO-продвижение с оплатой за результат: прозрачная модель роста для e-commerce</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы перевели крупный интернет-магазин на SEO с оплатой за результат (лиды и позиции), снизив риски клиента и увеличив органический трафик в 3 раза.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+210% Рост органического трафика за 6 месяцев</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="14" style="display: none;">
+      
+    <a href="/cases/seo-prodvizhenie-mfo-keys.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Ahrefs</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как мы увеличили органический трафик МФО в 3 раза в условиях жестких ограничений YMYL-тематики</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы вывели сайт микрофинансовой организации в топ Яндекс и Google, обошли конкурентов и снизили стоимость привлечения лида с помощью комплексного SEO-аудита и контент-маркетинга.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+310% Рост поискового трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="15" style="display: none;">
+      
+    <a href="/cases/seo-primer.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Gemini API</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Seo пример</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: seo пример. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+150% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="16" style="display: none;">
+      
+    <a href="/cases/seo-opyta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Next.js</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Трансформация SEO-опыта в стабильный поток лидов: кейс роста органического трафика на 300%</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы систематизировали многолетний SEO-опыт клиента, перестроили архитектуру контента и увеличили органический трафик в 3 раза за 8 месяцев.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+300% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="17" style="display: none;">
+      
+    <a href="/cases/seo-oplata-za-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Google Analytics 4</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">SEO с оплатой за результат: рост органического трафика в 3 раза для e-commerce</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Кейс BOS.AGENCE: как мы перевели крупный интернет-магазин на SEO с оплатой за результат и увеличили органический трафик в 3 раза без рисков для клиента.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">x3 Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="18" style="display: none;">
+      
+    <a href="/cases/seo-keysy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / PostgreSQL</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Seo кейсы</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: seo кейсы. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+180% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="19" style="display: none;">
+      
+    <a href="/cases/rezultaty-seo-prodvizheniya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Ahrefs</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как комплексный SEO-аудит и стратегия вывели финансовую платформу в топ Яндекса и Google</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Детальный кейс BOS.AGENCE о том, как комплексная SEO-стратегия и техническая оптимизация помогли масштабировать бизнес клиента и снизить стоимость привлечения клиента в 2.5 раза.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+240% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="20" style="display: none;">
+      
+    <a href="/cases/rezultat-seo-optimizatsii.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Google Search Console</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как комплексный результат SEO-оптимизации привел к росту органического трафика на 240% и снижению стоимости лида</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Изучите детальный кейс BOS.AGENCE о том, как комплексная SEO-оптимизация и технический аудит помогли финтех-компании выйти в топ поисковой выдачи и снизить стоимость привлечения клиента.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+240% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="21" style="display: none;">
+      
+    <a href="/cases/rezultat-razrabotki-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Next.js / TypeScript</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как качественный результат разработки сайта привел к росту конверсии на 140%</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Подробный кейс BOS.AGENCE: как комплексная разработка нового сайта помогла финтех-компании кратно увеличить конверсию и масштабировать бизнес.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">x2.4 Рост конверсии в заявку</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="22" style="display: none;">
+      
+    <a href="/cases/razrabotka-veb-sayta-primer.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Next.js</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Разработка высоконагруженного веб-сайта и личного кабинета для финтех-платформы</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Посмотрите пример комплексной разработки веб-сайта для финтех-компании. Архитектура, стек технологий, дизайн и рост конверсии на 140% от команды BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+140% Рост конверсии в целевое действие</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="23" style="display: none;">
+      
+    <a href="/cases/razrabotka-veb-prilozheniy-primer.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / FastAPI</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как мы создали масштабируемое веб-приложение для автоматизации финансовых операций</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Изучите реальный кейс разработки высоконагруженного веб-приложения: архитектура, стек технологий, метрики эффективности и результаты внедрения от экспертов BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">x3.5 Рост скорости обработки транзакций</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="24" style="display: none;">
+      
+    <a href="/cases/razrabotka-sayta-keysy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Next.js / TypeScript</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как мы разработали высоконагруженный корпоративный сайт для лидера финтех-рынка</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разработка сайта для международной финансовой компании: от архитектуры и UX/UI до бесшовной интеграции с бэкендом. Детальный разбор кейса от экспертов BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+240% Рост конверсии в заявку</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="25" style="display: none;">
+      
+    <a href="/cases/prodvizhenie-sayta-oplata-za-rezultat-seo-fortuna.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / PostgreSQL</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">SEO-продвижение с оплатой за результат: кратный рост трафика для проекта Fortuna</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы выстроили эффективную стратегию SEO-продвижения с оплатой за реальный результат для проекта Fortuna, обеспечив рост органического трафика и продаж.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+185% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="26" style="display: none;">
+      
+    <a href="/cases/primery-sozdaniya-lendingov.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Next.js / Tailwind CSS</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как грамотные примеры создания лендингов помогают масштабировать бизнес в 3 раза</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем реальные примеры создания лендингов на практике. Кейс разработки высококонверсионной посадочной страницы для финтех-компании с ростом конверсии на 240%.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+240% Рост конверсии в целевое действие</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="27" style="display: none;">
+      
+    <a href="/cases/primery-razrabotok-saytov.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Next.js / TypeScript</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Реализованные проекты и примеры разработок сайтов и веб-сервисов</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: примеры разработок сайтов. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">3.5x Рост конверсии в заявку</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="28" style="display: none;">
+      
+    <a href="/cases/primer-zadaniya-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Next.js / TypeScript</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Разработка современной веб-платформы по идеальному техническому заданию</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбор реального кейса BOS.AGENCE: от технического задания до запуска масштабной веб-платформы с высокой конверсией и бесшовной интеграцией.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">3.5x Рост конверсии в заявку</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="29" style="display: none;">
+      
+    <a href="/cases/primer-tz-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Figma / Notion</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Разработка идеального ТЗ на создание сайта: как структурировать требования и сэкономить до 40% бюджета</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбор реального кейса: почему правильное техническое задание спасает бюджет. Пример готовой структуры ТЗ на разработку сложного корпоративного сайта от экспертов BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">-40% Сроки согласования</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="30" style="display: none;">
+      
+    <a href="/cases/primer-tekhnicheskogo-zadaniya-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Notion / Figma</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Разработка идеального технического задания: как мы избавили клиента от хаоса в коде и переплат</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбор реального кейса BOS.AGENCE: как создание детального ТЗ позволило сократить сроки разработки на 40% и исключить перерасход бюджета.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">-40% Сроки разработки</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="31" style="display: none;">
+      
+    <a href="/cases/primer-seo-teksta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Ahrefs</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как системный подход к SEO-контенту вывел сайт в топ и утроил органический трафик</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем реальный кейс по разработке эффективной SEO-стратегии и созданию конверсионного контента для IT-бизнеса.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+310% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="32" style="display: none;">
+      
+    <a href="/cases/primer-dogovora-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">LegalTech / Agile Contracts</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Разработка безопасного договора на создание сайта: как защитить интересы бизнеса и подрядчика</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбор реального кейса BOS.AGENCE по созданию безопасного и прозрачного договора на разработку ПО и сайтов с четкими KPI, этапами и защитой от срыва сроков.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">0 Судебных споров с заказчиками</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="33" style="display: none;">
+      
+    <a href="/cases/primer-diploma-po-razrabotke-sayta-frontend.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">React / TypeScript</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Разработка интерфейса для дипломного проекта: от концепции до готового frontend-решения</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбор реального кейса по разработке современного frontend-приложения для дипломного проекта. Архитектура, стек технологий и результаты реализации.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">100% Успешная защита</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="34" style="display: none;">
+      
+    <a href="/cases/opyt-razrabotki-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Next.js / Python</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как мы спроектировали и запустили высоконагруженный веб-портал с нуля: опыт разработки успешного IT-продукта</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Детальный разбор нашего опыта разработки современного сайта с высокой конверсией и защищенным личным кабинетом. Архитектура, стек и результаты в цифрах от BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">x2.5 Рост конверсии в заявку</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="35" style="display: none;">
+      
+    <a href="/cases/opyt-raboty-v-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / PostgreSQL</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Многолетний опыт работы в SEO: стратегия масштабного роста органического трафика</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Комплексный кейс BOS.AGENCE по поисковой оптимизации. Делимся многолетним опытом работы в SEO, архитектурой решений и реальными метриками роста бизнеса.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+310% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="36" style="display: none;">
+      
+    <a href="/cases/opyt-raboty-v-marketinge.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / PostgreSQL</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Практический опыт работы в маркетинге и масштабной цифровизации бизнес-процессов</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Экспертный опыт работы в маркетинге: разработка сложных цифровых платформ, интеграция аналитики и сквозных IT-систем для роста продаж.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+185% Рост конверсии в воронке продаж</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="37" style="display: none;">
+      
+    <a href="/cases/kursy-seo-s-garantiey-rezultata.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Next.js / PostgreSQL</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Масштабирование онлайн-школы SEO-специалистов с гарантией результата для студентов</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Как мы разработали и внедрили флагманскую программу обучения SEO с гарантией трудоустройства и возврата средств, увеличив выручку онлайн-школы в 2.8 раза.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+180% Рост выручки проекта</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="38" style="display: none;">
+      
+    <a href="/cases/keysy-dlya-ai-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / Gemini API</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как AI-SEO трансформировало органический трафик финтех-платформы и принесло х4 роста</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем реальный кейс внедрения искусственного интеллекта в поисковую оптимизацию (AI-SEO). Рост трафика в 4 раза и снижение стоимости лида.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+320% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="39" style="display: none;">
+      
+    <a href="/cases/keys-seo-prodvizheniya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Python / PostgreSQL</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">CASE</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как комплексное SEO-продвижение увеличило органический трафик в 3 раза и снизило стоимость привлечения клиентов</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Детальный разбор кейса по комплексному SEO-продвижению и технической оптимизации проекта. Стратегия, рост позиций и кратный рост продаж от экспертов BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right flex lg:flex-col justify-between items-center lg:items-end gap-2 pt-2 lg:pt-0">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-neutral-900">+310% Рост органического трафика</span>
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform">Читать кейс &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+      </div>
+
+      
+    <div class="flex items-center gap-4 mt-8 justify-end js-pagination-controls">
+
+      <button
+        type="button"
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
+        disabled>
+        &larr; Назад
+      </button>
+
+      <span class="js-page-indicator font-mono text-xs text-neutral-500">
+        1 / 7
+      </span>
+
+      <button
+        type="button"
+        class="js-next-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
+        Вперед &rarr;
+      </button>
+
+    </div>
+  
+    </div>
   
 <!-- CASES_CONTENT_END -->
 <!-- Кнопка под блоком кейсов -->
@@ -2203,113 +3779,369 @@
     <div id="tab-content-blog" class="tab-pane hidden space-y-0 divide-y divide-neutral-200">
       <!-- BLOG_CONTENT_START -->
 
-    <a href="/blog/zachem-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    <div class="js-paginated-container" data-total-items="16">
+      <div class="js-cards-wrapper">
+        <div class="js-card-item" data-card-index="0" >
+      
+    <a href="/blog/zachem-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Зачем SEO современному бизнесу: инвестиции в устойчивый рост
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Разбираем, зачем современному бизнесу SEO-продвижение, как органический трафик снижает стоимость привлечения клиентов и почему поисковая оптимизация актуальна как никогда.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Зачем SEO современному бизнесу: инвестиции в устойчивый рост</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем, зачем современному бизнесу SEO-продвижение, как органический трафик снижает стоимость привлечения клиентов и почему поисковая оптимизация актуальна как никогда.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/blog/veb-razrabotka-statya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="1" >
+      
+    <a href="/blog/veb-razrabotka-statya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Современная веб-разработка: тренды, архитектура и лучшие практики
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Экспертный гайд по современной веб-разработке от BOS.AGENCE. Узнайте об архитектурных подходах, стеке технологий и шагах создания масштабных веб-приложений.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Современная веб-разработка: тренды, архитектура и лучшие практики</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Экспертный гайд по современной веб-разработке от BOS.AGENCE. Узнайте об архитектурных подходах, стеке технологий и шагах создания масштабных веб-приложений.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/blog/seo-statya-napisat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="2" >
+      
+    <a href="/blog/seo-statya-napisat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Как написать SEO-статью, которая выведет сайт в топ
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Пошаговое руководство по созданию эффективных SEO-текстов: от сбора семантики и анализа конкурентов до оптимизации структуры и внедрения ИИ-инструментов.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как написать SEO-статью, которая выведет сайт в топ</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Пошаговое руководство по созданию эффективных SEO-текстов: от сбора семантики и анализа конкурентов до оптимизации структуры и внедрения ИИ-инструментов.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/blog/seo-obzory.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="3" >
+      
+    <a href="/blog/seo-obzory.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Эффективные SEO-обзоры и аналитика для роста IT-бизнеса
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Полный гайд по созданию глубоких SEO-обзоров и аудитов сайтов. Как использовать автоматизацию, анализировать конкурентов и масштабировать трафик с помощью экспертного контента от BOS.AGENCE.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Эффективные SEO-обзоры и аналитика для роста IT-бизнеса</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Полный гайд по созданию глубоких SEO-обзоров и аудитов сайтов. Как использовать автоматизацию, анализировать конкурентов и масштабировать трафик с помощью экспертного контента от BOS.AGENCE.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/blog/seo-kak-zarabatyvat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="4" >
+      
+    <a href="/blog/seo-kak-zarabatyvat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 8 мин мин</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">МАРКЕТИНГ И ПРОДВИЖЕНИЕ</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Seo как зарабатывать
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Профессиональные digital-услуги: seo как зарабатывать. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Seo как зарабатывать</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: seo как зарабатывать. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/blog/seo-kak-chitaetsya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="5" >
+      
+    <a href="/blog/seo-kak-chitaetsya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Как правильно читается SEO и что нужно знать о поисковой оптимизации
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Разбираем правила чтения аббревиатуры SEO, правильное произношение и фундаментальные основы поисковой оптимизации для вашего бизнеса в 2026 году.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как правильно читается SEO и что нужно знать о поисковой оптимизации</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем правила чтения аббревиатуры SEO, правильное произношение и фундаментальные основы поисковой оптимизации для вашего бизнеса в 2026 году.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
       </div>
+
     </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="6" style="display: none;">
+      
+    <a href="/blog/seo-instruktsiya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Полная SEO-инструкция по продвижению сайтов в 2026 году</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Пошаговая SEO-инструкция от экспертов BOS.AGENCE: как выстроить стратегию продвижения, оптимизировать техническую часть и обойти конкурентов в выдаче.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="7" style="display: none;">
+      
+    <a href="/blog/razrabotka-saytov-instruktsiya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 9 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Полная инструкция по разработке сайтов: от идеи до запуска</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Пошаговое руководство по созданию успешных веб-ресурсов. Архитектура, дизайн, разработка, тестирование и запуск проекта без лишних рисков.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="8" style="display: none;">
+      
+    <a href="/blog/razrabotka-sayta-kak-nazyvaetsya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как называется разработка сайта и из каких этапов состоит создание веб-проектов</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем терминологию digital-сферы: как называется разработка сайта, какие бывают этапы проектирования, веб-дизайна и программирования сложных систем для бизнеса.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="9" style="display: none;">
+      
+    <a href="/blog/pochemu-veb-razrabotka.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 8 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Почему качественная веб-разработка критически важна для роста бизнеса в 2026 году</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Экспертный взгляд BOS.AGENCE на то, почему современные веб-решения становятся фундаментом цифровой трансформации, лидогенерации и масштабирования бизнеса.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="10" style="display: none;">
+      
+    <a href="/blog/pochemu-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Почему seo</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: почему seo. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="11" style="display: none;">
+      
+    <a href="/blog/kak-rasshifrovyvaetsya-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Что такое SEO и как оптимизация сайта трансформирует бизнес</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Разбираем, как расшифровывается SEO, что стоит за этой аббревиатурой и как правильная поисковая оптимизация помогает бизнесу расти в цифровой среде.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="12" style="display: none;">
+      
+    <a href="/blog/kak-prodvinut-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Стратегии и практики: как продвинуть SEO сайта в топ поисковых систем</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: как продвинуть SEO. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="13" style="display: none;">
+      
+    <a href="/blog/kak-podobrat-prompty-dlya-ai-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 8 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Искусство создания промптов для AI SEO: как заставить нейросети работать на ваш трафик</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Практическое руководство по созданию эффективных промптов для оптимизации сайтов с помощью искусственного интеллекта. Повышаем позиции в поисковых системах вместе с BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="14" style="display: none;">
+      
+    <a href="/blog/kak-nazyvaetsya-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как называется seo</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: как называется seo. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="15" style="display: none;">
+      
+    <a href="/blog/blog-seo-ru.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">15 Сен 2026 • 7 мин мин</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">ИИ И АВТОМАТИЗАЦИЯ</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">SEO-оптимизация корпоративного блога: как превратить статьи в источник стабильного трафика</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: продвижение контентных проектов и блогов. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Читать статью &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+      </div>
+
+      
+    <div class="flex items-center gap-4 mt-8 justify-end js-pagination-controls">
+
+      <button
+        type="button"
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
+        disabled>
+        &larr; Назад
+      </button>
+
+      <span class="js-page-indicator font-mono text-xs text-neutral-500">
+        1 / 3
+      </span>
+
+      <button
+        type="button"
+        class="js-next-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
+        Вперед &rarr;
+      </button>
+
+    </div>
+  
+    </div>
   
 <!-- BLOG_CONTENT_END -->
 <!-- Кнопка под блоком статей -->
@@ -2325,113 +4157,390 @@
     <div id="tab-content-knowledge" class="tab-pane hidden space-y-0 divide-y divide-neutral-200">
       <!-- KNOWLEDGE_CONTENT_START -->
 
-    <a href="/tools/tz-na-razrabotku-sayta-shablon.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    <div class="js-paginated-container" data-total-items="17">
+      <div class="js-cards-wrapper">
+        <div class="js-card-item" data-card-index="0" >
+      
+    <a href="/tools/tz-na-razrabotku-sayta-shablon.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Идеальное техническое задание на разработку сайта: готовый шаблон для вашего бизнеса
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Профессиональный шаблон технического задания на разработку сайта. Избегните правок и срывов сроков с помощью готового документа от экспертов BOS.AGENCE.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Идеальное техническое задание на разработку сайта: готовый шаблон для вашего бизнеса</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональный шаблон технического задания на разработку сайта. Избегните правок и срывов сроков с помощью готового документа от экспертов BOS.AGENCE.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/tools/shablon-razrabotki-saytov.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="1" >
+      
+    <a href="/tools/shablon-razrabotki-saytov.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Шаблон разработки сайтов
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Профессиональные digital-услуги: шаблон разработки сайтов. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Шаблон разработки сайтов</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: шаблон разработки сайтов. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/tools/shablon-dogovora-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="2" >
+      
+    <a href="/tools/shablon-dogovora-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Безопасная сделка: готовый договор на разработку сайта для IT-проектов
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Скачайте готовый проверенный шаблон договора на разработку сайта с техническим заданием, этапами оплаты и защитой интеллектуальной собственности.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Безопасная сделка: готовый договор на разработку сайта для IT-проектов</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Скачайте готовый проверенный шаблон договора на разработку сайта с техническим заданием, этапами оплаты и защитой интеллектуальной собственности.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/tools/seo-shablon.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="3" >
+      
+    <a href="/tools/seo-shablon.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Готовый SEO-шаблон для быстрого продвижения сайта в ТОП
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Скачайте профессиональный SEO-шаблон от экспертов BOS.AGENCE. Пошаговое руководство и структура для вывода сайта в топ поисковых систем без лишних затрат.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Готовый SEO-шаблон для быстрого продвижения сайта в ТОП</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Скачайте профессиональный SEO-шаблон от экспертов BOS.AGENCE. Пошаговое руководство и структура для вывода сайта в топ поисковых систем без лишних затрат.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/tools/seo-optimizatsiya-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="4" >
+      
+    <a href="/tools/seo-optimizatsiya-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Надежные инструменты для комплексной SEO-оптимизации вашего бизнеса
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Используйте проверенные инструменты для SEO-оптимизации от экспертов BOS.AGENCE. Улучшите позиции вашего сайта в поисковых системах и увеличьте органический трафик.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Надежные инструменты для комплексной SEO-оптимизации вашего бизнеса</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Используйте проверенные инструменты для SEO-оптимизации от экспертов BOS.AGENCE. Улучшите позиции вашего сайта в поисковых системах и увеличьте органический трафик.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
       </div>
+
     </a>
   
-    <a href="/tools/seo-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center">
+    </div>
+<div class="js-card-item" data-card-index="5" >
+      
+    <a href="/tools/seo-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
       <div class="lg:col-span-3">
         <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
         <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
       </div>
+
       <div class="lg:col-span-6">
-        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
-          Seo инструменты
-        </h3>
-        <p class="text-neutral-500 text-sm font-light line-clamp-2">
-          Профессиональные digital-услуги: seo инструменты. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.
-        </p>
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Seo инструменты</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональные digital-услуги: seo инструменты. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
+
       <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
         <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
       </div>
+
     </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="6" style="display: none;">
+      
+    <a href="/tools/seo-instrument-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Инструменты SEO-оптимизации и глубокого анализа сайта</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональный подбор инструментов для глубокого SEO-анализа и продвижения вашего сайта. Разработка и внедрение цифровых сервисов для бизнеса от BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="7" style="display: none;">
+      
+    <a href="/tools/seo-analiz-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Профессиональный арсенал для SEO-анализа сайта</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Используйте проверенные инструменты для глубокого SEO-анализа сайта. Скачайте чек-лист от экспертов BOS.AGENCE и улучшите позиции вашего бизнеса в поисковых системах.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="8" style="display: none;">
+      
+    <a href="/tools/sayt-instrument-razrabotki.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Инструменты современной веб-разработки: создаем цифровые экосистемы</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональный инструмент разработки сайтов и сложных IT-решений для бизнеса. Автоматизируйте создание цифровых продуктов вместе с IT-агентством BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="9" style="display: none;">
+      
+    <a href="/tools/razrabotka-kalkulyatora-dlya-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Как создать конверсионный калькулятор для сайта: чек-лист успешного запуска</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Пошаговый чек-лист по проектированию и разработке конверсионного калькулятора для вашего сайта. Увеличивайте продажи и вовлеченность с помощью экспертных решений от BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="10" style="display: none;">
+      
+    <a href="/tools/prosto-o-reklame-resheniya-seo-smm-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Эффективные решения в рекламе, SEO и SMM: просто о сложных инструментах продвижения</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Практический гид и набор инструментов для продвижения бизнеса в интернете. Узнайте просто о рекламе, SEO-оптимизации и SMM-стратегиях вместе с BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="11" style="display: none;">
+      
+    <a href="/tools/instrumenty-veb-razrabotki.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Профессиональный стек и инструменты веб-разработки для вашего проекта</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Профессиональный чек-лист и обзор актуальных инструментов веб-разработки от digital-агентства BOS.AGENCE. Создаем эффективные цифровые сервисы и веб-системы для бизнеса.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="12" style="display: none;">
+      
+    <a href="/tools/instrumenty-seo-prodvizheniya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Лучшие инструменты SEO-продвижения для роста вашего бизнеса</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Полный чек-лист и обзор эффективных инструментов для SEO-продвижения, анализа конкурентов и технического аудита от экспертов BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="13" style="display: none;">
+      
+    <a href="/tools/instrumenty-seo-prodvizheniya-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Надежные инструменты SEO продвижения сайта для роста вашего бизнеса</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Используйте проверенные инструменты SEO продвижения сайта для роста органического трафика и позиций в поисковых системах от экспертов BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="14" style="display: none;">
+      
+    <a href="/tools/instrumenty-razrabotki-veb-prilozheniy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Современный стек инструментов для разработки мощных веб-приложений</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Полный стек современных инструментов для быстрой и качественной разработки веб-приложений от экспертов BOS.AGENCE.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="15" style="display: none;">
+      
+    <a href="/tools/instrumenty-dlya-razrabotki-veb-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Современные инструменты для создания эффективных веб-сайтов</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Изучите актуальный набор инструментов для разработки современных и масштабируемых веб-сайтов от экспертов BOS.AGENCE. Ускорьте создание цифровых продуктов.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+<div class="js-card-item" data-card-index="16" style="display: none;">
+      
+    <a href="/tools/brif-na-razrabotku-sayta-shablon.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
+
+      <div class="lg:col-span-3">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">ИНСТРУМЕНТ</span>
+        <span class="text-xs font-semibold text-neutral-900 uppercase tracking-wider">FREE DOWNLOAD</span>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">Интерактивный бриф на разработку сайта: соберите все требования в одном месте</h3>
+        <p class="text-neutral-500 text-sm font-light line-clamp-2">Скачайте профессиональный шаблон брифа на разработку сайта. Помогает структурировать требования, избежать ошибок и запустить проект в срок.</p>
+      </div>
+
+      <div class="lg:col-span-3 text-left lg:text-right pt-2 lg:pt-0">
+        <span class="text-xs font-mono text-neutral-400 group-hover:translate-x-1 transition-transform inline-block">Открыть гайд &rarr;</span>
+      </div>
+
+    </a>
+  
+    </div>
+      </div>
+
+      
+    <div class="flex items-center gap-4 mt-8 justify-end js-pagination-controls">
+
+      <button
+        type="button"
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
+        disabled>
+        &larr; Назад
+      </button>
+
+      <span class="js-page-indicator font-mono text-xs text-neutral-500">
+        1 / 3
+      </span>
+
+      <button
+        type="button"
+        class="js-next-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
+        Вперед &rarr;
+      </button>
+
+    </div>
+  
+    </div>
   
 <!-- KNOWLEDGE_CONTENT_END -->
 <!-- Кнопка под блоком инструментов -->

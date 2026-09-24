@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{META_TITLE}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}">
+<link rel="canonical" href="{{CANONICAL_URL}}">
+
+<!-- Tailwind CSS & Icons -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/images/favicon.png" />
+
+<!-- Open Graph / Social Media Metas -->
+<meta property="og:type" content="{{OG_TYPE}}" />
+<meta property="og:url" content="{{CANONICAL_URL}}" />
+<meta property="og:title" content="{{META_TITLE}}" />
+<meta property="og:description" content="{{META_DESCRIPTION}}" />
+<meta property="og:image" content="{{OG_IMAGE}}" />
+<meta property="og:site_name" content="BOS.AGENCE" />
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{META_TITLE}}" />
+<meta name="twitter:description" content="{{META_DESCRIPTION}}" />
+<meta name="twitter:image" content="{{OG_IMAGE}}" />
+
+<style>
+  body { font-family: 'Geist', sans-serif; background-color: #050714; color: #f1f1f1; }
+  .font-syne { font-family: 'Syne', sans-serif; }
+  .font-mono-code { font-family: 'Space Mono', monospace; }
+  
+  .glow-purple { box-shadow: 0 0 50px -10px rgba(139, 92, 246, 0.3); }
+  .animated-gradient-text {
+    background: linear-gradient(120deg, #ffffff 0%, #8b5cf6 30%, #3b82f6 60%, #ffffff 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position: 200% center; } }
+  @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+  .animate-marquee { display: flex; width: 200%; animation: marquee 25s linear infinite; }
+</style>
+
+{{SCHEMA_JSON}}
+  <title>Услуги и Решения — BOS.AGENCE</title>
+  <meta name="description" content="Полный каталог материалов категории Услуги и Решения от BOS.AGENCE">
+  <link rel="canonical" href="https://cdn.bosagence.ru/services/">
+</head>
+<body class="bg-[#03040b] text-white font-sans antialiased">
+  <header class="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-[#050714] via-[#050714]/80 to-transparent backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 sm:h-24 flex items-center justify-between">
+      <button id="menu-btn" class="font-mono-code text-[10px] sm:text-[11px] font-light tracking-[0.15em] sm:tracking-[0.2em] text-[#888] hover:text-white transition-colors uppercase cursor-pointer">
+        [ MENU ]
+      </button>
+
+      <!-- Обновленный логотип B. -->
+      <a href="../index.html" class="font-syne text-2xl sm:text-3xl font-extrabold tracking-tighter text-white hover:opacity-80 transition-opacity">
+        B<span class="text-[#8b5cf6]">.</span>
+      </a>
+
+      <a href="javascript:void(0)" 
+         onclick="openContactModal()" 
+         class="font-mono-code text-[10px] sm:text-[11px] font-light tracking-[0.15em] sm:tracking-[0.2em] text-white hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer">
+        LET'S TALK &rarr;
+      </a>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-6 py-20 min-h-screen">
+    <div class="mb-12">
+      <span class="font-mono-code text-xs text-[#8b5cf6] tracking-widest uppercase mb-2 block">// КАТАЛОГ</span>
+      <h1 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase text-white">Услуги и Решения</h1>
+      <p class="font-mono-code text-white/60 text-sm mt-3">Всего материалов: 67</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <a href="/services/1-tsena-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина под ключ &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов с высокой конверсией. Интеграция с платежными системами, CRM и AI-аналитикой от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/21-vek-internet-magazin-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина нового поколения с динамическими ценами и каталогом &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Разработка мощных интернет-магазинов нового поколения в BOS.AGENCE. Интеграция систем учета, актуальные цены, автоматизация продаж и высокая конверсия.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/ai-robot.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Интеллектуальные AI-роботы для автоматизации вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создаем интеллектуальных ИИ-роботов и голосовых ассистентов под ключ. Автоматизируйте продажи, поддержку и рутинные задачи с передовыми AI-технологиями от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/besplatnyy-internet-magazin-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Запуск интернет-магазина с каталогом и актуальными ценами &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Запустите современный интернет-магазин с актуальными ценами и каталогом товаров быстро и профессионально. Индивидуальный подход от экспертов BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/bot-ai-russkiy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Интеллектуальные ИИ-боты на русском языке для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создаем современных ИИ-ботов с поддержкой русского языка под ключ. Автоматизация продаж, техподдержки и бизнес-процессов с помощью передовых нейросетей от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/bot-c-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Интеллектуальные боты с AI для автоматизации вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание интеллектуальных ботов с ИИ для автоматизации продаж, поддержки и бизнес-процессов. Внедрение передовых языковых моделей под ключ.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/dizayn-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональный дизайн сайта и UX-проектирование для бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: дизайн сайта. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/dns-internet-magazin-tsena.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современного интернет-магазина цифровой техники и электроники &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современного интернет-магазина цифровой и бытовой техники с высокой конверсией, интеграцией складского учета и быстрой платежной системой от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/gde-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Где создать прибыльный интернет-магазин для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Ищете, где создать надежный интернет-магазин? Разрабатываем современные продающие площадки с интеграцией ИИ, CRM и платежных систем под ключ.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/grupprays-internet-magazin-zhenskoy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина женской одежды с системой групповых цен (Группрайс) &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных интернет-магазинов женской одежды с поддержкой оптовых продаж, групповых закупок и гибкого ценообразования. Автоматизация бизнес-процессов от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/grupprays-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов с системой группрайс (Group Price) &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных интернет-магазинов с системой групповых цен и динамическим ценообразованием для оптовых и розничных продаж от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magazin-kupit-katalog-tovarov.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов с продающим каталогом товаров &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создаем современные интернет-магазины с умным каталогом товаров, фильтрами и высокой конверсией. Профессиональная разработка и интеграция под ключ от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magazin-market-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка и запуск интернет-магазина для вывода товаров на маркетплейсы &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: интернет магазин маркет купить. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magazin-mebeli-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина мебели с актуальными ценами под ключ &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных интернет-магазинов мебели с интеграцией актуальных цен, систем учета и удобным каталогом. Продающий дизайн и высокая конверсия от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magazin-na-russkom-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Современный интернет-магазин на русском с прозрачными ценами &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Узнайте стоимость услуг по направлению «интернет магазин на русском с ценами» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magazin-zakaz-tovarov.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональная разработка интернет-магазинов с безупречным процессом заказа товаров &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных интернет-магазинов с удобной системой заказа товаров, интеграцией CRM и платежных систем от IT-агентства BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magazin-zhenskie-kupit-internet.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка интернет-магазина женской одежды и товаров с высокой конверсией &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: интернет магазин женские купить интернет. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magazina-tsena-moskva.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит интернет-магазин в Москве: расчёт цены и сметы под ключ &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Узнайте стоимость услуг по направлению «интернет магазина цена москва» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magazine-mozhno-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание и запуск современного интернет-магазина под ключ &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Запустите продажи онлайн: разработка и автоматизация интернет-магазинов с высокой конверсией, интеграцией ИИ и полным циклом поддержки от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/internet-magaziny-belarusi-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов в Беларуси: прозрачные цены и гарантированные продажи &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных интернет-магазинов в Беларуси. Прозрачные цены, интеграция с 1С, CRM и платежными системами. Закажите продающий сайт от экспертов BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/katalog-21-vek-s-tsenami-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка интернет-магазинов с интерактивным каталогом и актуальными ценами &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных интернет-магазинов с удобным каталогом, актуальными ценами и интеграцией под ключ от экспертов BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/katalog-dns-s-tsenami-internet-magazin-ofitsialnyy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов и каталогов с актуальными ценами &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов и торговых площадок с интеграцией каталогов, систем ценообразования и актуальных прайс-листов. Закажите создание сайта у экспертов BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка и внедрение искусственного интеллекта (AI) под ключ &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: купить ai. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-internet-magazin-ofitsialnyy-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание и запуск вашего официального интернет-магазина для роста продаж &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов с высокой конверсией. Создадим ваш официальный сайт с нуля, настроим интеграции и запустим продажи.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-internet-magazin-rossiya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для бизнеса в России &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка интернет-магазинов в России с интеграцией ИИ, CRM и платежных систем. Создаем современные сайты для роста продаж и масштабирования бизнеса от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-internet-magazin-tsena.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Продажа и разработка интернет-магазинов: честная цена без переплат &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Узнайте стоимость услуг по направлению «купить интернет магазин цена» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-internet-magazin-v-moskve.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов для лидирующих брендов в Москве &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных, быстрых и конверсионных интернет-магазинов в Москве с интеграцией AI, CRM и платежных систем. Профессиональная разработка от экспертов BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для роста ваших продаж &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка интернет-магазинов под ключ с высокой конверсией. Создаем масштабируемые e-commerce платформы с быстрой загрузкой и интеграцией с CRM и ERP.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-knigu-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для книжного бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Разработка уникальных и конверсионных интернет-магазинов для книжного бизнеса. Интеграция с платежными системами, удобный каталог, автоматизация продаж от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-obuv-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Современная и стильная обувь в интернет-магазине BOS.AGENCE &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Широкий ассортимент стильной обуви в нашем интернет-магазине. Удобный выбор, быстрая доставка и гарантия качества для каждого покупателя.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание премиальных веб-сайтов для масштабирования вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание эффективных веб-сайтов и цифровых продуктов для вашего бизнеса. Проектирование, уникальный дизайн, интеграция ИИ и высокая конверсия.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-semena-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка интернет-магазинов семян: современные цифровые решения для агробизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка интернет-магазинов для продажи семян и агротоваров. Интеграция каталогов, удобная фильтрация, автоматизация заказов и рост продаж с BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-tovar-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов для успешных продаж &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных, быстрых и конверсионных интернет-магазинов с индивидуальным дизайном и интеграцией ИИ-решений для вашего бизнеса.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-v-dns-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина техники и электроники уровня лидеров рынка &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных интернет-магазинов электроники и бытовой техники уровня DNS. Интеграция с каталогами, ERP, CRM и платежными системами от экспертов BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/kupit-v-internet-magazine-nedorogo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка эффективных интернет-магазинов недорого с базовым функционалом &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: купить в интернет магазине недорого. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/moskva-ofitsialnyy-sayt-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка официального сайта для вашего бизнеса в Москве &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных официальных сайтов и веб-приложений для бизнеса в Москве. Экспертная разработка, интеграция AI-решений и высокая конверсия от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/muzhskie-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина мужских товаров под ключ &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональное создание интернет-магазинов для мужского бизнеса с высокой конверсией. Современный дизайн, интеграция с ERP и быстрая разработка от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/ofitsialnyy-sayt-kupit-onlayn.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание официального сайта онлайн для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональное создание официальных сайтов под ключ. Быстрый запуск, современный дизайн и интеграция с AI-решениями от экспертов BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/ofitsialnyy-sayt-prays.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит официальный сайт: прозрачный прайс и тарифы на разработку &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Узнайте стоимость услуг по направлению «официальный сайт прайс» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/prilozhenie-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка мобильных и веб-приложений с искусственным интеллектом (AI) &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: приложение ai. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/prilozhenie-na-telefon-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание мобильных приложений для интернет-магазинов нового поколения &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создаем современные и быстрые мобильные приложения для интернет-магазинов на iOS и Android. Интеграция с CRM, платежными системами и увеличение продаж.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/pryazha-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современного интернет-магазина пряжи для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Запустите продающий интернет-магазин пряжи и товаров для рукоделия. Современный дизайн, интеграция с 1С и маркетплейсами, высокая конверсия. Заказать разработку в BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/razrabotka-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Комплексная разработка сайтов для решения коммерческих задач &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: разработка сайта. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/razrabotka-veb-prilozheniy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных веб-приложений, которые масштабируют ваш бизнес &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка веб-приложений от экспертов BOS.AGENCE. Создаем масштабируемые SaaS-платформы, корпоративные системы и сложные сервисы с интеграцией AI.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/reklama-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Инновационная реклама на базе искусственного интеллекта для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Масштабируйте ваш бизнес с помощью рекламы на базе AI. Автоматизация кампаний, генерация креативов и глубокая аналитика от экспертов BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/sayt-prays.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание эффективных сайтов с интерактивным прайс-листом и каталогом &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных веб-сайтов с удобными прайс-листами, калькуляторами стоимости и каталогами для вашего бизнеса. Интеграция с CRM и автоматизация продаж от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/seo-ahn.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональная SEO-оптимизация и стратегия продвижения &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Комплексное SEO-продвижение и техническая оптимизация проектов (SEO Ahn) для роста органического трафика и продаж. Экспертный подход от IT-агентства BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/seo-optimizatsiya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Комплексное SEO-продвижение и поисковая оптимизация сайтов &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная SEO-оптимизация сайтов для бизнеса. Выводим в топ Яндекса и Google, увеличиваем органический трафик и продажи. Закажите аудит и рост позиций.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/seo-prodvizhenie-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Комплексное SEO-продвижение сайтов для роста вашего бизнеса в ТОП поисковых систем &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональное поисковое продвижение сайтов от BOS.AGENCE. Выводим в ТОП Яндекса и Google, привлекаем целевую аудиторию и увеличиваем продажи с помощью современных SEO-технологий и AI-аналитики.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/seo-prodvizhenie.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Комплексное SEO-продвижение для вывода сайта в топ поисковиков &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: seo продвижение. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/seo-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание сайтов с готовностью к SEO-продвижению и высокой индексацией &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: seo сайт. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Профессиональное SEO-продвижение для роста вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Комплексное SEO-продвижение от BOS.AGENCE. Выводим сайты в топ Яндекс и Google, увеличиваем органический трафик и продажи с помощью передовых технологий и AI.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/sozdanie-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание AI-решений и интеграция искусственного интеллекта для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка и внедрение искусственного интеллекта (AI) для автоматизации бизнес-процессов. Создание умных систем, чат-ботов и предиктивной аналитики от экспертов BOS.AGence.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/sozdanie-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание мощных веб-решений для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональное создание сайтов любой сложности: от стильных корпоративных порталов до высоконагруженных веб-сервисов с интеграцией ИИ-решений.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/sozdat-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для роста ваших продаж &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка интернет-магазинов под ключ от BOS.AGENCE. Создадим современный сайт для вашего бизнеса с высокой конверсией, интеграцией платежей и CRM.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/sozdat-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных сайтов и веб-приложений для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка и создание сайтов под ключ: от корпоративных порталов до сложных интернет-магазинов с глубокой интеграцией AI и автоматизацией.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/tsena-dostavki-s-internet-magazina.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Оптимизация логистики и расчет стоимости доставки для интернет-магазинов &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Оптимизация логистики и расчет стоимости доставки для интернет-магазинов. Внедрение ИИ-решений и автоматизация процессов от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/tsena-internet-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит разработка современного интернет-сайта: цены и форматы &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональная разработка интернет-сайтов под ключ от BOS.AGENCE. Узнайте стоимость создания корпоративных сайтов, интернет-магазинов и веб-приложений.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/tsena-ru-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных интернет-магазинов для российского рынка с гарантией результата &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональное создание интернет-магазинов для рынка РФ с интеграцией ИИ, платежных систем и CRM. Прозрачные цены и высокая конверсия.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/tsena-sayta-god.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Разработка и поддержка сайта на год: инвестиции в ваш цифровой успех &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Узнайте актуальную стоимость создания и поддержки современного сайта на год вперед. Прозрачное ценообразование, экспертная разработка и интеграция ИИ-решений от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/tsena-sayta-internet-magazina.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит и как создается эффективный сайт интернет-магазина &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Узнайте стоимость и этапы создания современного интернет-магазина от экспертов BOS.AGENCE. Разрабатываем продающие площадки с высокой конверсией и интеграцией с CRM.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/tsena-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Сколько стоит создание эффективного сайта для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Узнайте актуальную стоимость создания современного веб-сайта для вашего бизнеса. Прозрачное ценообразование, экспертная оценка и разработка под ключ от BOS.AGENCE.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/tsenam-internet-magazin-katalog.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина: прозрачное формирование цен, каталог и продажи &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создание современных интернет-магазинов с удобным товарным каталогом, интеграцией цен и автоматизацией продаж от экспертов BOS.AGence.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/veb-razrabotka.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Веб-разработка высоконагруженных сайтов и корпоративных порталов &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: веб разработка. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/zakaz-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Проектирование идеальной системы оформления заказа для вашего интернет-магазина &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Создаем и оптимизируем процесс оформления заказа в интернет-магазине. Повышаем конверсию корзины, интегрируем платежные системы и CRM с помощью ИИ и современных IT-решений.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/zakazat-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Заказать функциональный интернет-магазин с гарантией продаж &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональные digital-услуги: заказать интернет магазин. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
+        </div>
+      </a>
+    
+
+      <a href="/services/zakazat-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block flex flex-col justify-between break-words">
+        <div>
+          <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// УСЛУГИ И РЕШЕНИЯ</div>
+          <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание современных веб-сайтов для вашего бизнеса &rarr;</h3>
+          <p class="font-mono-code text-xs text-white/60 line-clamp-3 leading-relaxed break-words">Профессиональное создание эффективных веб-сайтов и цифровых экосистем для вашего бизнеса. Индивидуальный дизайн, высокая конверсия и современные технологии.</p>
+        </div>
+      </a>
+    
+    </div>
+  </main>
+  <footer id="main-footer" class="relative z-20 w-full bg-[#050714] text-white overflow-hidden pt-16 pb-8 border-t border-[#8b5cf6]/20">
+    
+    <!-- Фоновое неоновое свечение -->
+    <div class="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#8b5cf6]/15 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <!-- 1. БЕГУЩАЯ СТРОКА-ПРИЗЫВ -->
+    <div class="w-full overflow-hidden mb-12 opacity-30 select-none">
+      <div class="animate-marquee whitespace-nowrap flex gap-8 font-syne text-6xl sm:text-8xl font-extrabold uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white/40 to-white/10">
+        <span>LET'S BUILD SOMETHING ICONIC • BOS.AGENCE • NEXT-GEN PRODUCTION •</span>
+        <span>LET'S BUILD SOMETHING ICONIC • BOS.AGENCE • NEXT-GEN PRODUCTION •</span>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+      
+      <!-- 2. ЦЕНТРАЛЬНАЯ КАРТОЧКА "НАЧАТЬ ПРОЕКТ" -->
+      <div class="bg-gradient-to-br from-[#0e0c1f] via-[#130f2e] to-[#0d111a] border border-[#8b5cf6]/30 hover:border-[#8b5cf6]/60 transition-all duration-500 rounded-3xl p-8 sm:p-12 lg:p-16 text-white relative overflow-hidden group shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_80px_rgba(139,92,246,0.25)]">
+        
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-[#8b5cf6]/25 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+          <div>
+            <div class="flex items-center gap-2 mb-6">
+              <span class="w-2 h-2 rounded-full bg-[#8b5cf6] animate-pulse"></span>
+              <span class="text-xs font-mono-code uppercase tracking-[0.25em] text-[#8b5cf6]">• START A PROJECT</span>
+            </div>
+            
+            <h2 class="font-syne text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] uppercase mb-6">
+              ГОТОВЫ СОЗДАТЬ <br />
+              <span class="animated-gradient-text">ЧТО-ТО МОЩНОЕ?</span>
+            </h2>
+            
+            <p class="text-white/60 text-base sm:text-lg max-w-lg font-light tracking-wide leading-relaxed">
+              Расскажите о вашей задаче. Мы спроектируем цифровую экосистему, которая выведет ваш бренд в лидеры рынка.
+            </p>
+          </div>
+
+          <a href="javascript:void(0)" onclick="openContactModal()" class="flex items-center justify-between sm:justify-start gap-6 bg-white/5 hover:bg-[#8b5cf6] border border-white/10 hover:border-[#8b5cf6] px-8 py-5 rounded-2xl transition-all duration-300 group/btn w-full sm:w-fit cursor-pointer">
+            <span class="font-mono-code text-sm tracking-[0.15em] uppercase font-medium">Обсудить проект</span>
+            <svg class="w-5 h-5 transform group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. НИЖНЯЯ ТЕХНИЧЕСКАЯ ЧАСТЬ -->
+      <div class="pt-12 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-white/40 font-mono-code">
+        
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6">
+          <span>© 2026 BOS.AGENCE</span>
+          <span class="hidden sm:inline">•</span>
+          <a href="../index.html" class="hover:text-white transition-colors">PRIVACY POLICY</a>
+          <span class="hidden sm:inline">•</span>
+          <span class="text-[#8b5cf6]">MOSCOW / GLOBAL</span>
+        </div>
+
+        <div class="flex items-center gap-3 bg-white/[0.03] border border-white/10 px-4 py-2 rounded-xl">
+          <span class="w-2 h-2 rounded-full bg-[#8b5cf6]"></span>
+          <span class="text-white/80 font-medium tracking-wide text-[11px]">Next.js & Three.js</span>
+          <span class="bg-[#8b5cf6]/20 text-[#8b5cf6] border border-[#8b5cf6]/30 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Enterprise</span>
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+  <div id="contact-modal" class="fixed inset-0 z-[110] bg-[#050714]/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-between p-6 sm:p-12 overflow-y-auto">
+    
+    <!-- Кнопка закрытия -->
+    <div class="max-w-7xl mx-auto w-full flex justify-end z-10">
+      <button id="close-contact-btn" class="font-mono-code text-[11px] font-light tracking-[0.2em] text-white/70 hover:text-[#8b5cf6] transition-colors uppercase cursor-pointer">
+        [ ЗАКРЫТЬ ✕ ]
+      </button>
+    </div>
+
+    <!-- Контент формы -->
+    <div class="max-w-4xl mx-auto w-full my-auto py-6 z-10">
+      <div class="bg-[#07091e] border border-white/10 p-8 sm:p-12 rounded-2xl relative">
+        <h2 class="font-syne text-3xl sm:text-5xl font-bold uppercase tracking-tight leading-none mb-4 text-white">
+          ДАВАЙТЕ <span class="text-[#8b5cf6]">СОЗДАДИМ</span> ЧТО-ТО КРУТОЕ
+        </h2>
+        <p class="font-mono-code text-xs text-white/60 tracking-wider mb-8 uppercase">
+          Расскажите о вашей задаче, и мы подготовим оптимальное решение и оценку сроков.
+        </p>
+
+        <form id="contact-form" class="space-y-6">
+          <div>
+            <label class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-3">
+              // 01. ВЫБЕРИТЕ НАПРАВЛЕНИЕ
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="landing" class="peer hidden" checked>
+                <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                  Лендинг / Промо-сайт
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="corporate" class="peer hidden">
+                <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                  Многостраничный сайт
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="design" class="peer hidden">
+                <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                  UI/UX Дизайн & Айдентика
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="checkbox" name="service" value="custom" class="peer hidden">
+                <div class="p-3.5 bg-black/40 border border-white/10 rounded-lg font-mono-code text-xs text-white/70 peer-checked:border-[#8b5cf6] peer-checked:text-white peer-checked:bg-[#8b5cf6]/10 transition-all text-center uppercase tracking-wider">
+                  Веб-сервис / Доработка
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label for="user-name" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+                // 02. ВАШЕ ИМЯ ИЛИ КОМПАНИЯ *
+              </label>
+              <input type="text" id="user-name" required placeholder="Иван / Название компании" 
+                class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg px-4 py-3.5 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label for="user-contact" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+                // 03. ТЕЛЕГРАМ ИЛИ EMAIL ДЛЯ СВЯЗИ *
+              </label>
+              <input type="text" id="user-contact" required placeholder="@username или name@domain.com" 
+                class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg px-4 py-3.5 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label for="user-message" class="block font-mono-code text-[11px] uppercase tracking-[0.2em] text-white/50 mb-2">
+                // 04. ОПИСАНИЕ ЗАДАЧИ ИЛИ ССЫЛКА НА ТЗ
+              </label>
+              <textarea id="user-message" rows="3" placeholder="Расскажите кратко о вашем проекте..." 
+                class="w-full bg-black/40 border border-white/10 focus:border-[#8b5cf6] rounded-lg p-4 text-white placeholder-white/20 font-mono-code text-xs focus:outline-none transition-colors resize-none"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-syne font-bold uppercase text-xs sm:text-base tracking-wider sm:tracking-[0.2em] py-4 rounded-lg shadow-lg hover:shadow-[#8b5cf6]/40 transition-all flex items-center justify-center gap-3 group cursor-pointer">
+            <span>ОТПРАВИТЬ ЗАЯВКУ</span>
+            <span class="transform group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
