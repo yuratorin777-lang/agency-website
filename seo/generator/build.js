@@ -357,9 +357,10 @@ pagesRegistry.forEach((pageItem) => {
 // ============================================================================
 // ОБЩИЙ HELPER ПАГИНАЦИИ
 // layoutClass управляет ТОЛЬКО внешней сеткой карточек
+// buttonTheme управляет стилем кнопок пагинации
 // ============================================================================
 
-function renderPaginatedSection(items, renderCardFn, layoutClass = '') {
+function renderPaginatedSection(items, renderCardFn, layoutClass = '', buttonTheme = 'light') {
 
   if (!items.length) {
     return '<p class="text-neutral-400 font-mono text-xs">Раздел наполняется...</p>';
@@ -379,24 +380,28 @@ function renderPaginatedSection(items, renderCardFn, layoutClass = '') {
 
   const totalPages = Math.ceil(items.length / 6);
 
+  const buttonClass = buttonTheme === 'dark'
+    ? 'border-white/20 text-white bg-white/5 hover:bg-white/10 focus:bg-white/10 active:bg-white/10'
+    : 'border-neutral-300 text-neutral-800 bg-white hover:bg-neutral-100 focus:bg-neutral-100 active:bg-neutral-100';
+
   const paginationControls = totalPages > 1 ? `
     <div class="flex items-center gap-4 mt-8 justify-end js-pagination-controls">
 
       <button
-  type="button"
-  class="js-prev-page px-4 py-2 border border-white/20 rounded-lg text-xs font-mono text-white bg-white/5 hover:bg-white/10 focus:bg-white/10 active:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-  &larr; Назад
-</button>
+        type="button"
+        class="js-prev-page px-4 py-2 border rounded-lg text-xs font-mono ${buttonClass} disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+        &larr; Назад
+      </button>
 
       <span class="js-page-indicator font-mono text-xs text-neutral-500">
         1 / ${totalPages}
       </span>
 
       <button
-  type="button"
-  class="js-next-page px-4 py-2 border border-white/20 rounded-lg text-xs font-mono text-white bg-white/5 hover:bg-white/10 focus:bg-white/10 active:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-  Вперед &rarr;
-</button>
+        type="button"
+        class="js-next-page px-4 py-2 border rounded-lg text-xs font-mono ${buttonClass} disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+        Вперед &rarr;
+      </button>
 
     </div>
   ` : '';
@@ -435,7 +440,7 @@ if (fs.existsSync(INDEX_PATH)) {
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">${srv.desc}</p>
       </div>
     </a>
-`, 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6');
+`, 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6', 'dark');
 
   const servicesContainerHtml = `<!-- DYNAMIC_SERVICES_START -->
 <section id="seo-services" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/10">
