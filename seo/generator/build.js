@@ -383,20 +383,20 @@ function renderPaginatedSection(items, renderCardFn, layoutClass = '') {
     <div class="flex items-center gap-4 mt-8 justify-end js-pagination-controls">
 
       <button
-        type="button"
-        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
-        &larr; Назад
-      </button>
+  type="button"
+  class="js-prev-page px-4 py-2 border border-white/20 rounded-lg text-xs font-mono text-white bg-white/5 hover:bg-white/10 focus:bg-white/10 active:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+  &larr; Назад
+</button>
 
       <span class="js-page-indicator font-mono text-xs text-neutral-500">
         1 / ${totalPages}
       </span>
 
       <button
-        type="button"
-        class="js-next-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
-        Вперед &rarr;
-      </button>
+  type="button"
+  class="js-next-page px-4 py-2 border border-white/20 rounded-lg text-xs font-mono text-white bg-white/5 hover:bg-white/10 focus:bg-white/10 active:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+  Вперед &rarr;
+</button>
 
     </div>
   ` : '';
