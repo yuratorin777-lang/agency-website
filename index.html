@@ -534,13 +534,17 @@
   </script>
 <script src="/assets/js/main.js"></script>
 
-<script id="js-pagination-engine">
-(function () {
 
-  document.querySelectorAll('.js-paginated-container').forEach(function(container) {
+
+<script id="js-pagination-engine">
+document.addEventListener('DOMContentLoaded', function () {
+
+  const containers = document.querySelectorAll('.js-paginated-container');
+
+  containers.forEach(function (container) {
 
     const cards = Array.from(
-      container.querySelectorAll('.js-card-item')
+      container.querySelectorAll(':scope > .js-cards-wrapper > .js-card-item')
     );
 
     const prevBtn = container.querySelector('.js-prev-page');
@@ -551,7 +555,7 @@
       return;
     }
 
-    const perPage = 6;
+    const perPage = Number(container.dataset.perPage) || 6;
     const totalPages = Math.ceil(cards.length / perPage);
 
     let currentPage = 1;
@@ -566,12 +570,13 @@
       const start = (currentPage - 1) * perPage;
       const end = start + perPage;
 
-      cards.forEach(function(card, index) {
+      cards.forEach(function (card, index) {
 
-        card.style.display =
-          index >= start && index < end
-            ? ''
-            : 'none';
+        if (index >= start && index < end) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
 
       });
 
@@ -579,25 +584,37 @@
         currentPage + ' / ' + totalPages;
 
       prevBtn.disabled =
-        currentPage === 1;
+        currentPage <= 1;
 
       nextBtn.disabled =
-        currentPage === totalPages;
+        currentPage >= totalPages;
     }
 
-    prevBtn.addEventListener('click', function () {
-      renderPage(currentPage - 1);
+    prevBtn.addEventListener('click', function (event) {
+
+      event.preventDefault();
+
+      if (currentPage > 1) {
+        renderPage(currentPage - 1);
+      }
+
     });
 
-    nextBtn.addEventListener('click', function () {
-      renderPage(currentPage + 1);
+    nextBtn.addEventListener('click', function (event) {
+
+      event.preventDefault();
+
+      if (currentPage < totalPages) {
+        renderPage(currentPage + 1);
+      }
+
     });
 
     renderPage(1);
 
   });
 
-})();
+});
 </script>
 </body>
 </html>
@@ -2050,12 +2067,16 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    
-    <div class="js-paginated-container" data-total-items="67">
-      <div class="js-cards-wrapper">
-        <div class="js-card-item" data-card-index="0" >
-      
+  
+    <div
+      class="js-paginated-container"
+      data-total-items="71"
+      data-per-page="6">
+
+      <div class="js-cards-wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+      <div class="js-card-item" data-card-index="0" >
+        
     <a href="/services/zakazat-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2063,10 +2084,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание эффективных веб-сайтов и цифровых экосистем для вашего бизнеса. Индивидуальный дизайн, высокая конверсия и современные технологии.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="1" >
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="1" >
+        
     <a href="/services/zakazat-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2074,10 +2097,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: заказать интернет магазин. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="2" >
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="2" >
+        
     <a href="/services/zakaz-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2085,10 +2110,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем и оптимизируем процесс оформления заказа в интернет-магазине. Повышаем конверсию корзины, интегрируем платежные системы и CRM с помощью ИИ и современных IT-решений.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="3" >
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="3" >
+        
     <a href="/services/veb-razrabotka.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2096,10 +2123,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: веб разработка. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="4" >
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="4" >
+        
     <a href="/services/tsenam-internet-magazin-katalog.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2107,10 +2136,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов с удобным товарным каталогом, интеграцией цен и автоматизацией продаж от экспертов BOS.AGence.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="5" >
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="5" >
+        
     <a href="/services/tsena-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2118,10 +2149,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте актуальную стоимость создания современного веб-сайта для вашего бизнеса. Прозрачное ценообразование, экспертная оценка и разработка под ключ от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="6" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="6" style="display:none;">
+        
     <a href="/services/tsena-sayta-internet-magazina.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2129,10 +2162,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость и этапы создания современного интернет-магазина от экспертов BOS.AGENCE. Разрабатываем продающие площадки с высокой конверсией и интеграцией с CRM.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="7" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="7" style="display:none;">
+        
     <a href="/services/tsena-sayta-god.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2140,10 +2175,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте актуальную стоимость создания и поддержки современного сайта на год вперед. Прозрачное ценообразование, экспертная разработка и интеграция ИИ-решений от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="8" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="8" style="display:none;">
+        
     <a href="/services/tsena-ru-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2151,10 +2188,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание интернет-магазинов для рынка РФ с интеграцией ИИ, платежных систем и CRM. Прозрачные цены и высокая конверсия.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="9" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="9" style="display:none;">
+        
     <a href="/services/tsena-internet-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2162,10 +2201,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-сайтов под ключ от BOS.AGENCE. Узнайте стоимость создания корпоративных сайтов, интернет-магазинов и веб-приложений.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="10" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="10" style="display:none;">
+        
     <a href="/services/tsena-dostavki-s-internet-magazina.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2173,10 +2214,25 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Оптимизация логистики и расчет стоимости доставки для интернет-магазинов. Внедрение ИИ-решений и автоматизация процессов от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="11" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="11" style="display:none;">
+        
+    <a href="/services/tkani-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазина тканей: запуск продающей платформы под ключ &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных, конверсионных интернет-магазинов тканей с удобным каталогом, фильтрами и интеграцией с 1С и складскими системами. Закажите разработку у экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="12" style="display:none;">
+        
     <a href="/services/sozdat-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2184,10 +2240,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка и создание сайтов под ключ: от корпоративных порталов до сложных интернет-магазинов с глубокой интеграцией AI и автоматизацией.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="12" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="13" style="display:none;">
+        
     <a href="/services/sozdat-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2195,10 +2253,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-магазинов под ключ от BOS.AGENCE. Создадим современный сайт для вашего бизнеса с высокой конверсией, интеграцией платежей и CRM.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="13" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="14" style="display:none;">
+        
     <a href="/services/sozdanie-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2206,10 +2266,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание сайтов любой сложности: от стильных корпоративных порталов до высоконагруженных веб-сервисов с интеграцией ИИ-решений.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="14" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="15" style="display:none;">
+        
     <a href="/services/sozdanie-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2217,10 +2279,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка и внедрение искусственного интеллекта (AI) для автоматизации бизнес-процессов. Создание умных систем, чат-ботов и предиктивной аналитики от экспертов BOS.AGence.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="15" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="16" style="display:none;">
+        
     <a href="/services/seo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2228,10 +2292,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Комплексное SEO-продвижение от BOS.AGENCE. Выводим сайты в топ Яндекс и Google, увеличиваем органический трафик и продажи с помощью передовых технологий и AI.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="16" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="17" style="display:none;">
+        
     <a href="/services/seo-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2239,10 +2305,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: seo сайт. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="17" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="18" style="display:none;">
+        
     <a href="/services/seo-prodvizhenie.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2250,10 +2318,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: seo продвижение. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="18" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="19" style="display:none;">
+        
     <a href="/services/seo-prodvizhenie-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2261,10 +2331,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное поисковое продвижение сайтов от BOS.AGENCE. Выводим в ТОП Яндекса и Google, привлекаем целевую аудиторию и увеличиваем продажи с помощью современных SEO-технологий и AI-аналитики.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="19" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="20" style="display:none;">
+        
     <a href="/services/seo-optimizatsiya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2272,10 +2344,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная SEO-оптимизация сайтов для бизнеса. Выводим в топ Яндекса и Google, увеличиваем органический трафик и продажи. Закажите аудит и рост позиций.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="20" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="21" style="display:none;">
+        
     <a href="/services/seo-ahn.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2283,10 +2357,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Комплексное SEO-продвижение и техническая оптимизация проектов (SEO Ahn) для роста органического трафика и продаж. Экспертный подход от IT-агентства BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="21" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="22" style="display:none;">
+        
     <a href="/services/sayt-prays.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2294,10 +2370,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных веб-сайтов с удобными прайс-листами, калькуляторами стоимости и каталогами для вашего бизнеса. Интеграция с CRM и автоматизация продаж от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="22" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="23" style="display:none;">
+        
     <a href="/services/reklama-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2305,10 +2383,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Масштабируйте ваш бизнес с помощью рекламы на базе AI. Автоматизация кампаний, генерация креативов и глубокая аналитика от экспертов BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="23" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="24" style="display:none;">
+        
     <a href="/services/razrabotka-veb-prilozheniy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2316,10 +2396,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка веб-приложений от экспертов BOS.AGENCE. Создаем масштабируемые SaaS-платформы, корпоративные системы и сложные сервисы с интеграцией AI.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="24" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="25" style="display:none;">
+        
     <a href="/services/razrabotka-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2327,10 +2409,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: разработка сайта. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="25" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="26" style="display:none;">
+        
     <a href="/services/pryazha-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2338,10 +2422,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Запустите продающий интернет-магазин пряжи и товаров для рукоделия. Современный дизайн, интеграция с 1С и маркетплейсами, высокая конверсия. Заказать разработку в BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="26" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="27" style="display:none;">
+        
     <a href="/services/prilozhenie-na-telefon-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2349,10 +2435,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем современные и быстрые мобильные приложения для интернет-магазинов на iOS и Android. Интеграция с CRM, платежными системами и увеличение продаж.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="27" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="28" style="display:none;">
+        
     <a href="/services/prilozhenie-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2360,10 +2448,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: приложение ai. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="28" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="29" style="display:none;">
+        
     <a href="/services/ofitsialnyy-sayt-prays.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2371,10 +2461,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость услуг по направлению «официальный сайт прайс» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="29" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="30" style="display:none;">
+        
     <a href="/services/ofitsialnyy-sayt-kupit-onlayn.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2382,10 +2474,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание официальных сайтов под ключ. Быстрый запуск, современный дизайн и интеграция с AI-решениями от экспертов BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="30" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="31" style="display:none;">
+        
     <a href="/services/muzhskie-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2393,10 +2487,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональное создание интернет-магазинов для мужского бизнеса с высокой конверсией. Современный дизайн, интеграция с ERP и быстрая разработка от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="31" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="32" style="display:none;">
+        
     <a href="/services/moskva-ofitsialnyy-sayt-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2404,10 +2500,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных официальных сайтов и веб-приложений для бизнеса в Москве. Экспертная разработка, интеграция AI-решений и высокая конверсия от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="32" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="33" style="display:none;">
+        
     <a href="/services/kupit-v-internet-magazine-nedorogo.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2415,10 +2513,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: купить в интернет магазине недорого. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="33" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="34" style="display:none;">
+        
     <a href="/services/kupit-v-dns-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2426,10 +2526,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов электроники и бытовой техники уровня DNS. Интеграция с каталогами, ERP, CRM и платежными системами от экспертов BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="34" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="35" style="display:none;">
+        
     <a href="/services/kupit-tovar-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2437,10 +2539,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных, быстрых и конверсионных интернет-магазинов с индивидуальным дизайном и интеграцией ИИ-решений для вашего бизнеса.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="35" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="36" style="display:none;">
+        
     <a href="/services/kupit-semena-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2448,10 +2552,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-магазинов для продажи семян и агротоваров. Интеграция каталогов, удобная фильтрация, автоматизация заказов и рост продаж с BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="36" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="37" style="display:none;">
+        
     <a href="/services/kupit-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2459,10 +2565,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание эффективных веб-сайтов и цифровых продуктов для вашего бизнеса. Проектирование, уникальный дизайн, интеграция ИИ и высокая конверсия.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="37" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="38" style="display:none;">
+        
     <a href="/services/kupit-obuv-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2470,10 +2578,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Широкий ассортимент стильной обуви в нашем интернет-магазине. Удобный выбор, быстрая доставка и гарантия качества для каждого покупателя.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="38" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="39" style="display:none;">
+        
     <a href="/services/kupit-knigu-v-internet-magazine.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2481,10 +2591,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Разработка уникальных и конверсионных интернет-магазинов для книжного бизнеса. Интеграция с платежными системами, удобный каталог, автоматизация продаж от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="39" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="40" style="display:none;">
+        
     <a href="/services/kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2492,10 +2604,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-магазинов под ключ с высокой конверсией. Создаем масштабируемые e-commerce платформы с быстрой загрузкой и интеграцией с CRM и ERP.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="40" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="41" style="display:none;">
+        
     <a href="/services/kupit-internet-magazin-v-moskve.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2503,10 +2617,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных, быстрых и конверсионных интернет-магазинов в Москве с интеграцией AI, CRM и платежных систем. Профессиональная разработка от экспертов BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="41" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="42" style="display:none;">
+        
     <a href="/services/kupit-internet-magazin-tsena.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2514,10 +2630,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость услуг по направлению «купить интернет магазин цена» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="42" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="43" style="display:none;">
+        
     <a href="/services/kupit-internet-magazin-rossiya.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2525,10 +2643,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка интернет-магазинов в России с интеграцией ИИ, CRM и платежных систем. Создаем современные сайты для роста продаж и масштабирования бизнеса от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="43" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="44" style="display:none;">
+        
     <a href="/services/kupit-internet-magazin-ofitsialnyy-sayt.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2536,10 +2656,25 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов с высокой конверсией. Создадим ваш официальный сайт с нуля, настроим интеграции и запустим продажи.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="44" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="45" style="display:none;">
+        
+    <a href="/services/kupit-internet-magazin-belarus.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов в Беларуси для роста ваших продаж &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных, конверсионных интернет-магазинов в Беларуси с интеграцией 1С, CRM и платежных систем от экспертов BOS.AGENCE.</p>
+      </div>
+    </a>
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="46" style="display:none;">
+        
     <a href="/services/kupit-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2547,10 +2682,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: купить ai. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="45" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="47" style="display:none;">
+        
     <a href="/services/katalog-dns-s-tsenami-internet-magazin-ofitsialnyy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2558,10 +2695,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов и торговых площадок с интеграцией каталогов, систем ценообразования и актуальных прайс-листов. Закажите создание сайта у экспертов BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="46" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="48" style="display:none;">
+        
     <a href="/services/katalog-21-vek-s-tsenami-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2569,10 +2708,25 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов с удобным каталогом, актуальными ценами и интеграцией под ключ от экспертов BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="47" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="49" style="display:none;">
+        
+    <a href="/services/kakoy-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Какой интернет-магазин выбрать и заказать для успешного старта продаж &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Экспертный гид от BOS.AGENCE: какой интернет-магазин лучше создать для продаж. Разбор платформ, разработка под ключ, интеграция AI и автоматизация бизнеса.</p>
+      </div>
+    </a>
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="50" style="display:none;">
+        
     <a href="/services/internet-magaziny-belarusi-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2580,10 +2734,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов в Беларуси. Прозрачные цены, интеграция с 1С, CRM и платежными системами. Закажите продающий сайт от экспертов BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="48" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="51" style="display:none;">
+        
     <a href="/services/internet-magazine-mozhno-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2591,10 +2747,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Запустите продажи онлайн: разработка и автоматизация интернет-магазинов с высокой конверсией, интеграцией ИИ и полным циклом поддержки от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="49" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="52" style="display:none;">
+        
     <a href="/services/internet-magazina-tsena-moskva.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2602,10 +2760,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость услуг по направлению «интернет магазина цена москва» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="50" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="53" style="display:none;">
+        
     <a href="/services/internet-magazin-zhenskie-kupit-internet.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2613,10 +2773,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: интернет магазин женские купить интернет. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="51" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="54" style="display:none;">
+        
     <a href="/services/internet-magazin-zakaz-tovarov.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2624,10 +2786,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов с удобной системой заказа товаров, интеграцией CRM и платежных систем от IT-агентства BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="52" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="55" style="display:none;">
+        
     <a href="/services/internet-magazin-na-russkom-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2635,10 +2799,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Узнайте стоимость услуг по направлению «интернет магазин на русском с ценами» от digital-агентства BOS.AGENCE. Прозрачные сметы, премиальное качество и быстрые сроки.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="53" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="56" style="display:none;">
+        
     <a href="/services/internet-magazin-mebeli-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2646,10 +2812,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов мебели с интеграцией актуальных цен, систем учета и удобным каталогом. Продающий дизайн и высокая конверсия от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="54" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="57" style="display:none;">
+        
     <a href="/services/internet-magazin-market-kupit.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2657,10 +2825,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: интернет магазин маркет купить. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="55" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="58" style="display:none;">
+        
     <a href="/services/internet-magazin-kupit-katalog-tovarov.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2668,10 +2838,25 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем современные интернет-магазины с умным каталогом товаров, фильтрами и высокой конверсией. Профессиональная разработка и интеграция под ключ от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="56" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="59" style="display:none;">
+        
+    <a href="/services/internet-magazin-katalog-dlya-zakaza.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
+      <div>
+        <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
+        <h3 class="font-syne text-lg font-bold uppercase text-white mb-2 group-hover:text-[#8b5cf6] transition-colors leading-snug break-words">Создание интернет-магазинов и каталогов для эффективных онлайн-продаж &rarr;</h3>
+        <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов и удобных каталогов для заказа с высокой конверсией и интеграцией с CRM и ERP. Профессиональная разработка от BOS.AGENCE.</p>
+      </div>
+    </a>
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="60" style="display:none;">
+        
     <a href="/services/grupprays-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2679,10 +2864,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов с системой групповых цен и динамическим ценообразованием для оптовых и розничных продаж от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="57" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="61" style="display:none;">
+        
     <a href="/services/grupprays-internet-magazin-zhenskoy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2690,10 +2877,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современных интернет-магазинов женской одежды с поддержкой оптовых продаж, групповых закупок и гибкого ценообразования. Автоматизация бизнес-процессов от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="58" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="62" style="display:none;">
+        
     <a href="/services/gde-kupit-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2701,10 +2890,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Ищете, где создать надежный интернет-магазин? Разрабатываем современные продающие площадки с интеграцией ИИ, CRM и платежных систем под ключ.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="59" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="63" style="display:none;">
+        
     <a href="/services/dns-internet-magazin-tsena.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2712,10 +2903,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание современного интернет-магазина цифровой и бытовой техники с высокой конверсией, интеграцией складского учета и быстрой платежной системой от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="60" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="64" style="display:none;">
+        
     <a href="/services/dizayn-sayta.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2723,10 +2916,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональные digital-услуги: дизайн сайта. Разработка сложных IT-продуктов, сервисов и веб-систем для бизнеса по всей России.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="61" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="65" style="display:none;">
+        
     <a href="/services/bot-c-ai.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2734,10 +2929,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создание интеллектуальных ботов с ИИ для автоматизации продаж, поддержки и бизнес-процессов. Внедрение передовых языковых моделей под ключ.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="62" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="66" style="display:none;">
+        
     <a href="/services/bot-ai-russkiy.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2745,10 +2942,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем современных ИИ-ботов с поддержкой русского языка под ключ. Автоматизация продаж, техподдержки и бизнес-процессов с помощью передовых нейросетей от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="63" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="67" style="display:none;">
+        
     <a href="/services/besplatnyy-internet-magazin-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2756,10 +2955,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Запустите современный интернет-магазин с актуальными ценами и каталогом товаров быстро и профессионально. Индивидуальный подход от экспертов BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="64" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="68" style="display:none;">
+        
     <a href="/services/ai-robot.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2767,10 +2968,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Создаем интеллектуальных ИИ-роботов и голосовых ассистентов под ключ. Автоматизируйте продажи, поддержку и рутинные задачи с передовыми AI-технологиями от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="65" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="69" style="display:none;">
+        
     <a href="/services/21-vek-internet-magazin-s-tsenami.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2778,10 +2981,12 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Разработка мощных интернет-магазинов нового поколения в BOS.AGENCE. Интеграция систем учета, актуальные цены, автоматизация продаж и высокая конверсия.</p>
       </div>
     </a>
-  
-    </div>
-<div class="js-card-item" data-card-index="66" style="display: none;">
-      
+
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="70" style="display:none;">
+        
     <a href="/services/1-tsena-internet-magazin.html" class="p-6 bg-[#07091e] border border-white/10 rounded-2xl hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/5 transition-all group block min-h-[180px] flex flex-col justify-between break-words">
       <div>
         <div class="font-mono-code text-[10px] text-[#8b5cf6] uppercase tracking-widest mb-3">// НАПРАВЛЕНИЕ</div>
@@ -2789,8 +2994,9 @@
         <p class="font-mono-code text-xs text-white/60 line-clamp-2 leading-relaxed break-words">Профессиональная разработка современных интернет-магазинов с высокой конверсией. Интеграция с платежными системами, CRM и AI-аналитикой от BOS.AGENCE.</p>
       </div>
     </a>
-  
-    </div>
+
+      </div>
+    
       </div>
 
       
@@ -2798,8 +3004,7 @@
 
       <button
         type="button"
-        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
-        disabled>
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
         &larr; Назад
       </button>
 
@@ -2815,9 +3020,9 @@
 
     </div>
   
+
     </div>
   
-  </div>
 
 </section>
 <!-- DYNAMIC_SERVICES_END -->
@@ -2857,10 +3062,15 @@
     <div id="tab-content-cases" class="tab-pane space-y-0 divide-y divide-neutral-200">
       <!-- CASES_CONTENT_START -->
 
-    <div class="js-paginated-container" data-total-items="40">
-      <div class="js-cards-wrapper">
-        <div class="js-card-item" data-card-index="0" >
-      
+    <div
+      class="js-paginated-container"
+      data-total-items="40"
+      data-per-page="6">
+
+      <div class="js-cards-wrapper ">
+        
+      <div class="js-card-item" data-card-index="0" >
+        
     <a href="/cases/vnedrenie-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -2880,9 +3090,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="1" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="1" >
+        
     <a href="/cases/vnedrenie-sayta-razrabotka.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -2902,9 +3114,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="2" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="2" >
+        
     <a href="/cases/vnedrenie-ai-v-biznes.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -2924,9 +3138,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="3" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="3" >
+        
     <a href="/cases/vnedrenie-ai-v-biznes-protsessy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -2946,9 +3162,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="4" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="4" >
+        
     <a href="/cases/vnedrenie-ai-agentov-v-biznes-protsessy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -2968,9 +3186,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="5" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="5" >
+        
     <a href="/cases/veb-razrabotka-primery.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -2990,9 +3210,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="6" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="6" style="display:none;">
+        
     <a href="/cases/seo-s-garantiey-rezultata.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3012,9 +3234,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="7" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="7" style="display:none;">
+        
     <a href="/cases/seo-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3034,9 +3258,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="8" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="8" style="display:none;">
+        
     <a href="/cases/seo-prodvizhenie-saytov-aktsent-na-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3056,9 +3282,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="9" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="9" style="display:none;">
+        
     <a href="/cases/seo-prodvizhenie-sayta-za-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3078,9 +3306,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="10" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="10" style="display:none;">
+        
     <a href="/cases/seo-prodvizhenie-sayta-primer.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3100,9 +3330,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="11" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="11" style="display:none;">
+        
     <a href="/cases/seo-prodvizhenie-sayta-oplata-za-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3122,9 +3354,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="12" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="12" style="display:none;">
+        
     <a href="/cases/seo-prodvizhenie-primery.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3144,9 +3378,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="13" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="13" style="display:none;">
+        
     <a href="/cases/seo-prodvizhenie-oplata-za-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3166,9 +3402,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="14" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="14" style="display:none;">
+        
     <a href="/cases/seo-prodvizhenie-mfo-keys.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3188,9 +3426,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="15" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="15" style="display:none;">
+        
     <a href="/cases/seo-primer.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3210,9 +3450,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="16" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="16" style="display:none;">
+        
     <a href="/cases/seo-opyta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3232,9 +3474,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="17" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="17" style="display:none;">
+        
     <a href="/cases/seo-oplata-za-rezultat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3254,9 +3498,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="18" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="18" style="display:none;">
+        
     <a href="/cases/seo-keysy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3276,9 +3522,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="19" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="19" style="display:none;">
+        
     <a href="/cases/rezultaty-seo-prodvizheniya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3298,9 +3546,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="20" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="20" style="display:none;">
+        
     <a href="/cases/rezultat-seo-optimizatsii.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3320,9 +3570,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="21" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="21" style="display:none;">
+        
     <a href="/cases/rezultat-razrabotki-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3342,9 +3594,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="22" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="22" style="display:none;">
+        
     <a href="/cases/razrabotka-veb-sayta-primer.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3364,9 +3618,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="23" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="23" style="display:none;">
+        
     <a href="/cases/razrabotka-veb-prilozheniy-primer.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3386,9 +3642,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="24" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="24" style="display:none;">
+        
     <a href="/cases/razrabotka-sayta-keysy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3408,9 +3666,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="25" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="25" style="display:none;">
+        
     <a href="/cases/prodvizhenie-sayta-oplata-za-rezultat-seo-fortuna.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3430,9 +3690,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="26" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="26" style="display:none;">
+        
     <a href="/cases/primery-sozdaniya-lendingov.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3452,9 +3714,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="27" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="27" style="display:none;">
+        
     <a href="/cases/primery-razrabotok-saytov.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3474,9 +3738,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="28" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="28" style="display:none;">
+        
     <a href="/cases/primer-zadaniya-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3496,9 +3762,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="29" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="29" style="display:none;">
+        
     <a href="/cases/primer-tz-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3518,9 +3786,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="30" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="30" style="display:none;">
+        
     <a href="/cases/primer-tekhnicheskogo-zadaniya-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3540,9 +3810,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="31" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="31" style="display:none;">
+        
     <a href="/cases/primer-seo-teksta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3562,9 +3834,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="32" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="32" style="display:none;">
+        
     <a href="/cases/primer-dogovora-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3584,9 +3858,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="33" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="33" style="display:none;">
+        
     <a href="/cases/primer-diploma-po-razrabotke-sayta-frontend.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3606,9 +3882,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="34" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="34" style="display:none;">
+        
     <a href="/cases/opyt-razrabotki-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3628,9 +3906,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="35" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="35" style="display:none;">
+        
     <a href="/cases/opyt-raboty-v-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3650,9 +3930,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="36" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="36" style="display:none;">
+        
     <a href="/cases/opyt-raboty-v-marketinge.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3672,9 +3954,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="37" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="37" style="display:none;">
+        
     <a href="/cases/kursy-seo-s-garantiey-rezultata.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3694,9 +3978,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="38" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="38" style="display:none;">
+        
     <a href="/cases/keysy-dlya-ai-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3716,9 +4002,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="39" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="39" style="display:none;">
+        
     <a href="/cases/keys-seo-prodvizheniya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3738,7 +4026,8 @@
 
     </a>
   
-    </div>
+      </div>
+    
       </div>
 
       
@@ -3746,8 +4035,7 @@
 
       <button
         type="button"
-        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
-        disabled>
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
         &larr; Назад
       </button>
 
@@ -3763,6 +4051,7 @@
 
     </div>
   
+
     </div>
   
 <!-- CASES_CONTENT_END -->
@@ -3779,10 +4068,15 @@
     <div id="tab-content-blog" class="tab-pane hidden space-y-0 divide-y divide-neutral-200">
       <!-- BLOG_CONTENT_START -->
 
-    <div class="js-paginated-container" data-total-items="16">
-      <div class="js-cards-wrapper">
-        <div class="js-card-item" data-card-index="0" >
-      
+    <div
+      class="js-paginated-container"
+      data-total-items="16"
+      data-per-page="6">
+
+      <div class="js-cards-wrapper ">
+        
+      <div class="js-card-item" data-card-index="0" >
+        
     <a href="/blog/zachem-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3801,9 +4095,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="1" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="1" >
+        
     <a href="/blog/veb-razrabotka-statya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3822,9 +4118,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="2" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="2" >
+        
     <a href="/blog/seo-statya-napisat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3843,9 +4141,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="3" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="3" >
+        
     <a href="/blog/seo-obzory.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3864,9 +4164,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="4" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="4" >
+        
     <a href="/blog/seo-kak-zarabatyvat.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3885,9 +4187,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="5" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="5" >
+        
     <a href="/blog/seo-kak-chitaetsya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3906,9 +4210,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="6" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="6" style="display:none;">
+        
     <a href="/blog/seo-instruktsiya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3927,9 +4233,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="7" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="7" style="display:none;">
+        
     <a href="/blog/razrabotka-saytov-instruktsiya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3948,9 +4256,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="8" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="8" style="display:none;">
+        
     <a href="/blog/razrabotka-sayta-kak-nazyvaetsya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3969,9 +4279,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="9" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="9" style="display:none;">
+        
     <a href="/blog/pochemu-veb-razrabotka.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -3990,9 +4302,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="10" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="10" style="display:none;">
+        
     <a href="/blog/pochemu-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4011,9 +4325,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="11" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="11" style="display:none;">
+        
     <a href="/blog/kak-rasshifrovyvaetsya-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4032,9 +4348,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="12" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="12" style="display:none;">
+        
     <a href="/blog/kak-prodvinut-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4053,9 +4371,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="13" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="13" style="display:none;">
+        
     <a href="/blog/kak-podobrat-prompty-dlya-ai-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4074,9 +4394,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="14" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="14" style="display:none;">
+        
     <a href="/blog/kak-nazyvaetsya-seo.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4095,9 +4417,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="15" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="15" style="display:none;">
+        
     <a href="/blog/blog-seo-ru.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4116,7 +4440,8 @@
 
     </a>
   
-    </div>
+      </div>
+    
       </div>
 
       
@@ -4124,8 +4449,7 @@
 
       <button
         type="button"
-        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
-        disabled>
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
         &larr; Назад
       </button>
 
@@ -4141,6 +4465,7 @@
 
     </div>
   
+
     </div>
   
 <!-- BLOG_CONTENT_END -->
@@ -4157,10 +4482,15 @@
     <div id="tab-content-knowledge" class="tab-pane hidden space-y-0 divide-y divide-neutral-200">
       <!-- KNOWLEDGE_CONTENT_START -->
 
-    <div class="js-paginated-container" data-total-items="17">
-      <div class="js-cards-wrapper">
-        <div class="js-card-item" data-card-index="0" >
-      
+    <div
+      class="js-paginated-container"
+      data-total-items="17"
+      data-per-page="6">
+
+      <div class="js-cards-wrapper ">
+        
+      <div class="js-card-item" data-card-index="0" >
+        
     <a href="/tools/tz-na-razrabotku-sayta-shablon.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4179,9 +4509,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="1" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="1" >
+        
     <a href="/tools/shablon-razrabotki-saytov.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4200,9 +4532,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="2" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="2" >
+        
     <a href="/tools/shablon-dogovora-na-razrabotku-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4221,9 +4555,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="3" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="3" >
+        
     <a href="/tools/seo-shablon.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4242,9 +4578,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="4" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="4" >
+        
     <a href="/tools/seo-optimizatsiya-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4263,9 +4601,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="5" >
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="5" >
+        
     <a href="/tools/seo-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4284,9 +4624,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="6" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="6" style="display:none;">
+        
     <a href="/tools/seo-instrument-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4305,9 +4647,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="7" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="7" style="display:none;">
+        
     <a href="/tools/seo-analiz-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4326,9 +4670,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="8" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="8" style="display:none;">
+        
     <a href="/tools/sayt-instrument-razrabotki.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4347,9 +4693,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="9" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="9" style="display:none;">
+        
     <a href="/tools/razrabotka-kalkulyatora-dlya-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4368,9 +4716,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="10" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="10" style="display:none;">
+        
     <a href="/tools/prosto-o-reklame-resheniya-seo-smm-instrumenty.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4389,9 +4739,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="11" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="11" style="display:none;">
+        
     <a href="/tools/instrumenty-veb-razrabotki.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4410,9 +4762,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="12" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="12" style="display:none;">
+        
     <a href="/tools/instrumenty-seo-prodvizheniya.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4431,9 +4785,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="13" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="13" style="display:none;">
+        
     <a href="/tools/instrumenty-seo-prodvizheniya-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4452,9 +4808,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="14" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="14" style="display:none;">
+        
     <a href="/tools/instrumenty-razrabotki-veb-prilozheniy.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4473,9 +4831,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="15" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="15" style="display:none;">
+        
     <a href="/tools/instrumenty-dlya-razrabotki-veb-sayta.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4494,9 +4854,11 @@
 
     </a>
   
-    </div>
-<div class="js-card-item" data-card-index="16" style="display: none;">
-      
+      </div>
+    
+
+      <div class="js-card-item" data-card-index="16" style="display:none;">
+        
     <a href="/tools/brif-na-razrabotku-sayta-shablon.html" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 py-6 sm:py-8 hover:bg-neutral-50/80 transition-colors group items-start lg:items-center border-b border-neutral-100">
 
       <div class="lg:col-span-3">
@@ -4515,7 +4877,8 @@
 
     </a>
   
-    </div>
+      </div>
+    
       </div>
 
       
@@ -4523,8 +4886,7 @@
 
       <button
         type="button"
-        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors"
-        disabled>
+        class="js-prev-page px-4 py-2 border border-neutral-300 rounded-lg text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed hover:bg-neutral-100 transition-colors">
         &larr; Назад
       </button>
 
@@ -4540,6 +4902,7 @@
 
     </div>
   
+
     </div>
   
 <!-- KNOWLEDGE_CONTENT_END -->
