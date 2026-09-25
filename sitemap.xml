@@ -121,7 +121,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/bot-character-ai.html</loc>
+    <lastmod>2026-09-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/bote-internet-magazin.html</loc>
+    <lastmod>2026-09-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/c-ai-bot-bez-registratsii.html</loc>
     <lastmod>2026-09-25</lastmod>
     <priority>0.8</priority>
   </url>
@@ -596,6 +606,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-internet-sayta.html</loc>
+    <lastmod>2026-09-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-sayta.html</loc>
     <lastmod>2026-09-25</lastmod>
     <priority>0.8</priority>
@@ -617,6 +632,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/sayt-prays.html</loc>
+    <lastmod>2026-09-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/sayt-prodvizhenie-seo-fortuna.html</loc>
     <lastmod>2026-09-25</lastmod>
     <priority>0.8</priority>
   </url>
