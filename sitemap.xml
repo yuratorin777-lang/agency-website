@@ -636,6 +636,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/landing-dpo-ai-teacher.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/marketing-i-prodvizhenie.html</loc>
     <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
@@ -836,6 +841,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/seo-prosto.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/seo-ru.html</loc>
     <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
@@ -867,6 +877,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/sozdanie-ai.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/sozdanie-lendinga.html</loc>
     <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
   </url>
@@ -1042,6 +1057,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/zakazat-sayt.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/zakazat-seo.html</loc>
     <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
   </url>
