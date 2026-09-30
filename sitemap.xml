@@ -446,6 +446,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/https-seo-ru.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/https-seo.html</loc>
     <lastmod>2026-09-30</lastmod>
     <priority>0.8</priority>
@@ -876,7 +881,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/screaming-frog-seo-spider.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/screaming-frog-seo.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/screaming-seo-spider.html</loc>
     <lastmod>2026-09-30</lastmod>
     <priority>0.8</priority>
   </url>
@@ -897,6 +912,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/seo-ahn.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/seo-analiz.html</loc>
     <lastmod>2026-09-30</lastmod>
     <priority>0.8</priority>
   </url>
