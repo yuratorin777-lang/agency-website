@@ -741,6 +741,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/nastroyka-seo.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/nayti-seo.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/nuzhen-seo.html</loc>
     <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
@@ -1266,6 +1276,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/seo-optimizator.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/seo-optimizatsiya-i-prodvizhenie-saytov.html</loc>
     <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
@@ -1767,6 +1782,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/zakazat-sayt.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/zakazat-seo-prodvizhenie-sayta-seo-fortuna.html</loc>
     <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
   </url>
