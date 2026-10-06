@@ -726,6 +726,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/mobilnaya-veb-razrabotka.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/moskva-ofitsialnyy-sayt-kupit.html</loc>
     <lastmod>2026-10-06</lastmod>
     <priority>0.8</priority>
@@ -796,7 +801,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/poiskovoe-prodvizhenie-sayta-saytov-seo-fortuna.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/poiskovoe-prodvizhenie-sayta-seo.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/poiskovoe-prodvizhenie-seo-fortuna.html</loc>
     <lastmod>2026-10-06</lastmod>
     <priority>0.8</priority>
   </url>
@@ -1477,6 +1492,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/seo-stranitsy.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/seo-taiji.html</loc>
     <lastmod>2026-10-06</lastmod>
     <priority>0.8</priority>
   </url>
