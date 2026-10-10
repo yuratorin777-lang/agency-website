@@ -421,6 +421,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/chastnoe-seo.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/chat-bot-ai-bez-registratsii.html</loc>
     <lastmod>2026-10-10</lastmod>
     <priority>0.8</priority>
@@ -727,6 +732,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/marketing-boty.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/marketing-chat-botov.html</loc>
     <lastmod>2026-10-10</lastmod>
     <priority>0.8</priority>
   </url>
@@ -1641,6 +1651,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/seo-rossiya.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/seo-ru.html</loc>
     <lastmod>2026-10-10</lastmod>
     <priority>0.8</priority>
@@ -2122,6 +2137,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/voprosy-seo.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/www-seo.html</loc>
     <lastmod>2026-10-10</lastmod>
     <priority>0.8</priority>
   </url>
