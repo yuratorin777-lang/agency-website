@@ -551,6 +551,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/https-www-seo.html</loc>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/il-bote-internet-magazin.html</loc>
     <lastmod>2026-10-15</lastmod>
     <priority>0.8</priority>
@@ -1496,6 +1501,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/seo-1-click.html</loc>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/seo-1.html</loc>
     <lastmod>2026-10-15</lastmod>
     <priority>0.8</priority>
@@ -1922,6 +1932,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/seo-proverka.html</loc>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/seo-ranking.html</loc>
     <lastmod>2026-10-15</lastmod>
     <priority>0.8</priority>
   </url>
@@ -2472,6 +2487,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/veb-razrabotka-kompanii.html</loc>
+    <lastmod>2026-10-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/veb-razrabotka-na-python.html</loc>
     <lastmod>2026-10-15</lastmod>
     <priority>0.8</priority>
   </url>
