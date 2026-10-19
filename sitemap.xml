@@ -1336,6 +1336,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-razmeschenie-sayta.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-sayta-11-klass.html</loc>
     <lastmod>2026-10-19</lastmod>
     <priority>0.8</priority>
@@ -1392,6 +1397,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-sayta-programmnye.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-sayta-s-nulya.html</loc>
     <lastmod>2026-10-19</lastmod>
     <priority>0.8</priority>
   </url>
@@ -1477,6 +1487,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-saytov-otvety.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-saytov-seo.html</loc>
     <lastmod>2026-10-19</lastmod>
     <priority>0.8</priority>
   </url>
@@ -1892,6 +1907,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/seo-campaign-ru.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/seo-campaign-yandex-ru.html</loc>
     <lastmod>2026-10-19</lastmod>
     <priority>0.8</priority>
   </url>
