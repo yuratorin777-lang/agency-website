@@ -1896,6 +1896,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/seo-6.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/seo-agentstva.html</loc>
     <lastmod>2026-10-21</lastmod>
     <priority>0.8</priority>
@@ -2037,6 +2042,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/seo-dating.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/seo-description.html</loc>
     <lastmod>2026-10-21</lastmod>
     <priority>0.8</priority>
   </url>
@@ -2212,6 +2222,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/seo-na-tilde.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/seo-nazvanie.html</loc>
     <lastmod>2026-10-21</lastmod>
     <priority>0.8</priority>
   </url>
@@ -2612,6 +2627,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/seo-spider.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/seo-sprint.html</loc>
     <lastmod>2026-10-21</lastmod>
     <priority>0.8</priority>
   </url>
