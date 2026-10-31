@@ -1296,6 +1296,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/php-veb-razrabotka.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/pisat-seo.html</loc>
     <lastmod>2026-10-31</lastmod>
     <priority>0.8</priority>
@@ -1896,6 +1901,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-saytov-i-mobilnykh-prilozheniy.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-saytov-igr-i-prilozheniy.html</loc>
     <lastmod>2026-10-31</lastmod>
     <priority>0.8</priority>
@@ -1982,6 +1992,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-saytov-spisok.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-saytov-tilda-tilda-ws.html</loc>
     <lastmod>2026-10-31</lastmod>
     <priority>0.8</priority>
   </url>
@@ -3227,6 +3242,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/seo-prodvizhenie-stoimost.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/seo-prodvizhenie-tsena-moskva.html</loc>
     <lastmod>2026-10-31</lastmod>
     <priority>0.8</priority>
   </url>
