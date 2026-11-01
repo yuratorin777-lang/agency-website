@@ -2126,6 +2126,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-veb-igr.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-veb-interfeysa.html</loc>
     <lastmod>2026-11-01</lastmod>
     <priority>0.8</priority>
@@ -4326,6 +4331,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/veb-razrabotka-politekh.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/veb-razrabotka-predmety.html</loc>
     <lastmod>2026-11-01</lastmod>
     <priority>0.8</priority>
@@ -4356,6 +4366,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/veb-razrabotka-stoimost.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/veb-razrabotka-universitet.html</loc>
     <lastmod>2026-11-01</lastmod>
     <priority>0.8</priority>
@@ -4367,6 +4382,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/veb-razrabotka-v-2026.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/veb-razrabotka-vidy.html</loc>
     <lastmod>2026-11-01</lastmod>
     <priority>0.8</priority>
   </url>
