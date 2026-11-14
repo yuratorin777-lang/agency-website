@@ -551,6 +551,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/detailed-seo.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/dizayn-marketing.html</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.8</priority>
@@ -2866,6 +2871,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/semanticheskoe-seo.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/seo-1-click.html</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.8</priority>
@@ -4251,6 +4261,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/seo-skill-claude.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/seo-skill.html</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.8</priority>
@@ -5407,6 +5422,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/yeon-seo.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/yoast-seo-premium.html</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.8</priority>
   </url>
