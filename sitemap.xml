@@ -1816,6 +1816,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-chast-sayta.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-dinamicheskogo-sayta.html</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.8</priority>
@@ -1837,6 +1842,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-formu-sayt.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-gruppy-saytov.html</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.8</priority>
   </url>
@@ -2181,6 +2191,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-sayta-trebovanie.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-sayta-tsena.html</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.8</priority>
@@ -2347,6 +2362,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-saytov-prava.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-saytov-raskhody.html</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.8</priority>
   </url>
