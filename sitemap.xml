@@ -1551,6 +1551,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/opencart-seo.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/opisanie-dlya-seo.html</loc>
     <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
@@ -2877,6 +2882,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/razrabotka-veb-prilozheniy-javascript.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/razrabotka-veb-prilozheniy-na-yazyke-python.html</loc>
     <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
   </url>
@@ -5246,6 +5256,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cdn.bosagence.ru/services/sitemap-seo.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cdn.bosagence.ru/services/skolko-stoit-razrabotka-sayta.html</loc>
     <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
@@ -5772,6 +5787,11 @@
   </url>
   <url>
     <loc>https://cdn.bosagence.ru/services/veb-dizayn-i-razrabotka.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cdn.bosagence.ru/services/veb-razrabotka-2025.html</loc>
     <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
   </url>
